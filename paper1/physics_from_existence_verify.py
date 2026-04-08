@@ -291,7 +291,7 @@ def main(phi_max=50, n_grid=64001):
     n_wkb_3 = np.trapezoid(np.where(Vpot3 < 0, np.sqrt(2 * np.abs(Vpot3)), 0), phi) / np.pi
     print(f"  n_WKB(c=3) = {n_wkb_3:.2f}")
 
-    # Modes (1,2,3), exponent = n_WKB of c=1 sector
+    # Modes (1,2,3), exponent = 2C_F (same as lepton sector)
     m_up = mass_formula(evals3, psi3, phi, dphi, modes=[1, 2, 3], b=b, c=c)
     R_up = R_ratio(m_up)
     print(f"  R_up = {R_up:.3f}  (exp: 1.772)")
