@@ -21,17 +21,15 @@ structure — with zero free parameters.
 
 ```
 paper1/
-  paper1.tex       LaTeX source
-  paper1_en.md     English (Markdown, human-readable)
-  paper1_ja.md     Japanese translation
-  verify.py        Numerical verification script
-  figures/         Figures
+  physics_from_existence.tex      LaTeX source
+  physics_from_existence.pdf      Compiled PDF
+  physics_from_existence_verify.py  Numerical verification script
 ```
 
 ## Verification
 
 ```bash
-cd paper1 && python verify.py
+cd paper1 && python physics_from_existence_verify.py
 ```
 
 All numerical predictions are independently computed.
