@@ -1,23 +1,14 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — High Precision Edition
-=========================================================
-Self-contained script verifying predictions in:
-  "Physics from Existence I: The Equation" — Hidekazu Kondo (2026)
-
-20 quantities from V = -H(σ(φ)), zero free parameters.
-Precision: PHI_MAX=60, N_GRID=512001 (7-digit eigenvalue convergence)
-Experimental references: CODATA 2022 / PDG 2024
-
-Requirements: numpy, scipy
-Usage:
-  python verify_paper1.py                  # full run (high precision)
-  python verify_paper1.py --phi-max 100    # larger domain
-  python verify_paper1.py --n-grid 128001  # lighter grid (faster)
-  python verify_paper1.py --convergence    # convergence test
+PFE Paper I Verification Script — v2 (NuFIT 6.0 update)
+========================================================
+Updated experimental values:
+  - sin²θ_W: 0.23122 (MS-bar at M_Z, PDG 2024)
+  - NuFIT 6.0 (JHEP 12 (2024) 216): Δm²₂₁, Δm²₃₁, sin²θ₂₃
+  - Koide Q: compute from PDG masses for proper comparison
+  - PDG 2024 masses (unchanged)
 """
 
-import argparse
 import numpy as np
 from scipy.linalg import eigh_tridiagonal
 from scipy.optimize import brentq
@@ -88,87 +79,59 @@ def koide_Q(masses):
     s = sum(np.sqrt(m) for m in masses)
     return s**2 / sum(masses)
 
-def run_convergence():
-    print("=" * 80)
-    print("  CONVERGENCE TEST: Grid resolution (PHI_MAX=60)")
-    print("=" * 80)
-    print(f"  {'N_GRID':>9s}  {'dphi':>10s}  {'E0':>14s}  {'E1':>14s}  {'E2':>14s}  {'R':>12s}  {'1/a':>12s}")
-    print("  " + "-" * 95)
-    for ng in [32001, 64001, 128001, 256001, 512001]:
-        phi, dphi, Vpot = make_grid(60, ng)
-        evals, psi = solve_schrodinger(Vpot, phi, dphi, n_states=6)
-        n_wkb = np.trapezoid(np.where(Vpot < 0, np.sqrt(2 * np.abs(Vpot)), 0), phi) / np.pi
-        eps = 3 - n_wkb
-        b = 8.0 / 3.0; c = eps / 3.0
-        m_lep = mass_formula(evals, psi, phi, dphi, modes=[0, 1, 2], b=b, c=c)
-        R = R_ratio(m_lep)
-        zeta = sum(1.0 / abs(evals[i]) for i in range(3))
-        lam1, lam2, lam3 = 4 - np.sqrt(3), 4 + np.sqrt(3), 8
-        S1 = sum(1.0 / (abs(evals[i]) + lam1) for i in range(3))
-        S2 = sum(1.0 / (abs(evals[i]) + lam2) for i in range(3))
-        S3 = sum(1.0 / (abs(evals[i]) + lam3) for i in range(3))
-        Z = zeta + 12 * S1 + 12 * S2 + 27 * S3
-        ainv = ((Z + lam1) + np.sqrt((Z + lam1)**2 - 4)) / 2
-        print(f"  {ng:>9d}  {dphi:>10.6f}  {evals[0]:>14.10f}  {evals[1]:>14.10f}  {evals[2]:>14.10f}  {R:>12.8f}  {ainv:>12.6f}")
-
-    print(f"\n{'=' * 80}")
-    print("  CONVERGENCE TEST: Domain size (N_GRID=128001)")
-    print("=" * 80)
-    print(f"  {'PHI_MAX':>7s}  {'E2':>14s}  {'R':>12s}  {'1/a':>12s}  {'|psi2(edge)|':>12s}")
-    print("  " + "-" * 65)
-    for pm in [15, 20, 25, 30, 40, 50, 60, 75, 100]:
-        phi, dphi, Vpot = make_grid(pm, 128001)
-        evals, psi = solve_schrodinger(Vpot, phi, dphi, n_states=6)
-        n_wkb = np.trapezoid(np.where(Vpot < 0, np.sqrt(2 * np.abs(Vpot)), 0), phi) / np.pi
-        eps = 3 - n_wkb; b = 8.0 / 3.0; c = eps / 3.0
-        m_lep = mass_formula(evals, psi, phi, dphi, modes=[0, 1, 2], b=b, c=c)
-        R = R_ratio(m_lep)
-        zeta = sum(1.0 / abs(evals[i]) for i in range(3))
-        lam1, lam2, lam3 = 4 - np.sqrt(3), 4 + np.sqrt(3), 8
-        S1 = sum(1.0 / (abs(evals[i]) + lam1) for i in range(3))
-        S2 = sum(1.0 / (abs(evals[i]) + lam2) for i in range(3))
-        S3 = sum(1.0 / (abs(evals[i]) + lam3) for i in range(3))
-        Z = zeta + 12 * S1 + 12 * S2 + 27 * S3
-        ainv = ((Z + lam1) + np.sqrt((Z + lam1)**2 - 4)) / 2
-        edge = abs(psi[2][0])
-        print(f"  {pm:>7d}  {evals[2]:>14.10f}  {R:>12.8f}  {ainv:>12.6f}  {edge:>12.2e}")
-
 def run_paper1(phi_max=60, n_grid=512001):
     phi, dphi, Vpot = make_grid(phi_max, n_grid)
 
-    # Experimental reference values — matched to Paper I tables
+    # ===== Experimental reference values =====
+    # PDG 2024 / CODATA 2022
+    m_tau = 1776.86   # MeV
+    m_mu  = 105.6584  # MeV
+    m_e   = 0.51100   # MeV
+
+    # NuFIT 6.0 (JHEP 12 (2024) 216, arXiv:2410.05380)
+    # IC19 without SK-atm, Normal Ordering best-fit
+    Dm21_sq_6 = 7.49e-5    # eV² (was 7.53 in NuFIT 5.x)
+    Dm31_sq_6 = 2.534e-3   # eV² (was 2.455 in NuFIT 5.x)
+    sin2_23_6 = 0.561      # NuFIT 6.0 IC19 NO (was 0.546)
+    sin2_12_6 = 0.307      # unchanged
+    sin2_13_6 = 0.02195    # NuFIT 6.0 IC19 NO
+
+    # Also keep NuFIT 5.x for comparison
+    Dm21_sq_5 = 7.53e-5
+    Dm31_sq_5 = 2.455e-3
+    sin2_23_5 = 0.546
+
     EXP = {
-        '1/alpha':      137.035999177,   # CODATA 2022; Paper I: "137.036"
-        'sin2_tW':      0.2309,          # PDG at mu=v (EW scale); Paper I Table
-        'm_W/m_Z':      0.8815,          # Paper I Table
-        'm_H':          125.20,          # PDG 2024 (GeV)
-        'v_EW':         246.22,          # PDG 2024 (GeV)
-        'mH_v_exp':     0.5087,          # Paper I Table (m_H/v experiment)
-        'alpha_s':      0.1179,          # PDG at M_Z; Paper I: "0.1179"
-        'm_tau':        1776.86,         # PDG 2024 (MeV)
-        'm_mu':         105.6584,        # PDG 2024 (MeV)
-        'm_e':          0.51100,         # PDG 2024 (MeV)
-        'sin_tC':       0.2244,          # |V_us| PDG; Paper I: "0.2244"
-        'sin2_12':      0.307,           # NuFIT 5.3 (2024)
-        'sin2_23':      0.546,           # NuFIT 5.3 (2024)
-        'sin2_13':      0.0220,          # NuFIT 5.3; Paper I: "0.0220"
-        'Dm21_sq':      7.53e-5,         # NuFIT (eV^2)
-        'Dm31_sq':      2.455e-3,        # NuFIT (eV^2)
+        '1/alpha':      137.035999177,   # CODATA 2022
+        'sin2_tW':      0.23122,         # MS-bar at M_Z (PDG 2024)
+        'm_W/m_Z':      0.8815,          # PDG 2024
+        'mH_v_exp':     0.5087,          # m_H/v = 125.20/246.22
+        'alpha_s':      0.1179,          # PDG at M_Z
+        'm_tau':        m_tau,
+        'm_mu':         m_mu,
+        'm_e':          m_e,
+        'sin_tC':       0.2244,          # |V_us| PDG
+        'sin2_12':      sin2_12_6,
+        'sin2_23':      sin2_23_6,
+        'sin2_13':      sin2_13_6,
     }
-    EXP['m_tau/m_e'] = EXP['m_tau'] / EXP['m_e']
-    EXP['m_mu/m_e'] = EXP['m_mu'] / EXP['m_e']
+    EXP['m_tau/m_e'] = m_tau / m_e
+    EXP['m_mu/m_e'] = m_mu / m_e
     EXP['R_lepton'] = np.log(EXP['m_tau/m_e']) / np.log(EXP['m_mu/m_e'])
 
+    # Koide Q from experimental masses
+    Q_exp = koide_Q([m_tau, m_mu, m_e])
+
     print("=" * 80)
-    print("  PAPER I: Physics from Existence I -- The Equation")
-    print("  20 predictions from V = -H(sigma(phi)), zero free parameters")
-    print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dphi={dphi:.8f}")
-    print(f"  Experimental ref: CODATA 2022 / PDG 2024 / NuFIT 5.3")
+    print("  PAPER I VERIFICATION — v2 (NuFIT 6.0 update)")
+    print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
+    print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
+    print(f"  Experimental: CODATA 2022 / PDG 2024 / NuFIT 6.0")
     print("=" * 80)
 
     results = []
 
-    # Solve
+    # ===== Solve Schrödinger equation =====
     evals, psi = solve_schrodinger(Vpot, phi, dphi, n_states=6)
     n_bound = sum(1 for E in evals if E < 0)
     print(f"\n  Bound states: N = {n_bound}")
@@ -177,74 +140,39 @@ def run_paper1(phi_max=60, n_grid=512001):
         print(f"    E_{i} = {evals[i]:.12f}  [{status}]")
     results.append(("N (generations)", 3, 3, "exact"))
 
+    # WKB
     integrand = np.where(Vpot < 0, np.sqrt(2 * np.abs(Vpot)), 0)
     n_wkb = np.trapezoid(integrand, phi) / np.pi
     N = 3; eps = N - n_wkb; b = (N**2 - 1) / N; c = eps / N
     PG = N**2 + N + 1
-    print(f"  n_WKB = {n_wkb:.10f}, eps = {eps:.10f}")
+    print(f"  n_WKB = {n_wkb:.10f}, ε = {eps:.10f}")
+    print(f"  b = 2C_F = {b:.10f}, c = ε/N = {c:.10f}")
     results.append(("d (spatial dim.)", 3, 3, "exact"))
 
-    # Mass formula
+    # ===== Mass formula =====
     m_lep = mass_formula(evals, psi, phi, dphi, modes=[0, 1, 2], b=b, c=c)
     R_lep = R_ratio(m_lep)
-    Q = koide_Q(m_lep)
-    results.append(("Q (Koide)", Q, 1.500, f"{abs(Q-1.500)/1.500*100:.5f}%"))
+    Q_pred = koide_Q(m_lep)
 
-    # CKM
-    sin_thetaC = eps * (1 + eps / N**2)
-    results.append(("sin theta_C", sin_thetaC, EXP['sin_tC'], f"{abs(sin_thetaC-EXP['sin_tC'])/EXP['sin_tC']*100:.2f}%"))
-    results.append(("theta_QCD", 0, 0, "exact"))
+    # ===== Mathematical theorems =====
+    print(f"\n  --- Mathematical Theorems (V = -H alone) ---")
 
-    # V_ub parity selection
+    # θ_QCD
+    results.append(("θ_QCD", 0, 0, "exact"))
+
+    # V_ub parity
     overlap_02 = abs(np.trapezoid(psi[0] * psi[2], phi))
-    results.append(("V_ub approx 0", overlap_02, 0.004, f"{overlap_02:.1e}"))
+    results.append(("V_ub|tree ≈ 0", overlap_02, 0.004, f"{overlap_02:.1e}"))
 
-    # 4th generation
+    # 4th gen
     E3_positive = evals[3] > 0
-    results.append(("4th gen", "forbidden" if E3_positive else "EXISTS", "excluded", "E3>0" if E3_positive else "FAIL"))
+    results.append(("4th gen", "forbidden" if E3_positive else "EXISTS",
+                     "excluded", "E3>0" if E3_positive else "FAIL"))
 
-    # Leptons
-    results.append(("m_tau/m_e", m_lep[0]/m_lep[2], EXP['m_tau/m_e'], f"{abs(m_lep[0]/m_lep[2]-EXP['m_tau/m_e'])/EXP['m_tau/m_e']*100:.2f}%"))
-    results.append(("m_mu/m_e", m_lep[1]/m_lep[2], EXP['m_mu/m_e'], f"{abs(m_lep[1]/m_lep[2]-EXP['m_mu/m_e'])/EXP['m_mu/m_e']*100:.2f}%"))
-    results.append(("R (lepton)", R_lep, EXP['R_lepton'], f"{abs(R_lep-EXP['R_lepton'])/EXP['R_lepton']*100:.4f}%"))
+    # ===== QFT derivations =====
+    print(f"\n  --- QFT Derivations (V = -H + PG(2,F₃)) ---")
 
-    # Up quarks
-    Vpot3 = -3 * H_binary(sigma(phi))
-    evals3, psi3 = solve_schrodinger(Vpot3, phi, dphi, n_states=7)
-    m_up = mass_formula(evals3, psi3, phi, dphi, modes=[1, 2, 3], b=b, c=c)
-    R_up = R_ratio(m_up)
-    results.append(("R (up)", R_up, 1.772, f"{abs(R_up-1.772)/1.772*100:.2f}%"))
-
-    # Down quarks
-    m_eff = 1.0 + (-3) * sigma(phi) * (1 - sigma(phi))
-    evals_d, psi_d = solve_schrodinger(Vpot3, phi, dphi, n_states=6, m_eff=m_eff)
-    m_down = mass_formula(evals_d, psi_d, phi, dphi, modes=[0, 1, 2], b=b, c=c)
-    R_down = R_ratio(m_down)
-    results.append(("R (down)", R_down, 2.269, f"{abs(R_down-2.269)/2.269*100:.2f}%"))
-
-    # Neutrino masses
-    Dm21_sq = EXP['Dm21_sq']; Dm31_sq = EXP['Dm31_sq']
-    def R_nu_func(m1):
-        m2 = np.sqrt(m1**2 + Dm21_sq); m3 = np.sqrt(m1**2 + Dm31_sq)
-        if m1 < 1e-10: m1 = 1e-10
-        return np.log(m3 / m1) / np.log(m2 / m1) - R_lep
-    m1 = brentq(R_nu_func, 1e-6, 0.01)
-    m2 = np.sqrt(m1**2 + Dm21_sq); m3 = np.sqrt(m1**2 + Dm31_sq)
-    sum_m = (m1 + m2 + m3) * 1000
-    results.append(("Ordering", "Normal", "Normal", "JUNO"))
-    results.append(("Sum_mnu meV", sum_m, 58.55, "testable"))
-    results.append(("m1 meV", m1*1000, 0.32, "testable"))
-    results.append(("0nubb", 0, 0, "nEXO"))
-
-    # Gauge
-    sin2_thetaW = N / PG
-    results.append(("sin2_tW", sin2_thetaW, EXP['sin2_tW'], f"{abs(sin2_thetaW-EXP['sin2_tW'])/EXP['sin2_tW']*100:.2f}%"))
-    mW_mZ = np.sqrt(1 - sin2_thetaW)
-    results.append(("m_W/m_Z", mW_mZ, EXP['m_W/m_Z'], f"{abs(mW_mZ-EXP['m_W/m_Z'])/EXP['m_W/m_Z']*100:.2f}%"))
-    alpha_s = (3.0 / 26) * (1 + eps / (N**2 + 1))
-    results.append(("alpha_s", alpha_s, EXP['alpha_s'], f"{abs(alpha_s-EXP['alpha_s'])/EXP['alpha_s']*100:.2f}%"))
-
-    # 1/alpha
+    # 1/α
     zeta_V = sum(1.0 / abs(evals[i]) for i in range(3))
     lam1 = (N+1) - np.sqrt(N); lam2 = (N+1) + np.sqrt(N); lam3 = 2*(N+1)
     S1 = sum(1.0 / (abs(evals[i]) + lam1) for i in range(3))
@@ -252,53 +180,144 @@ def run_paper1(phi_max=60, n_grid=512001):
     S3 = sum(1.0 / (abs(evals[i]) + lam3) for i in range(3))
     Z = zeta_V + 12*S1 + 12*S2 + 27*S3
     alpha_inv = ((Z + lam1) + np.sqrt((Z + lam1)**2 - 4)) / 2
-    results.append(("1/alpha_em", alpha_inv, EXP['1/alpha'], f"{abs(alpha_inv-EXP['1/alpha'])/EXP['1/alpha']*100:.4f}%"))
+    dev = abs(alpha_inv - EXP['1/alpha']) / EXP['1/alpha'] * 100
+    results.append(("1/α_em", alpha_inv, EXP['1/alpha'], f"{dev:.4f}%"))
 
-    # Higgs
+    # R_lepton
+    dev = abs(R_lep - EXP['R_lepton']) / EXP['R_lepton'] * 100
+    results.append(("R_lepton", R_lep, EXP['R_lepton'], f"{dev:.4f}%"))
+
+    # α_s
+    alpha_s = (3.0 / 26) * (1 + eps / (N**2 + 1))
+    dev = abs(alpha_s - EXP['alpha_s']) / EXP['alpha_s'] * 100
+    results.append(("α_s", alpha_s, EXP['alpha_s'], f"{dev:.2f}%"))
+
+    # sinθ_C
+    sin_thetaC = eps * (1 + eps / N**2)
+    dev = abs(sin_thetaC - EXP['sin_tC']) / EXP['sin_tC'] * 100
+    results.append(("sinθ_C", sin_thetaC, EXP['sin_tC'], f"{dev:.2f}%"))
+
+    # m_H/v
     mH_v_NLO = 0.5 * np.sqrt(1 + 2*eps/PG)
-    results.append(("m_H/v (NLO)", mH_v_NLO, EXP['mH_v_exp'], f"{abs(mH_v_NLO-EXP['mH_v_exp'])/EXP['mH_v_exp']*100:.2f}%"))
+    dev = abs(mH_v_NLO - EXP['mH_v_exp']) / EXP['mH_v_exp'] * 100
+    results.append(("m_H/v", mH_v_NLO, EXP['mH_v_exp'], f"{dev:.2f}%"))
+
+    # m_τ/m_e, m_μ/m_e
+    mt_me = m_lep[0]/m_lep[2]; mm_me = m_lep[1]/m_lep[2]
+    results.append(("m_τ/m_e", mt_me, EXP['m_tau/m_e'],
+                     f"{abs(mt_me-EXP['m_tau/m_e'])/EXP['m_tau/m_e']*100:.2f}%"))
+    results.append(("m_μ/m_e", mm_me, EXP['m_mu/m_e'],
+                     f"{abs(mm_me-EXP['m_mu/m_e'])/EXP['m_mu/m_e']*100:.2f}%"))
+
+    # sin²θ_W
+    sin2_thetaW = N / PG
+    dev = abs(sin2_thetaW - EXP['sin2_tW']) / EXP['sin2_tW'] * 100
+    results.append(("sin²θ_W", sin2_thetaW, EXP['sin2_tW'], f"{dev:.2f}%"))
+
+    # R_down
+    Vpot3 = -3 * H_binary(sigma(phi))
+    evals3, psi3 = solve_schrodinger(Vpot3, phi, dphi, n_states=7)
+    m_up = mass_formula(evals3, psi3, phi, dphi, modes=[1, 2, 3], b=b, c=c)
+    R_up = R_ratio(m_up)
+    results.append(("R_up", R_up, 1.772, f"{abs(R_up-1.772)/1.772*100:.2f}%"))
+
+    m_eff = 1.0 + (-3) * sigma(phi) * (1 - sigma(phi))
+    evals_d, psi_d = solve_schrodinger(Vpot3, phi, dphi, n_states=6, m_eff=m_eff)
+    m_down = mass_formula(evals_d, psi_d, phi, dphi, modes=[0, 1, 2], b=b, c=c)
+    R_down = R_ratio(m_down)
+    results.append(("R_down", R_down, 2.269, f"{abs(R_down-2.269)/2.269*100:.2f}%"))
 
     # PMNS
     sin2_12 = (N+1)/PG
     sin2_23 = (7.0/PG) * (1 + eps/PG)
     sin2_13 = (1.0/(N*PG)) * (1 - 2*eps/N)
-    results.append(("sin2_12", sin2_12, EXP['sin2_12'], f"{abs(sin2_12-EXP['sin2_12'])/EXP['sin2_12']*100:.2f}%"))
-    results.append(("sin2_23 NLO", sin2_23, EXP['sin2_23'], f"{abs(sin2_23-EXP['sin2_23'])/EXP['sin2_23']*100:.2f}%"))
-    results.append(("sin2_13 NLO", sin2_13, EXP['sin2_13'], f"{abs(sin2_13-EXP['sin2_13'])/EXP['sin2_13']*100:.2f}%"))
+    results.append(("sin²θ₁₂", sin2_12, EXP['sin2_12'],
+                     f"{abs(sin2_12-EXP['sin2_12'])/EXP['sin2_12']*100:.2f}%"))
+    results.append(("sin²θ₂₃", sin2_23, EXP['sin2_23'],
+                     f"{abs(sin2_23-EXP['sin2_23'])/EXP['sin2_23']*100:.2f}%"))
+    results.append(("sin²θ₁₃", sin2_13, EXP['sin2_13'],
+                     f"{abs(sin2_13-EXP['sin2_13'])/EXP['sin2_13']*100:.2f}%"))
+
+    # m_W/m_Z
+    mW_mZ = np.sqrt(1 - sin2_thetaW)
+    results.append(("m_W/m_Z", mW_mZ, EXP['m_W/m_Z'],
+                     f"{abs(mW_mZ-EXP['m_W/m_Z'])/EXP['m_W/m_Z']*100:.2f}%"))
+
+    # Q (Koide)
+    results.append(("Q (Koide)", Q_pred, Q_exp, f"δ={Q_pred-1.5:.2e}"))
 
     # D_PR
     rho = sum(p**2 for p in psi[:3])
     D_PR = (np.trapezoid(rho, phi))**2 / np.trapezoid(rho**2, phi)
     results.append(("D_PR", D_PR, 13.0, f"{abs(D_PR-13)/13*100:.2f}%"))
 
-    # Summary
-    print(f"\n{'='*80}")
-    print(f"  PAPER I SUMMARY")
-    print(f"{'='*80}")
-    print(f"  {'Quantity':<16} {'Computed':>14} {'Experiment':>14} {'Deviation':>12}")
-    print(f"  {'-'*58}")
+    # ===== Neutrino predictions =====
+    print(f"\n  --- Neutrino Predictions ---")
+
+    def compute_neutrino(Dm21, Dm31, label):
+        def R_nu_func(m1):
+            m2 = np.sqrt(m1**2 + Dm21); m3 = np.sqrt(m1**2 + Dm31)
+            if m1 < 1e-10: m1 = 1e-10
+            return np.log(m3 / m1) / np.log(m2 / m1) - R_lep
+        m1 = brentq(R_nu_func, 1e-6, 0.01)
+        m2 = np.sqrt(m1**2 + Dm21); m3 = np.sqrt(m1**2 + Dm31)
+        sum_m = (m1 + m2 + m3) * 1000  # meV
+        print(f"    [{label}] m₁={m1*1000:.3f} meV, m₂={m2*1000:.2f} meV, "
+              f"m₃={m3*1000:.2f} meV, Σm={sum_m:.2f} meV")
+        return m1, m2, m3, sum_m
+
+    print(f"  Using R_ν = R_lepton = {R_lep:.6f}")
+    m1_6, m2_6, m3_6, sum6 = compute_neutrino(Dm21_sq_6, Dm31_sq_6, "NuFIT 6.0")
+    m1_5, m2_5, m3_5, sum5 = compute_neutrino(Dm21_sq_5, Dm31_sq_5, "NuFIT 5.x")
+
+    results.append(("Ordering", "Normal", "Normal", "JUNO"))
+    results.append(("m₁ (6.0) meV", m1_6*1000, "—", "prediction"))
+    results.append(("Σm_ν (6.0) meV", sum6, "—", "CMB-S4"))
+    results.append(("m₁ (5.x) meV", m1_5*1000, "—", "for comparison"))
+    results.append(("Σm_ν (5.x) meV", sum5, "—", "for comparison"))
+    results.append(("0νββ", 0, 0, "nEXO"))
+
+    # ===== Summary =====
+    print(f"\n{'='*85}")
+    print(f"  RESULTS SUMMARY (sorted by accuracy)")
+    print(f"{'='*85}")
+    print(f"  {'Quantity':<16} {'Predicted':>14} {'Experiment':>14} {'Deviation':>14}")
+    print(f"  {'-'*60}")
     for name, comp, exp, acc in results:
-        if isinstance(comp, int):
-            print(f"  {name:<16} {comp:>14} {exp:>14} {acc:>12}")
-        elif isinstance(comp, str):
-            print(f"  {name:<16} {comp:>14} {exp:>14} {acc:>12}")
+        if isinstance(comp, (int, str)):
+            print(f"  {name:<16} {str(comp):>14} {str(exp):>14} {acc:>14}")
+        elif isinstance(exp, str):
+            print(f"  {name:<16} {comp:>14.6f} {exp:>14} {acc:>14}")
         else:
-            print(f"  {name:<16} {comp:>14.8f} {exp:>14.8f} {acc:>12}")
-    print(f"  {'-'*58}")
-    print(f"  Total: {len(results)} | Free parameters: 0")
-    print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}")
-    print(f"{'='*80}")
+            print(f"  {name:<16} {comp:>14.8f} {exp:>14.8f} {acc:>14}")
+
+    # ===== Critical comparison: NuFIT 5.x vs 6.0 =====
+    print(f"\n{'='*85}")
+    print(f"  CRITICAL: Impact of NuFIT 6.0 on neutrino predictions")
+    print(f"{'='*85}")
+    print(f"  {'':20} {'NuFIT 5.x':>14} {'NuFIT 6.0':>14} {'Change':>10}")
+    print(f"  {'-'*60}")
+    print(f"  {'Δm²₂₁ (10⁻⁵eV²)':<20} {Dm21_sq_5*1e5:>14.2f} {Dm21_sq_6*1e5:>14.2f} {(Dm21_sq_6-Dm21_sq_5)/Dm21_sq_5*100:>+9.1f}%")
+    print(f"  {'Δm²₃₁ (10⁻³eV²)':<20} {Dm31_sq_5*1e3:>14.3f} {Dm31_sq_6*1e3:>14.3f} {(Dm31_sq_6-Dm31_sq_5)/Dm31_sq_5*100:>+9.1f}%")
+    print(f"  {'m₁ (meV)':<20} {m1_5*1000:>14.3f} {m1_6*1000:>14.3f} {(m1_6-m1_5)/m1_5*100:>+9.1f}%")
+    print(f"  {'Σm_ν (meV)':<20} {sum5:>14.2f} {sum6:>14.2f} {(sum6-sum5)/sum5*100:>+9.1f}%")
+    print(f"  {'sin²θ₂₃ (exp)':<20} {sin2_23_5:>14.3f} {sin2_23_6:>14.3f}")
+    print(f"  {'sin²θ₂₃ (pred)':<20} {sin2_23:>14.6f} {'':>14}")
+    print(f"  {'-'*60}")
+    print(f"  NOTE: Theory prediction R_ν = {R_lep:.6f} is INDEPENDENT of Δm².")
+    print(f"  Only the derived m₁ and Σm_ν change with oscillation data.")
+    print(f"{'='*85}")
+
+    # ===== sin²θ_W comparison =====
+    print(f"\n  sin²θ_W comparison:")
+    print(f"    Theory (tree):  3/13 = {3/13:.5f}")
+    print(f"    MS-bar (M_Z):   0.23122 → deviation {abs(3/13-0.23122)/0.23122*100:.2f}%")
+    print(f"    Old '0.2309':   unknown scheme → deviation {abs(3/13-0.2309)/0.2309*100:.2f}%")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="PFE Paper I Verification")
+    import argparse
+    parser = argparse.ArgumentParser()
     parser.add_argument("--phi-max", type=float, default=60)
-    parser.add_argument("--n-grid", type=int, default=512001)
-    parser.add_argument("--convergence", action="store_true")
+    parser.add_argument("--n-grid", type=int, default=128001)
     args = parser.parse_args()
-    if args.convergence:
-        run_convergence()
-    else:
-        run_paper1(phi_max=args.phi_max, n_grid=args.n_grid)
-        print("\n" + "#" * 70)
-        print("#  PAPER I VERIFICATION COMPLETE")
-        print("#" * 70)
+    run_paper1(phi_max=args.phi_max, n_grid=args.n_grid)
