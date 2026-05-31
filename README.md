@@ -1,21 +1,25 @@
 # Physics from Existence
 
-**Author:** Hidekazu Kondo (Tokyo, Japan)
+**Author:** Dr. Hidekazu Kondo (Tokyo, Japan)
 
-The canonical free energy of a single fermionic mode defines a parameter-free
-potential whose spectral properties reproduce the Standard Model's dimensionless
-constants — including 1/alpha = 137.037, three generations, and the gauge
-structure — with zero free parameters.
+Formalizing what it means "to exist" uniquely yields a single equation, *V = −H*.
+This equation contains no free parameters, yet derives 26 fundamental constants of physics.
+This suggests the existence of a new framework in which information theory describes matter and the universe.
+
+**Current version:** v2.1.0 — *Physics from Existence I: The Equation*
 
 **Zenodo:** https://doi.org/10.5281/zenodo.19451887 (all versions)
 
+**Latest:** https://zenodo.org/records/20471724
+
 ## Version History
 
-| Version | Date | Zenodo DOI |
-|---------|------|------------|
-| v1.0.0 | 2026-04-07 | [10.5281/zenodo.19451888](https://doi.org/10.5281/zenodo.19451888) |
-| v1.0.1 | 2026-04-09 | [10.5281/zenodo.19478719](https://doi.org/10.5281/zenodo.19478719) |
-| v1.0.2 | 2026-04-10 | [10.5281/zenodo.19488819](https://doi.org/10.5281/zenodo.19488819) |
+| Version | Date | Title | Zenodo DOI |
+|---------|------|-------|------------|
+| v2.1.0 | 2026-05-31 | Physics from Existence I: The Equation | [10.5281/zenodo.20471724](https://zenodo.org/records/20471724) |
+| v1.0.2 | 2026-04-10 | Physics from Existence | [10.5281/zenodo.19488819](https://doi.org/10.5281/zenodo.19488819) |
+| v1.0.1 | 2026-04-09 | Physics from Existence | [10.5281/zenodo.19478719](https://doi.org/10.5281/zenodo.19478719) |
+| v1.0.0 | 2026-04-07 | Physics from Existence | [10.5281/zenodo.19451888](https://doi.org/10.5281/zenodo.19451888) |
 
 ## Repository Structure
 
