@@ -537,6 +537,10 @@ support a continuous gauge group.
 From this coincidence, the three-dimensional space
 $\mathbb{F}_3^3$ over the field $\mathbb{F}_3 = \{0,1,2\}$
 is determined.
+The projective construction that follows requires a field
+(not merely a group); since $N = 3$ is prime,
+$\mathbb{F}_3 = \mathbb{Z}/3\mathbb{Z}$ is the unique field
+with $N$ elements.
 Removing the origin and taking a two-dimensional cross-section
 gives $\mathbb{F}_3^2 = \{0,1,2\} \times \{0,1,2\}$---a
 $3 \times 3$ grid. These 9~points are the starting point.
@@ -558,7 +562,7 @@ This is the projective plane $\mathrm{PG}(2, \mathbb{F}_3)$---the
 space obtained by defining ``points'' as one-dimensional
 subspaces and ``lines'' as two-dimensional subspaces through the
 origin of $\mathbb{F}_3^3$, with 13~points, 13~lines,
-4~points per line, and 4~lines through each point.
+4~points per line, and 4~lines through each point (Figure~\ref{fig:pg23}).
 
 \begin{figure}[t]
 \centering
@@ -691,7 +695,8 @@ means existence occupies a different configuration.
 \subsection{Origin of fermion diversity}
 
 \S5.2 established that the 13 directions of $\mathrm{PG}(2,\mathbb{F}_3)$
-determine the gauge group $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$.
+determine the gauge group\linebreak
+$\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$.
 But 13 directions are not fermions themselves.
 The 13 directions define the gauge symmetry --- the structure of forces ---
 and fermions emerge as \textbf{representations} of this gauge group.
@@ -940,8 +945,12 @@ Furthermore, $\lambda(\mu)$ runs negative at $\mu \sim 10^{10}$\,GeV,
 making the electroweak vacuum cosmologically metastable.
 
 $V = -H$ eliminates both problems. $V = -H$ is bounded ($|V| \leq \ln 2$),
-with no high-energy divergence. The electroweak scale is determined by
-$v^2/\Lambda^2 = 4\ln 2$; no fine-tuning is required.
+with no high-energy divergence.
+The well depth $|V_{\min}| = \ln 2$ and curvature $V''(0) = 1/4$
+are both $O(1)$ algebraic constants;
+their ratio gives the electroweak scale
+$v^2/\Lambda^2 = |V_{\min}|/V''(0) = 4\ln 2 \approx 2.77$,
+an order-unity number requiring no fine-tuning.
 The vacuum is absolutely stable:
 $V = -H \in [-\ln 2, 0]$ at all scales, leaving no room for $\lambda$
 to run negative. Furthermore, $V = -H$ is uniquely determined as the
@@ -1106,7 +1115,7 @@ $b = 2C_F = (N^2{-}1)/N = 8/3$.\footnote{The Casimir
 $(N^2{-}1)/N$ has the same form as the fundamental
 representation of $\mathrm{SU}(N)$; this is not a coincidence
 but follows from the shared $N = 3$ structure of the
-generation space and the color group \cite{paper2}.}
+generation space and the color group~\cite{paper2}.}
 
 A small correction arises from the anharmonicity of $V = -H$.
 Each mode samples the well differently;
@@ -1298,7 +1307,7 @@ The systematic derivation of $k$-values (Borel filtration)
 is given in Paper~II.
 The systematic derivation of these $k$-values from
 the Borel filtration of $\mathrm{PGL}(3, \mathbb{F}_3)$
-is proved in \cite{paper2}.
+is proved in~\cite{paper2}.
 
 The parity symmetry $V(\phi) = V(-\phi)$ that gives
 $V_{ub} \approx 0$ also solves a different problem:
@@ -1438,7 +1447,7 @@ The NLO Borel correction at the center $Z(U)$ ($k = N = 3$) gives
 $\sin^2\!\theta_{13} = (1/39)(1-2\varepsilon/3) = 0.0219$
 (experiment: $0.02195$, $0.3\%$).
 NLO corrections to all three PMNS angles and the CKM CP phase
-are derived in \cite{paper2}.
+are derived in~\cite{paper2}.
 
 \noindent\textbf{Dirac particles.}\;
 Whether neutrinos are Dirac or Majorana is an open experimental
@@ -1597,12 +1606,14 @@ of \S2 to the standard Born rule---the measurement rule is not an
 axiom but a consequence of the tensor-product structure.
 
 Two observational facts confirm this.
-First, all gauge couplings are generation-independent---direct
-evidence that $\phi$ and~$x$ are not coupled.
+First, all gauge couplings are independent of
+generation---direct evidence that $\phi$ and~$x$
+are not coupled.
 Second, the 0D theory computes only dimensionless quantities
 (mass ratios, mixing angles),
 while dimensionful quantities (absolute masses) require
-spacetime---precisely the prediction of the tensor-product structure.
+spacetime---precisely the prediction of the
+tensor-product structure.
 
 The analogy with spin illuminates this structure.
 Spin algebra is finite-dimensional and independent of the
@@ -1654,7 +1665,7 @@ The agreement across multiple independent quantities at this
 precision strongly suggests that this construction is valid.
 The full list of results is given below.
 
-\bigskip\noindent\textbf{Table 1.} Comparison with Standard Model constants.
+\bigskip\noindent\textbf{Table 1.} Comparison with Standard Model constants (experimental values from PDG 2024~\cite{pdg}, NuFIT 6.0~\cite{nufit}, and CODATA 2022~\cite{codata}).
 \begin{center}\footnotesize
 \begin{tabular}{@{}lcccc@{}}
 \toprule
@@ -1832,6 +1843,10 @@ Thank you, truly.
   Prog.\ Theor.\ Exp.\ Phys.\ \textbf{2019}, 123C01 (2019).
 
 
+
+\bibitem{codata} E.~Tiesinga et al.,
+  J.\ Phys.\ Chem.\ Ref.\ Data \textbf{54}, 033105 (2025);
+  CODATA 2022 recommended values.
 
 \end{thebibliography}
 
