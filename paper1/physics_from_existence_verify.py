@@ -84,7 +84,7 @@ def run_paper1(phi_max=60, n_grid=512001):
 
     # ===== Experimental reference values =====
     # PDG 2024 / CODATA 2022
-    m_tau = 1776.86   # MeV
+    m_tau = 1776.93   # MeV (PDG 2024)
     m_mu  = 105.6584  # MeV
     m_e   = 0.51100   # MeV
 
@@ -106,7 +106,7 @@ def run_paper1(phi_max=60, n_grid=512001):
         'sin2_tW':      0.23122,         # MS-bar at M_Z (PDG 2024)
         'm_W/m_Z':      0.8815,          # PDG 2024
         'mH_v_exp':     0.5087,          # m_H/v = 125.20/246.22
-        'alpha_s':      0.1179,          # PDG at M_Z
+        'alpha_s':      0.1180,          # PDG 2024 at M_Z
         'm_tau':        m_tau,
         'm_mu':         m_mu,
         'm_e':          m_e,
