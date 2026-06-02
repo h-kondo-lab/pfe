@@ -6,7 +6,7 @@ Formalizing what it means "to exist" uniquely yields a single equation, *V = −
 This equation contains no free parameters, yet derives 26 fundamental constants of physics.
 This suggests the existence of a new framework in which information theory describes matter and the universe.
 
-**Current version:** v2.1.0 — *Physics from Existence I: The Equation*
+**Current version:** v2.2.0 — *Physics from Existence I: The Equation*
 
 **Zenodo:** https://doi.org/10.5281/zenodo.19451887 (all versions)
 
@@ -32,6 +32,7 @@ This suggests the existence of a new framework in which information theory descr
 
 | Version | Zenodo | Date | Title | Zenodo DOI |
 |---------|--------|------|-------|------------|
+| v2.2.0 | v8 | 2026-06-02 | Physics from Existence I: The Equation | [10.5281/zenodo.20488132](https://zenodo.org/records/20488132) |
 | v2.1.0 | v7 | 2026-05-31 | Physics from Existence I: The Equation | [10.5281/zenodo.20471724](https://zenodo.org/records/20471724) |
 | v1.0.2 | v3 | 2026-04-10 | Physics from Existence | [10.5281/zenodo.19488819](https://doi.org/10.5281/zenodo.19488819) |
 | v1.0.1 | v2 | 2026-04-09 | Physics from Existence | [10.5281/zenodo.19478719](https://doi.org/10.5281/zenodo.19478719) |
