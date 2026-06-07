@@ -23,7 +23,7 @@
 No theory has simultaneously derived all 26 free parameters
 of the Standard Model.
 This paper shows that three axioms about existence---existence
-is bivalent ($n \in \{0,1\}$, i.e.\ $n^2{=}n$), existence is uncertain ($\sigma \in (0,1)$), and
+is bivalent ($n \in \{0,1\}$, i.e.\ $n^2{=}n$), existence is uncertain ($\sigma{\neq}1$), and
 non-existence is forbidden ($\sigma{\neq}0$)---uniquely determine
 the equation $V = -H$ as an algebraic identity, from which
 over~20 physical quantities are derived with zero free
@@ -98,9 +98,9 @@ they derive the \emph{form} of physical equations but not the
 \emph{values} of the constants that appear in them.
 
 This paper starts from three axioms:
-Existence ($n \in \{0,1\}$), Uncertainty of Existence ($\sigma \in (0,1)$),
+Existence ($n \in \{0,1\}$), Uncertainty ($\sigma \neq 1$),
 and Non-existence is forbidden ($\sigma \neq 0$).
-These determine $\sigma \in (0,1)$, a partition function
+Together A2 and A3 determine $\sigma \in (0,1)$, a partition function
 $Z = 1 + e^\phi$, and, via the Legendre transform of the
 Fermi--Dirac distribution, the canonical free energy
 $V = -H(\sigma(\phi))$ as an algebraic identity,
@@ -200,17 +200,16 @@ determine the \textbf{value} of~$n$.
 
 \medskip
 \noindent\textbf{A2~(Uncertainty):}\;
-Existence is uncertain. Whether something exists or not is not
-known with certainty. Writing the occupation probability as
-$\sigma = \langle n \rangle$, we have $\sigma \in (0,1)$.
+Existence is uncertain. Whatever exists does not exist with
+certainty: the occupation probability
+$\sigma = \langle n \rangle$ satisfies $\sigma \neq 1$.
+A2 excludes the upper endpoint (certain existence) but says nothing
+about the lower endpoint.
 
 \medskip
 \noindent\textbf{A3~(Non-existence is forbidden):}\;
 Non-existence is not a state ($\sigma \neq 0$). A way of being
 that consists in not-being is a contradiction.
-Mathematically A2 contains A3, but the distinction between an epistemic
-constraint (``not known'') and an ontological constraint (``cannot be'')
-is physically significant, and A3 is stated as an independent axiom.
 
 \medskip
 \noindent
@@ -229,9 +228,12 @@ Since $n$ takes only the values 0 and~1,
 \end{equation}
 follows --- because the solutions of $n(n{-}1) = 0$ are exactly
 $\{0,1\}$. However, A1 alone leaves the system in a pure state
-$n = 0$ or $n = 1$, with no dynamics. A2 admits a statistical
-mixture $\sigma = \langle n \rangle \in (0,1)$, so the system is
-described as a canonical ensemble of a binary variable.
+$n = 0$ or $n = 1$, with no dynamics.
+A2 ($\sigma \neq 1$) excludes certain existence;
+A3 ($\sigma \neq 0$) excludes non-existence.
+Together they determine $\sigma \in (0,1)$:
+the system is described as a canonical ensemble of a binary
+variable, neither certainly present nor certainly absent.
 $n^2 = n$ truncates the sum to two terms, and the partition
 function is
 \begin{equation}
@@ -253,7 +255,8 @@ the source of all subsequent structure:
   g_F = \sigma(1{-}\sigma) = \mathrm{Var}(n) > 0.
 \end{equation}
 These are not assumed but derived, from the combination of A1
-(bivalence) and A2 (uncertainty). $g_F$ is the gap between the
+(bivalence), A2 (uncertainty: $\sigma \neq 1$),
+and A3 (non-existence forbidden: $\sigma \neq 0$). $g_F$ is the gap between the
 binary observable ($n^2 = n$) and its uncertain expectation
 ($\sigma^2 \neq \sigma$), and vanishes only at the pure values
 $\sigma \in \{0,1\}$.
