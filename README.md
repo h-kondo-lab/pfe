@@ -1,6 +1,6 @@
 # Physics from Existence
 
-**Author:** Dr. Hidekazu Kondo (Tokyo, Japan)
+**Author:** Dr. Hidekazu Kondo, Kondo Laboratory (Tokyo, Japan)
 
 Formalizing what it means "to exist" uniquely yields a single equation, *V = −H*.
 This equation contains no free parameters, yet derives 26 fundamental constants of physics.
