@@ -8,7 +8,7 @@ This suggests the existence of a new framework in which information theory descr
 
 **Current version:** v2.2.1 — *Physics from Existence I: The Equation*
 
-**Web:** https://www.kondo-lab.com/
+**Web:** [Kondo Laboratory](https://www.kondo-lab.com/)
 
 **Zenodo:** https://doi.org/10.5281/zenodo.19451887 (all versions)
 
