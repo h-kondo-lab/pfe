@@ -47,8 +47,10 @@ This suggests the existence of a new framework in which information theory descr
 
 ```
 paper1/
-  physics_from_existence.tex         LaTeX source
-  physics_from_existence.pdf         Compiled PDF
+  physics_from_existence.tex         LaTeX source (English)
+  physics_from_existence.pdf         Compiled PDF (English)
+  physics_from_existence_ja.tex      LaTeX source (Japanese)
+  physics_from_existence_ja.pdf      Compiled PDF (Japanese)
   physics_from_existence_pure.py     Pure derivation (no experimental input)
   physics_from_existence_verify.py   Verification against experiment
 ```
