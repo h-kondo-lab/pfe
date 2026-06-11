@@ -48,7 +48,7 @@ $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$.
 More than 20 physical constants are derived from this
 structure, including
 $1/\alpha = 137.0368$ ($0.0006\%$),
-$\alpha_s = 0.1179$ ($0.01\%$),
+$\alpha_s = 0.1179$ ($0.08\%$),
 $\sin^2\!\theta_W = 3/13$ ($0.2\%$),
 the charged-lepton mass ratio $R = 1.5293$ ($0.006\%$), and
 $\sin\theta_C = 0.2245$ ($0.05\%$).
@@ -500,8 +500,8 @@ Intersection: $\{3\}$.
 \noindent\textit{Proof.}\;
 (i)~centrifugal term $(d{-}1)(d{-}3)/(8r^2) = 0$ iff $d = 1$ or $3$;
 (ii)~$\pi_1(\mathrm{SO}(d)) = \mathbb{Z}_2$ for $d \geq 3$;
-(iii)~Weyl tensor has $d^2(d^2{-}1)/12 - d(d{+}1)/2$ independent
-components, positive only for $d \geq 3$.\hfill$\square$
+(iii)~the Weyl tensor vanishes identically in spacetime dimension
+$\leq 3$, i.e.\ spatial $d \leq 2$; propagating gravity requires $d \geq 3$.\hfill$\square$
 
 
 %=====================================================================
@@ -783,7 +783,7 @@ enters as a correction through the $N^2{+}1 = 10$ non-weak
 PG directions:
 \begin{equation}\label{eq:alphas}
   \alpha_s = \frac{3}{26}\Bigl(1 + \frac{\varepsilon}{N^2{+}1}\Bigr) = 0.1179
-  \qquad (\text{experiment: } 0.1179,\; 0.08\%).
+  \qquad (\text{experiment: } 0.1180,\; 0.08\%).
 \end{equation}
 The value $k = N^2{+}1 = 10$ follows from the number of non-weak
 directions in $\mathrm{PG}(2, \mathbb{F}_3)$, but the systematic
@@ -848,7 +848,6 @@ Self-consistency yields:
 Solving:
 $1/\alpha = [(Z{+}\lambda_1) + \sqrt{(Z{+}\lambda_1)^2 - 4}]/2 = 137.0368$
 (experiment: $137.036$, $0.0006\%$).
-
 \textit{Spectral decomposition.}\;
 The resolvent trace decomposes as
 $Z = \zeta_V(1) + 12\,S_1 + 12\,S_2 + 27\,S_3$,
@@ -866,7 +865,7 @@ excluded because only physical generations contribute
 to vacuum polarization.
 
 Experimental values: $\sin^2\!\hat\theta_W(M_Z) = 0.23122$ ($\overline{\mathrm{MS}}$, $0.2\%$),
-$\alpha_s(M_Z) = 0.1179$ ($0.01\%$),
+$\alpha_s(M_Z) = 0.1179$ ($0.08\%$),
 $1/\alpha_\mathrm{em} = 137.0368$ ($0.0006\%$).
 All three gauge couplings are derived from
 $V = -H$ and $\mathrm{PG}(2,3)$.
@@ -972,7 +971,7 @@ correction gives $0.8812$ (experiment: $0.8814$, $0.02\%$).
 
 \noindent\textbf{Summary.}\;
 $\sin^2\!\theta_W(M_Z) = 0.23122$ (0.2\%),
-$\alpha_s(M_Z) = 0.1179$ (0.01\%),
+$\alpha_s(M_Z) = 0.1179$ (0.08\%),
 $1/\alpha_\mathrm{em} = 137.0368$ (0.0006\%),
 $m_H/v = 0.5084$ (0.07\%).
 Four coupling constants derived from $V = -H$ and $\mathrm{PG}(2,3)$,
@@ -1043,7 +1042,7 @@ the shape of $V = -H$.
 
 The three bound states occupy qualitatively distinct dynamical
 regimes.
-The binding fraction $x_n = |E_n|/\langle H \rangle_n$ classifies
+The binding fraction $x_n = |E_n|/|\langle V \rangle_n|$ classifies
 each mode:
 
 \begin{center}\small
@@ -1122,7 +1121,7 @@ generation space and the color group~\cite{paper2}.}
 
 A small correction arises from the anharmonicity of $V = -H$.
 Each mode samples the well differently;
-the virial ratio $\langle H \rangle_n / T_n$
+the virial ratio $|\langle V \rangle_n| / T_n$
 (potential energy to kinetic energy) measures this.
 The exponent of this correction is fixed by the spectral
 $\zeta$-function: the WKB residue $n_\mathrm{WKB} = 2.781$
@@ -1132,7 +1131,7 @@ giving a deficit per mode $\delta = \varepsilon/N = 0.073$.
 The complete mass formula is:
 \begin{equation}\label{eq:mass}
   m_n \propto |E_n| \times \mathrm{IPR}_n^{2C_F}
-  \times \Bigl(\frac{\langle H \rangle_n}{T_n}\Bigr)^{\varepsilon/N}.
+  \times \Bigl(\frac{|\langle V \rangle_n|}{T_n}\Bigr)^{\varepsilon/N}.
 \end{equation}
 Every exponent is determined by $V = -H$.
 The result:\footnote{All spectral quantities are computed with
