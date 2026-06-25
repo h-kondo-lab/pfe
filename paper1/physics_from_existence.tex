@@ -734,7 +734,7 @@ with the Higgs from~\S5.2, the 48~fermions, 12~bosons,
 and 1~Higgs are the complete particle content.
 
 The construction is independently confirmed by $D_{PR} = 13.06 \approx |\mathrm{PG}|$
-and the flag Laplacian spectrum (Paper~II, Theorem~3$'$).
+and the flag Laplacian spectrum (Paper~II, Theorems~3$'$--3$''$).
 No free parameter appears in any step.
 The validity of this construction is supported by the fact that
 all independent physical quantities derived in \S\ref{sec:couplings}--\ref{sec:results}
@@ -1323,10 +1323,10 @@ in occupation space; the Lagrangian inherits this symmetry:
 The strong CP problem is resolved by $V$-parity,
 requiring neither the Peccei--Quinn mechanism nor an axion.
 Yet CP violation \emph{is} observed in the CKM sector
-($J = 3.18 \times 10^{-5}$).
+($J = 3.06 \times 10^{-5}$).
 This does not contradict $\theta_\mathrm{QCD} = 0$:
-the CKM phase arises at higher order
-($J \propto \varepsilon^6 \sim 10^{-4}$),
+the CKM phase arises at higher order in $\varepsilon$
+($J = \pi\varepsilon^5/N_\mathrm{flags}$, Paper~II~\S8.1),
 while the strong CP angle remains exactly zero.
 
 \subsection{Neutrinos}
@@ -1463,8 +1463,16 @@ each bound state carries a definite generation quantum number
 that distinguishes $\nu$ from $\nu^c$;
 the self-conjugate identification has no room in the
 $n \in \{0,1\}$ structure.
-Second, the V-parity $V(\phi) = V(-\phi)$ forbids all
-lepton-number-violating operators, including Majorana mass terms.
+Second, every fermionic operator entering the construction is a
+function of the number operator $\hat{n}$ --- the sufficient
+statistic of the Bernoulli family --- and is therefore invariant
+under the phase rotation $a \to e^{i\theta}a$: the anomaly-free
+combination $\mathrm{U}(1)_{B-L}$ is exact, and the Majorana
+bilinear $aa + a^\dagger a^\dagger$ ($\Delta(B{-}L) = 2$) lies
+outside the operator algebra of the framework.
+V-parity then pairs the distinct states $\nu$ and $\nu^c$
+($L = \pm 1$) into a Dirac fermion (operator-level proof:
+Paper~II, Theorem~9~\cite{paper2}).
 Neutrinoless double beta decay is therefore absent
 ($0\nu\beta\beta = 0$), testable by nEXO~\cite{nexo} ($\sim$2030).
 
@@ -1708,7 +1716,7 @@ Signature & $\mathbb{F}_3(i) \to \mathbb{C}P^2$ & $(3,1)$ & 9.1 \\
 Gauge group & $9{+}3{+}1$ (Killing--Cartan) & $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$ & 5 \\
 Spectral gauge & Restricted Laplacian products $9{+}4{=}13$ & --- & Paper~II \\
 4th generation & $E_3 > 0$ & excluded & 3.2 \\
-Neutrino nature & $n^2{=}n$ + $V$-parity & --- & 8.4 \\
+Neutrino nature & $\mathrm{U}(1)_{B-L}$ ($\hat{n}$ structure) + $V$-parity & --- & 8.4 \\
 $m_W/m_Z$ & $\sqrt{10/13} \to +\Delta\rho$: $0.8812$ & 0.8814 (0.02\%) & 6.1; 7 \\
 $Q$ (Koide) & 1.499985 & 1.50001 & 8.1 \\
 $\sin^2\!\theta_W$ + 1-loop & 0.23122 & 0.23122 ($<0.01\%$) & 7 \\
@@ -1765,9 +1773,8 @@ Cosmological consequences are developed in
 Paper~III~\cite{paper3}.
 
 \medskip
-\begin{center}
-\large\itshape To be or not to be, that is the equation.
-\end{center}
+\noindent
+\textit{To be, or not to be --- that is the equation.}
 
 %=====================================================================
 \section*{Acknowledgments}
