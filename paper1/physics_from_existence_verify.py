@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v2.4.0
+PFE Paper I Verification Script — v2.5.0
 ========================================================
-Updated experimental values:
-  - sin²θ_W: 0.23122 (MS-bar at M_Z, PDG 2024)
-  - NuFIT 6.0 (JHEP 12 (2024) 216): Δm²₂₁, Δm²₃₁, sin²θ₂₃
-  - Koide Q: compute from PDG masses for proper comparison
-  - PDG 2024 masses (unchanged)
+Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
+(JHEP 12 (2024) 216). Formulas follow the v2.5.0 manuscript:
+NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
+screened Cabibbo readout and the neutrino master relation are
+printed as informational lines with their Paper II attribution.
 """
 
 import numpy as np
@@ -128,18 +128,18 @@ def run_paper1(phi_max=60, n_grid=512001):
     phi, dphi, Vpot = make_grid(phi_max, n_grid)
 
     # ===== Experimental reference values =====
-    # PDG 2024 / CODATA 2022
-    m_tau = 1776.93   # MeV (PDG 2024)
+    # PDG 2026 / CODATA 2022
+    m_tau = 1776.93   # MeV (PDG 2026)
     m_mu  = 105.6584  # MeV
     m_e   = 0.51100   # MeV
 
-    # NuFIT 6.0 (JHEP 12 (2024) 216, arXiv:2410.05380)
-    # IC19 without SK-atm, Normal Ordering best-fit
-    Dm21_sq_6 = 7.49e-5    # eV² (was 7.53 in NuFIT 5.x)
-    Dm31_sq_6 = 2.534e-3   # eV² (was 2.455 in NuFIT 5.x)
-    sin2_23_6 = 0.561      # NuFIT 6.0 IC19 NO (was 0.546)
-    sin2_12_6 = 0.307      # unchanged
-    sin2_13_6 = 0.02195    # NuFIT 6.0 IC19 NO
+    # NuFIT 6.1 (2025), www.nu-fit.org (base: JHEP 12 (2024) 216, arXiv:2410.05380)
+    # IC23 without SK-atm, Normal Ordering best-fit
+    Dm21_sq_6 = 7.537e-5   # eV² (NuFIT 6.1)
+    Dm31_sq_6 = 2.521e-3   # eV² (NuFIT 6.1)
+    sin2_23_6 = 0.561      # NuFIT 6.1 second-octant local (global bfp 0.470)
+    sin2_12_6 = 0.3088     # NuFIT 6.1 (JUNO)
+    sin2_13_6 = 0.02249    # NuFIT 6.1 IC23 NO
 
     # Also keep NuFIT 5.x for comparison
     Dm21_sq_5 = 7.53e-5
@@ -148,14 +148,14 @@ def run_paper1(phi_max=60, n_grid=512001):
 
     EXP = {
         '1/alpha':      137.035999177,   # CODATA 2022
-        'sin2_tW':      0.23122,         # MS-bar at M_Z (PDG 2024)
-        'm_W/m_Z':      0.8815,          # PDG 2024
-        'mH_v_exp':     0.5087,          # m_H/v = 125.20/246.22
-        'alpha_s':      0.1180,          # PDG 2024 at M_Z
+        'sin2_tW':      0.23122,         # MS-bar at M_Z (PDG 2026)
+        'm_W/m_Z':      0.8813,          # PDG 2026 (80.3625/91.1879)
+        'mH_v_exp':     0.5082,          # m_H/v = 125.13/246.22 (PDG 2026)
+        'alpha_s':      0.1179,          # PDG 2026 at M_Z
         'm_tau':        m_tau,
         'm_mu':         m_mu,
         'm_e':          m_e,
-        'sin_tC':       0.2244,          # |V_us| PDG
+        'sin_tC':       0.2243,          # |V_us|=0.22431 PDG 2026
         'sin2_12':      sin2_12_6,
         'sin2_23':      sin2_23_6,
         'sin2_13':      sin2_13_6,
@@ -168,10 +168,10 @@ def run_paper1(phi_max=60, n_grid=512001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v2.4.0")
+    print("  PAPER I VERIFICATION — v2.5.0")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
-    print(f"  Experimental: CODATA 2022 / PDG 2024 / NuFIT 6.0")
+    print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")
     print("=" * 80)
 
     results = []
@@ -209,11 +209,12 @@ def run_paper1(phi_max=60, n_grid=512001):
     # ===== Mathematical theorems =====
     print(f"\n  --- Mathematical Theorems (V = -H alone) ---")
 
-    # Strong CP: V-parity forbids the bare CP-odd term and keeps the
-    # induced quark mass operator real, so θ̄ = θ_QCD + arg det M_q = 0.
-    results.append(("θ_QCD bare", 0, 0, "exact"))
-    results.append(("arg det M_q", 0, 0, "exact"))
-    results.append(("θ̄ strong CP", 0, 0, "exact"))
+    # Strong CP: V-parity forbids the bare CP-odd term (structural, this
+    # paper); the reality of the induced quark mass operator and hence the
+    # full θ̄ = 0 carry an operator-level proof in Paper II.
+    results.append(("θ_QCD bare", 0, 0, "V-parity"))
+    results.append(("arg det M_q", 0, 0, "Paper II"))
+    results.append(("θ̄ strong CP", 0, 0, "V-parity+II"))
 
     # V_ub tree-level overlap: distinct eigenmodes vanish by Sturm-Liouville
     # orthogonality; the physical leading 0↔2 transition is V-parity forbidden.
@@ -252,6 +253,11 @@ def run_paper1(phi_max=60, n_grid=512001):
     sin_thetaC = eps * (1 + eps / N**2)
     dev = abs(sin_thetaC - EXP['sin_tC']) / EXP['sin_tC'] * 100
     results.append(("sinθ_C", sin_thetaC, EXP['sin_tC'], f"{dev:.2f}%"))
+    # Screened Cabibbo readout (Paper II): sinθ_C·(1−x), x = 9α/(26π).
+    x_scr = 9.0 / (alpha_inv * 26.0 * np.pi)
+    sin_tC_screened = sin_thetaC * (1 - x_scr)
+    print(f"  [info] screened Cabibbo (Paper II): sinθ_C·(1−9α/26π) = "
+          f"{sin_tC_screened:.6f}  (manuscript: 0.22435 with certified ε)")
 
     # m_H/v
     mH_v_NLO = 0.5 * np.sqrt(1 + 2*eps/PG)
@@ -275,13 +281,13 @@ def run_paper1(phi_max=60, n_grid=512001):
     evals3, psi3 = solve_schrodinger(Vpot3, phi, dphi, n_states=7)
     m_up = mass_formula(evals3, psi3, phi, dphi, modes=[1, 2, 3], b=b, c=c)
     R_up = R_ratio(m_up)
-    results.append(("R_up", R_up, 1.772, f"{abs(R_up-1.772)/1.772*100:.2f}%"))
+    results.append(("R_up", R_up, 1.770, f"{abs(R_up-1.770)/1.770*100:.2f}%"))
 
     m_eff = 1.0 + (-3) * sigma(phi) * (1 - sigma(phi))
     evals_d, psi_d = solve_schrodinger(Vpot3, phi, dphi, n_states=6, m_eff=m_eff)
     m_down = mass_formula(evals_d, psi_d, phi, dphi, modes=[0, 1, 2], b=b, c=c)
     R_down = R_ratio(m_down)
-    results.append(("R_down", R_down, 2.269, f"{abs(R_down-2.269)/2.269*100:.2f}%"))
+    results.append(("R_down", R_down, 2.276, f"{abs(R_down-2.276)/2.276*100:.2f}%"))
 
     # PMNS
     sin2_12 = (N+1)/PG
@@ -323,12 +329,22 @@ def run_paper1(phi_max=60, n_grid=512001):
         return m1, m2, m3, sum_m
 
     print(f"  Using R_ν = R_lepton = {R_lep:.6f}")
-    m1_6, m2_6, m3_6, sum6 = compute_neutrino(Dm21_sq_6, Dm31_sq_6, "NuFIT 6.0")
+    m1_6, m2_6, m3_6, sum6 = compute_neutrino(Dm21_sq_6, Dm31_sq_6, "NuFIT 6.1")
     m1_5, m2_5, m3_5, sum5 = compute_neutrino(Dm21_sq_5, Dm31_sq_5, "NuFIT 5.x")
 
+    # Master relation (Paper II): with m₃/m₂ = 13/√5 (exact, Paper II) and
+    # R_ν = R_lepton (this paper), Δm²₃₁/Δm²₂₁ = (169/5 − t²)/(1 − t²)
+    # follows with NO oscillation input. Informational.
+    u_ratio = 13.0 / np.sqrt(5.0)
+    x_t = np.log(u_ratio) / (R_lep - 1.0)   # x = −ln t
+    t_sq = np.exp(-2.0 * x_t)
+    R_delta = (169.0/5.0 - t_sq) / (1.0 - t_sq)
+    print(f"  [info] master relation (Paper II, m₃/m₂=13/√5): "
+          f"Δm²₃₁/Δm²₂₁ = {R_delta:.4f}  (manuscript: 33.842, displayed 33.84)")
+
     results.append(("Ordering", "Normal", "Normal", "JUNO"))
-    results.append(("m₁ (6.0) meV", m1_6*1000, "—", "prediction"))
-    results.append(("Σm_ν (6.0) meV", sum6, "—", "CMB-S4"))
+    results.append(("m₁ (6.1) meV", m1_6*1000, "—", "prediction"))
+    results.append(("Σm_ν (6.1) meV", sum6, "—", "CMB-S4"))
     results.append(("m₁ (5.x) meV", m1_5*1000, "—", "for comparison"))
     results.append(("Σm_ν (5.x) meV", sum5, "—", "for comparison"))
     results.append(("0νββ", 0, 0, "nEXO"))
@@ -347,11 +363,11 @@ def run_paper1(phi_max=60, n_grid=512001):
         else:
             print(f"  {name:<16} {comp:>14.8f} {exp:>14.8f} {acc:>14}")
 
-    # ===== Critical comparison: NuFIT 5.x vs 6.0 =====
+    # ===== Critical comparison: NuFIT 5.x vs 6.1 =====
     print(f"\n{'='*85}")
-    print(f"  CRITICAL: Impact of NuFIT 6.0 on neutrino predictions")
+    print(f"  CRITICAL: Impact of NuFIT 6.1 on neutrino predictions")
     print(f"{'='*85}")
-    print(f"  {'':20} {'NuFIT 5.x':>14} {'NuFIT 6.0':>14} {'Change':>10}")
+    print(f"  {'':20} {'NuFIT 5.x':>14} {'NuFIT 6.1':>14} {'Change':>10}")
     print(f"  {'-'*60}")
     print(f"  {'Δm²₂₁ (10⁻⁵eV²)':<20} {Dm21_sq_5*1e5:>14.2f} {Dm21_sq_6*1e5:>14.2f} {(Dm21_sq_6-Dm21_sq_5)/Dm21_sq_5*100:>+9.1f}%")
     print(f"  {'Δm²₃₁ (10⁻³eV²)':<20} {Dm31_sq_5*1e3:>14.3f} {Dm31_sq_6*1e3:>14.3f} {(Dm31_sq_6-Dm31_sq_5)/Dm31_sq_5*100:>+9.1f}%")
@@ -368,7 +384,6 @@ def run_paper1(phi_max=60, n_grid=512001):
     print(f"\n  sin²θ_W comparison:")
     print(f"    Theory (tree):  3/13 = {3/13:.5f}")
     print(f"    MS-bar (M_Z):   0.23122 → deviation {abs(3/13-0.23122)/0.23122*100:.2f}%")
-    print(f"    Old '0.2309':   unknown scheme → deviation {abs(3/13-0.2309)/0.2309*100:.2f}%")
 
 if __name__ == "__main__":
     import argparse

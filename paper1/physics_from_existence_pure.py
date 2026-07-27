@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Physics from Existence — Pure Derivation
-=========================================
+Physics from Existence — Pure Derivation (v2.5.0 companion)
+============================================================
 
 This script contains ONE equation and ZERO experimental values.
 It derives 20+ physical quantities from V = -H alone.
 
 Run it, then compare the output with any physics textbook.
 
-    $ python3 physics_from_existence_pure.py
+    $ python3 physics_from_existence_pure_v2_5.py
 
 The three axioms:
     A1  Existence is bivalent:     n ∈ {0,1}
@@ -548,8 +548,8 @@ def print_predictions(out):
         ("sin θ_C  (Cabibbo)",           f"{out['sin_theta_Cabibbo']:.4f}"),
         ("|V_ub| at tree level",         f"{out['V_ub_tree']:.1e}"),
         ("θ_QCD bare",                   f"{out['theta_QCD_bare']}  (V-parity)"),
-        ("arg det M_q",                  f"{out['arg_det_Mq']}  (real mass operator)"),
-        ("θ̄ strong CP",                 f"{out['theta_bar']}  (exact)"),
+        ("arg det M_q",                  f"{out['arg_det_Mq']}  (real mass op., Paper II)"),
+        ("θ̄ strong CP",                 f"{out['theta_bar']}  (V-parity + Paper II)"),
         ("",                             ""),
         ("sin²θ₁₂ (solar)",              f"{out['sin2_theta_12']:.5f}  = {N+1}/{out['PG_points']}"),
         ("sin²θ₂₃ (atmospheric)",        f"{out['sin2_theta_23']:.4f}"),
