@@ -86,4 +86,5 @@ ensure readability without specialized software, indefinitely.
 
 ## License
 
-[CC BY 4.0](LICENSE) — free to share and adapt with attribution.
+- **Paper, text, and figures** (`.tex`, `.pdf`, figures) — [CC BY 4.0](LICENSE): free to share and adapt with attribution.
+- **Code** (`.py`) — [MIT](LICENSE-CODE): free to use, modify, and redistribute, including within other projects.
