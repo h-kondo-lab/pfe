@@ -1,14 +1,14 @@
 # Physics from Existence
 
-**Author:** Dr. Hidekazu Kondo, Kondo Laboratory (Tokyo, Japan)
+**Author:** Dr. Hidekazu Kondo, Kondo Research Institute (Tokyo, Japan)
 
 Formalizing what it means "to exist" uniquely yields a single equation, *V = −H*.
 This equation contains no free parameters, yet derives 26 fundamental constants of physics.
 This suggests the existence of a new framework in which information theory describes matter and the universe.
 
-**Current version:** v2.2.1 — *Physics from Existence I: The Equation*
+**Current version:** v2.5.0 — *Physics from Existence I: The Equation*
 
-**Web:** [Kondo Laboratory](https://www.kondo-lab.com/)
+**Web:** [Kondo Research Institute](https://www.kondo-lab.com/)
 
 **Zenodo:** https://doi.org/10.5281/zenodo.19451887 (all versions)
 
@@ -17,17 +17,17 @@ This suggests the existence of a new framework in which information theory descr
 | Parameter | PFE | Experiment | Accuracy |
 |-----------|-----|------------|----------|
 | 1/α_em | 137.0368 | 137.036 | 0.0006% |
-| sin θ_C | 0.2245 | 0.2244 | 0.05% |
+| sin θ_C | 0.2245 | 0.2243 | 0.10% |
 | R_lepton | 1.5293 | 1.5294 | 0.006% |
-| m_H/v | 0.5084 | 0.5087 | 0.07% |
-| α_s | 0.1179 | 0.1180 | 0.08% |
+| m_H/v | 0.5084 | 0.5082 | 0.03% |
+| α_s | 0.1179 | 0.1179 | 0.01% |
 | sin²θ_W | 3/13 | 0.23122 | 0.2% |
-| R_up | 1.777 | 1.772 | 0.3% |
-| R_down | 2.273 | 2.269 | 0.2% |
-| sin²θ₁₂ | 4/13 | 0.307 | 0.2% |
-| sin²θ₁₃ | 0.0219 | 0.02195 | 0.3% |
+| R_up | 1.777 | 1.770 | 0.4% |
+| R_down | 2.273 | 2.276 | 0.1% |
+| sin²θ₁₂ | 4/13 | 0.3088 | 0.4% |
+| sin²θ₁₃ | 0.0219 | 0.02249 | 2.6% |
 | sin²θ₂₃ | 0.5475 | 0.561 | 2.4% |
-| m₁ | 0.31 meV | — | prediction |
+| m₁ | 0.32 meV | — | prediction |
 | θ_QCD | 0 | < 10⁻¹⁰ | exact |
 
 *Current deviations are due to numerical precision and can be improved with higher-order calculations.*
@@ -36,9 +36,15 @@ This suggests the existence of a new framework in which information theory descr
 
 | Version | Zenodo | Date | Title | Zenodo DOI |
 |---------|--------|------|-------|------------|
-| v2.2.1 | — | 2026-06-08 | Physics from Existence I: The Equation | — |
+| v2.5.0 | v12 | 2026-07-23 | Physics from Existence I: The Equation | [10.5281/zenodo.21511757](https://zenodo.org/records/21511757) |
+| v2.4.0 | v11 | 2026-07-02 | Physics from Existence I: The Equation | [10.5281/zenodo.21123893](https://zenodo.org/records/21123893) |
+| v2.3.0 | v10 | 2026-06-12 | Physics from Existence I: The Equation | [10.5281/zenodo.20666890](https://zenodo.org/records/20666890) |
+| v2.2.1 | v9 | 2026-06-11 | Physics from Existence I: The Equation | [10.5281/zenodo.20634925](https://zenodo.org/records/20634925) |
 | v2.2.0 | v8 | 2026-06-02 | Physics from Existence I: The Equation | [10.5281/zenodo.20488132](https://zenodo.org/records/20488132) |
 | v2.1.0 | v7 | 2026-05-31 | Physics from Existence I: The Equation | [10.5281/zenodo.20471724](https://zenodo.org/records/20471724) |
+| v2.0.0 | v6 | 2026-05-31 | Physics from Existence I: The Equation | [10.5281/zenodo.20470331](https://zenodo.org/records/20470331) |
+| v1.2.0 | v5 | 2026-04-21 | Physics from Existence I: The Equation | [10.5281/zenodo.19678855](https://doi.org/10.5281/zenodo.19678855) |
+| v1.1.0 | v4 | 2026-04-13 | Physics from Existence I: The Equation | [10.5281/zenodo.19551657](https://doi.org/10.5281/zenodo.19551657) |
 | v1.0.2 | v3 | 2026-04-10 | Physics from Existence | [10.5281/zenodo.19488819](https://doi.org/10.5281/zenodo.19488819) |
 | v1.0.1 | v2 | 2026-04-09 | Physics from Existence | [10.5281/zenodo.19478719](https://doi.org/10.5281/zenodo.19478719) |
 | v1.0.0 | v1 | 2026-04-07 | Physics from Existence | [10.5281/zenodo.19451888](https://doi.org/10.5281/zenodo.19451888) |
