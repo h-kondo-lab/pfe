@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v2.5.0
+PFE Paper I Verification Script — v2.6.0
 ========================================================
 Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
-(JHEP 12 (2024) 216). Formulas follow the v2.5.0 manuscript:
+(JHEP 12 (2024) 216). Formulas follow the v2.6.0 manuscript:
 NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
 screened Cabibbo readout and the neutrino master relation are
 printed as informational lines with their Paper II attribution.
@@ -20,8 +20,15 @@ def H_binary(p):
     p = np.clip(p, 1e-15, 1 - 1e-15)
     return -p * np.log(p) - (1 - p) * np.log(1 - p)
 
+def H_of_phi(phi):
+    # Numerically stable H(sigma(phi)) = ln(1+e^{-phi}) + phi*sigma(-phi).
+    # Evaluating H_binary(sigma(phi)) directly saturates for |phi| > ~37
+    # (sigma -> 1 in float64), leaving a spurious clip floor ~3.5e-14 that
+    # adds a fake O(box-size) tail to the n_WKB integral.
+    return np.logaddexp(0.0, -phi) + phi * 0.5 * (1.0 - np.tanh(0.5 * phi))
+
 def V_potential(phi):
-    return -H_binary(sigma(phi))
+    return -H_of_phi(phi)
 
 def sech(x):
     return 1.0 / np.cosh(x)
@@ -105,14 +112,23 @@ def compute_gradient_energy(psi, dphi, phi):
     return 0.5 * np.trapezoid(dpsi**2, phi)
 
 def compute_H_expectation(psi, phi):
-    return np.trapezoid(psi**2 * H_binary(sigma(phi)), phi)
+    return np.trapezoid(psi**2 * H_of_phi(phi), phi)
 
-def mass_formula(evals, psi_list, phi, dphi, modes, b, c):
+def mass_formula(evals, psi_list, phi, dphi, modes, b, c, kappa=None):
+    # kappa is the well-depth multiple (V = -kappa*H).  When given, the
+    # kinetic energy is taken from the operator identity T = E - <V>
+    # = E + kappa*<H> (exact for eigenstates; free of finite-difference
+    # gradient noise).  kappa=None keeps the flat gradient energy
+    # T = (1/2)\int psi'^2 — the readout used for the down sector, whose
+    # operator has a position-dependent mass (see §8.2).
     masses = []
     for i in modes:
         ipr = compute_IPR(psi_list[i], phi)
-        T = compute_gradient_energy(psi_list[i], dphi, phi)
         H_exp = compute_H_expectation(psi_list[i], phi)
+        if kappa is None:
+            T = compute_gradient_energy(psi_list[i], dphi, phi)
+        else:
+            T = evals[i] + kappa * H_exp
         m = abs(evals[i]) * ipr**b * (H_exp / T)**c
         masses.append(m)
     return masses
@@ -124,7 +140,7 @@ def koide_Q(masses):
     s = sum(np.sqrt(m) for m in masses)
     return s**2 / sum(masses)
 
-def run_paper1(phi_max=60, n_grid=512001):
+def run_paper1(phi_max=100, n_grid=1600001):
     phi, dphi, Vpot = make_grid(phi_max, n_grid)
 
     # ===== Experimental reference values =====
@@ -168,7 +184,7 @@ def run_paper1(phi_max=60, n_grid=512001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v2.5.0")
+    print("  PAPER I VERIFICATION — v2.6.0")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
     print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")
@@ -202,19 +218,20 @@ def run_paper1(phi_max=60, n_grid=512001):
           + ", ".join(f"{x:.6f}" for x in gaussian_evals))
 
     # ===== Mass formula =====
-    m_lep = mass_formula(evals, psi, phi, dphi, modes=[0, 1, 2], b=b, c=c)
+    m_lep = mass_formula(evals, psi, phi, dphi, modes=[0, 1, 2], b=b, c=c, kappa=1)
     R_lep = R_ratio(m_lep)
     Q_pred = koide_Q(m_lep)
 
     # ===== Mathematical theorems =====
     print(f"\n  --- Mathematical Theorems (V = -H alone) ---")
 
-    # Strong CP: V-parity forbids the bare CP-odd term (structural, this
-    # paper); the reality of the induced quark mass operator and hence the
-    # full θ̄ = 0 carry an operator-level proof in Paper II.
-    results.append(("θ_QCD bare", 0, 0, "V-parity"))
-    results.append(("arg det M_q", 0, 0, "Paper II"))
-    results.append(("θ̄ strong CP", 0, 0, "V-parity+II"))
+    # Strong CP: the strong-CP matching theorem of Paper II gives θ̄(μ0) = 0 at the
+    # matching point; the bare QCD angle is killed by the measure-line lemma
+    # (positive measure ray), NOT by V-parity alone. This is a matching-point
+    # statement, not an exact zero at all scales; θ̄_IR is unevaluated.
+    results.append(("θ_QCD bare", 0, "—", "Paper II"))
+    results.append(("arg det M_q", 0, "—", "Paper II"))
+    results.append(("θ̄ strong CP", 0, "<1e-10", "μ₀; Paper II"))
 
     # V_ub tree-level overlap: distinct eigenmodes vanish by Sturm-Liouville
     # orthogonality; the physical leading 0↔2 transition is V-parity forbidden.
@@ -224,7 +241,7 @@ def run_paper1(phi_max=60, n_grid=512001):
     # 4th gen
     E3_positive = evals[3] > 0
     results.append(("4th gen", "forbidden" if E3_positive else "EXISTS",
-                     "excluded", "E3>0" if E3_positive else "FAIL"))
+                     "excluded", "no 4th neg." if E3_positive else "FAIL"))
 
     # ===== QFT derivations =====
     print(f"\n  --- QFT Derivations (V = -H + PG(2,F₃)) ---")
@@ -237,6 +254,8 @@ def run_paper1(phi_max=60, n_grid=512001):
     S3 = sum(1.0 / (abs(evals[i]) + lam3) for i in range(3))
     Z = zeta_V + 12*S1 + 12*S2 + 27*S3
     alpha_inv = ((Z + lam1) + np.sqrt((Z + lam1)**2 - 4)) / 2
+    print(f"  [info] 1/alpha inputs: Z = {Z:.6f}, lambda_1 = {lam1:.6f} "
+          f"-> 1/alpha = {alpha_inv:.4f}  (manuscript displays Z=134.7761, lambda_1=2.26795)")
     dev = abs(alpha_inv - EXP['1/alpha']) / EXP['1/alpha'] * 100
     results.append(("1/α_em", alpha_inv, EXP['1/alpha'], f"{dev:.4f}%"))
 
@@ -277,9 +296,9 @@ def run_paper1(phi_max=60, n_grid=512001):
     results.append(("sin²θ_W", sin2_thetaW, EXP['sin2_tW'], f"{dev:.2f}%"))
 
     # R_down
-    Vpot3 = -3 * H_binary(sigma(phi))
+    Vpot3 = -3 * H_of_phi(phi)
     evals3, psi3 = solve_schrodinger(Vpot3, phi, dphi, n_states=7)
-    m_up = mass_formula(evals3, psi3, phi, dphi, modes=[1, 2, 3], b=b, c=c)
+    m_up = mass_formula(evals3, psi3, phi, dphi, modes=[1, 2, 3], b=b, c=c, kappa=3)
     R_up = R_ratio(m_up)
     results.append(("R_up", R_up, 1.770, f"{abs(R_up-1.770)/1.770*100:.2f}%"))
 
@@ -342,18 +361,18 @@ def run_paper1(phi_max=60, n_grid=512001):
     print(f"  [info] master relation (Paper II, m₃/m₂=13/√5): "
           f"Δm²₃₁/Δm²₂₁ = {R_delta:.4f}  (manuscript: 33.842, displayed 33.84)")
 
-    results.append(("Ordering", "Normal", "Normal", "JUNO"))
+    results.append(("Ordering", "Normal", "not settled", "prediction"))
     results.append(("m₁ (6.1) meV", m1_6*1000, "—", "prediction"))
     results.append(("Σm_ν (6.1) meV", sum6, "—", "CMB-S4"))
     results.append(("m₁ (5.x) meV", m1_5*1000, "—", "for comparison"))
     results.append(("Σm_ν (5.x) meV", sum5, "—", "for comparison"))
-    results.append(("0νββ", 0, 0, "nEXO"))
+    results.append(("0νββ", 0, "not observed", "nEXO"))
 
     # ===== Summary =====
     print(f"\n{'='*85}")
     print(f"  RESULTS SUMMARY")
     print(f"{'='*85}")
-    print(f"  {'Quantity':<16} {'Predicted':>14} {'Experiment':>14} {'Deviation':>14}")
+    print(f"  {'Quantity':<16} {'Predicted':>14} {'Reference':>14} {'Status':>14}")
     print(f"  {'-'*60}")
     for name, comp, exp, acc in results:
         if isinstance(comp, (int, str)):
@@ -388,7 +407,7 @@ def run_paper1(phi_max=60, n_grid=512001):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--phi-max", type=float, default=60)
-    parser.add_argument("--n-grid", type=int, default=512001)
+    parser.add_argument("--phi-max", type=float, default=100)
+    parser.add_argument("--n-grid", type=int, default=1600001)
     args = parser.parse_args()
     run_paper1(phi_max=args.phi_max, n_grid=args.n_grid)

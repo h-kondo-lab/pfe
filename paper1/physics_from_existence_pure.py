@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Physics from Existence — Pure Derivation (v2.5.0 companion)
+Physics from Existence — Pure Derivation (v2.6.0 companion)
 ============================================================
 
 This script contains ONE equation and ZERO experimental values.
@@ -8,7 +8,7 @@ It derives 20+ physical quantities from V = -H alone.
 
 Run it, then compare the output with any physics textbook.
 
-    $ python3 physics_from_existence_pure_v2_5.py
+    $ python3 physics_from_existence_pure_v2_6.py
 
 The three axioms:
     A1  Existence is bivalent:     n ∈ {0,1}
@@ -67,6 +67,13 @@ def H(p):
     return -p * np.log(p) - (1 - p) * np.log(1 - p)
 
 
+def H_of_phi(phi):
+    # Numerically stable H(sigma(phi)) = ln(1+e^{-phi}) + phi*sigma(-phi).
+    # Evaluating H_binary(sigma(phi)) directly saturates for |phi| > ~37
+    # (sigma -> 1 in float64), leaving a spurious clip floor ~3.5e-14 that
+    # adds a fake O(box-size) tail to the n_WKB integral.
+    return np.logaddexp(0.0, -phi) + phi * 0.5 * (1.0 - np.tanh(0.5 * phi))
+
 def V(phi):
     """
     THE EQUATION:  V = -H(σ(φ))
@@ -81,7 +88,7 @@ def V(phi):
       V''(0) = 1/4                (Fisher information at σ=1/2)
       V(φ) = V(-φ)               (parity symmetry)
     """
-    return -H(sigma(phi))
+    return -H_of_phi(phi)
 
 
 # =====================================================================
@@ -177,22 +184,30 @@ def kinetic_energy(psi, dphi, phi):
 
 def entropy_expectation(psi, phi):
     """⟨H⟩ = ∫|ψ|² H(σ(φ)) dφ.  How much entropy the mode samples."""
-    return np.trapezoid(psi**2 * H(sigma(phi)), phi)
+    return np.trapezoid(psi**2 * H_of_phi(phi), phi)
 
 
-def compute_masses(eigenvalues, wavefunctions, phi, dphi, modes, b, c):
+def compute_masses(eigenvalues, wavefunctions, phi, dphi, modes, b, c, kappa=None):
     """
     Compute mass-like quantities for the given modes.
 
     The formula m_n ∝ |E_n| × IPR^b × (⟨H⟩/T)^c gives mass RATIOS.
     The overall scale is irrelevant — only ratios are physical.
+
+    kappa: well-depth multiple (V = -kappa*H).  When given, T is taken
+    from the operator identity T = E - <V> = E + kappa*<H> (exact for
+    eigenstates, free of gradient noise).  kappa=None keeps the flat
+    gradient energy — the readout used for the down sector (§8.2).
     """
     masses = []
     for i in modes:
         psi = wavefunctions[i]
         ipr = inverse_participation_ratio(psi, phi)
-        T   = kinetic_energy(psi, dphi, phi)
         H_exp = entropy_expectation(psi, phi)
+        if kappa is None:
+            T = kinetic_energy(psi, dphi, phi)
+        else:
+            T = eigenvalues[i] + kappa * H_exp
         m = abs(eigenvalues[i]) * ipr**b * (H_exp / T)**c
         masses.append(m)
     return masses
@@ -218,7 +233,7 @@ def koide_parameter(masses):
 #
 # =====================================================================
 
-def derive(phi_max=60, n_grid=512001):
+def derive(phi_max=100, n_grid=1600001):
     """
     Derive all physical predictions from V = -H.
 
@@ -385,7 +400,7 @@ def derive(phi_max=60, n_grid=512001):
     #  Only RATIOS are predicted (0D has no energy scale).
 
     m_leptons = compute_masses(eigenvalues, psi, phi, dphi,
-                               modes=[0, 1, 2], b=b, c=c)
+                               modes=[0, 1, 2], b=b, c=c, kappa=1)
 
     out['R_lepton'] = mass_ratio_R(m_leptons)   # ln(mτ/me)/ln(mμ/me)
     out['m_tau_over_m_e'] = m_leptons[0] / m_leptons[2]
@@ -399,11 +414,11 @@ def derive(phi_max=60, n_grid=512001):
     #  Quarks carry N_c = N colours.
     #  By Shannon entropy additivity: V_quark = -N·H  (deeper well)
 
-    V_colour = -N * H(sigma(phi))
+    V_colour = -N * H_of_phi(phi)
     ev_q, psi_q = solve_schrodinger(V_colour, phi, dphi, n_states=7)
 
     # Up-type quarks: modes (1,2,3) of V = -NH, unit mass
-    m_up = compute_masses(ev_q, psi_q, phi, dphi, modes=[1,2,3], b=b, c=c)
+    m_up = compute_masses(ev_q, psi_q, phi, dphi, modes=[1,2,3], b=b, c=c, kappa=3)
     out['R_up'] = mass_ratio_R(m_up)
 
     # Down-type quarks: effective mass from SU(2) isospin flip
@@ -422,8 +437,11 @@ def derive(phi_max=60, n_grid=512001):
     # Cabibbo angle: sin θ_C = ε(1 + ε/N²)
     out['sin_theta_Cabibbo'] = eps * (1 + eps / N**2)
 
-    # Strong CP: V-parity forbids the bare CP-odd term and keeps the
-    # induced quark mass operator real, so θ̄ = θ_QCD + arg det M_q = 0.
+    # Strong CP: the strong-CP matching theorem of Paper II gives arg det(M_u M_d) = 0 and a vanishing
+    # bare θ_QCD, hence θ̄(μ0) = 0 at the matching point. The bare QCD angle is
+    # killed by the measure-line triviality lemma of Paper II (only unitary preserving the positive
+    # measure ray is {1}), NOT by V-parity alone. Matching-point value only:
+    # θ̄_IR is unevaluated, and no claim is made about axion-like particles.
     out['theta_QCD_bare'] = 0
     out['arg_det_Mq'] = 0
     out['theta_bar'] = 0
@@ -455,7 +473,8 @@ def derive(phi_max=60, n_grid=512001):
     #  Neutrinos are colour-singlets → same V = -H as leptons.
     #  Therefore R_ν = R_lepton.
     #
-    #  Combined with n² = n (Dirac) and V-parity (θ_QCD = 0):
+    #  Combined with the exact U(1)_(B-L) number-operator structure and
+    #  V-parity (which pairs ν and ν^c):
     #    - Mass ordering: Normal
     #    - Neutrino nature: Dirac (not Majorana)
     #    - 0νββ decay rate: exactly zero
@@ -547,9 +566,9 @@ def print_predictions(out):
         ("",                             ""),
         ("sin θ_C  (Cabibbo)",           f"{out['sin_theta_Cabibbo']:.4f}"),
         ("|V_ub| at tree level",         f"{out['V_ub_tree']:.1e}"),
-        ("θ_QCD bare",                   f"{out['theta_QCD_bare']}  (V-parity)"),
+        ("θ_QCD bare",                   f"{out['theta_QCD_bare']}  (Paper II ray lemma)"),
         ("arg det M_q",                  f"{out['arg_det_Mq']}  (real mass op., Paper II)"),
-        ("θ̄ strong CP",                 f"{out['theta_bar']}  (V-parity + Paper II)"),
+        ("θ̄ strong CP",                 f"{out['theta_bar']}  (μ₀; Paper II matching thm)"),
         ("",                             ""),
         ("sin²θ₁₂ (solar)",              f"{out['sin2_theta_12']:.5f}  = {N+1}/{out['PG_points']}"),
         ("sin²θ₂₃ (atmospheric)",        f"{out['sin2_theta_23']:.4f}"),
@@ -585,10 +604,10 @@ if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser(
         description="Derive physics from V = -H.  No experimental input.")
-    ap.add_argument("--phi-max", type=float, default=60,
-                    help="Grid extent (default: 60)")
-    ap.add_argument("--n-grid", type=int, default=128001,
-                    help="Grid points (default: 128001; paper uses 512001)")
+    ap.add_argument("--phi-max", type=float, default=100,
+                    help="Grid extent (default: 100)")
+    ap.add_argument("--n-grid", type=int, default=1600001,
+                    help="Grid points (default: 1600001 = paper grid)")
     args = ap.parse_args()
 
     predictions = derive(phi_max=args.phi_max, n_grid=args.n_grid)
