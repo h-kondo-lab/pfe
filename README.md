@@ -28,7 +28,7 @@ This suggests the existence of a new framework in which information theory descr
 | sin²θ₁₃ | 0.0219 | 0.02249 | 2.6% |
 | sin²θ₂₃ | 0.5475 | 0.561 | 2.4% |
 | m₁ | 0.32 meV | — | prediction |
-| θ_QCD | 0 | < 10⁻¹⁰ | exact |
+| θ̄(μ₀) (matching point) | 0 (Paper II) | θ̄ < 10⁻¹⁰ | — |
 
 *Current deviations are due to numerical precision and can be improved with higher-order calculations.*
 
