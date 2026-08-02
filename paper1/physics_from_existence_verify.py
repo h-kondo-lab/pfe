@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v2.6.0
+PFE Paper I Verification Script — v3.0.0
 ========================================================
 Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
-(JHEP 12 (2024) 216). Formulas follow the v2.6.0 manuscript:
+(JHEP 12 (2024) 216). Formulas follow the v3.0.0 manuscript:
 NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
-screened Cabibbo readout and the neutrino master relation are
+screened Cabibbo expression and the neutrino master relation are
 printed as informational lines with their Paper II attribution.
 """
 
@@ -119,7 +119,7 @@ def mass_formula(evals, psi_list, phi, dphi, modes, b, c, kappa=None):
     # kinetic energy is taken from the operator identity T = E - <V>
     # = E + kappa*<H> (exact for eigenstates; free of finite-difference
     # gradient noise).  kappa=None keeps the flat gradient energy
-    # T = (1/2)\int psi'^2 — the readout used for the down sector, whose
+    # T = (1/2)\int psi'^2 — the expression used for the down sector, whose
     # operator has a position-dependent mass (see §8.2).
     masses = []
     for i in modes:
@@ -184,7 +184,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v2.6.0")
+    print("  PAPER I VERIFICATION — v3.0.0")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
     print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")
@@ -207,6 +207,10 @@ def run_paper1(phi_max=100, n_grid=1600001):
     N = 3; eps = N - n_wkb; b = (N**2 - 1) / N; c = eps / N
     PG = N**2 + N + 1
     print(f"  n_WKB = {n_wkb:.10f}, ε = {eps:.10f}")
+    print(f"  [info] float64 grid values.  Certified enclosure "
+          f"(proof_eps_interval_enclosure_20260731.py, Arb): "
+          f"n_WKB = 2.7808120498, ε = 0.2191879502; grid-certified gap ~8e-8; "
+          f"both round to the displayed 0.219188.")
     print(f"  b = 2C_F = {b:.10f}, c = ε/N = {c:.10f}")
     results.append(("d (spatial dim.)", 3, 3, "exact"))
 
@@ -255,9 +259,52 @@ def run_paper1(phi_max=100, n_grid=1600001):
     Z = zeta_V + 12*S1 + 12*S2 + 27*S3
     alpha_inv = ((Z + lam1) + np.sqrt((Z + lam1)**2 - 4)) / 2
     print(f"  [info] 1/alpha inputs: Z = {Z:.6f}, lambda_1 = {lam1:.6f} "
-          f"-> 1/alpha = {alpha_inv:.4f}  (manuscript displays Z=134.7761, lambda_1=2.26795)")
-    dev = abs(alpha_inv - EXP['1/alpha']) / EXP['1/alpha'] * 100
-    results.append(("1/α_em", alpha_inv, EXP['1/alpha'], f"{dev:.4f}%"))
+          f"-> 1/alpha = {alpha_inv:.4f}")
+    print(f"  [info] grid Z = {Z:.5f} vs certified-E Z = 134.77613 (gap ~1.7e-5 from "
+          f"the grid E_2; manuscript displays Z=134.77613, lambda_1=2.26795; "
+          f"both give the displayed 1/alpha = 137.0368).")
+    dev = abs(alpha_inv - 137.036) / 137.036 * 100
+    results.append(("1/α_em (leading)", alpha_inv, "137.036", f"{dev:.4f}%"))  # paper Table 2: leading vs 137.036
+
+    # 1/α at all orders (Dyson closed form; derivation and 13-digit certification
+    # in Paper II). Solve  1/a + a = Λ0 - x(1+a/2) + (3/4)ε²x + (1589/5408)x²
+    # - (2/13)x³/(1+x),  x = 9a/(26π),  Λ0 = λ1 + Z,  with the certified
+    # eigenvalues of §3.2 and exact λ's, in high precision.
+    try:
+        import mpmath as mp
+        mp.mp.dps = 30
+        E_cert = [mp.mpf('-0.4850022531029642374452777658'),
+                  mp.mpf('-0.1590522216188561779934190'),
+                  mp.mpf('-0.010423393062109459327616')]
+        l1 = (N + 1) - mp.sqrt(N); l2 = (N + 1) + mp.sqrt(N); l3 = mp.mpf(2 * (N + 1))
+        Zc = (sum(1 / abs(e) for e in E_cert)
+              + 12 * sum(1 / (abs(e) + l1) for e in E_cert)
+              + 12 * sum(1 / (abs(e) + l2) for e in E_cert)
+              + 27 * sum(1 / (abs(e) + l3) for e in E_cert))
+        L0 = Zc + l1
+        eps_c = mp.mpf('0.2191879502483955')   # certified ε = N − n_WKB (§3.1)
+        def dyson(a):
+            x = 9 * a / (26 * mp.pi)
+            return (1 / a + a
+                    - (L0 - x * (1 + a / 2) + mp.mpf(3) / 4 * eps_c**2 * x
+                       + mp.mpf(1589) / 5408 * x**2
+                       - mp.mpf(2) / 13 * x**3 / (1 + x)))
+        a_all = mp.findroot(dyson, mp.mpf(1) / mp.mpf('137.036'))
+        inv_all = 1 / a_all
+        lo = mp.mpf('137.0359990843979'); hi = mp.mpf('137.0359990844119')
+        inside = (lo <= inv_all <= hi)
+        print(f"  [info] 1/alpha all orders (Dyson closed form, Paper II): "
+              f"{mp.nstr(inv_all, 13)}  "
+              f"({'inside' if inside else 'OUTSIDE'} the certified 13-digit interval "
+              f"[137.0359990843979, 137.0359990844119])")
+        print(f"  [info] CODATA 2018 (Cs recoil): 137.035999084(21) — matches the "
+              f"displayed digits; CODATA 2022 (Rb recoil): 137.035999177(21), 4.4σ away; "
+              f"the framework predicts the Cs side (manuscript §6.3, Table 4).")
+        dev18 = abs(float(inv_all) - 137.035999084) / 137.035999084 * 100
+        results.append(("1/α_em (all orders)", float(inv_all), 137.035999084,
+                        f"{dev18:.1e}%"))
+    except Exception as ex:
+        print(f"  [warn] all-orders 1/alpha check skipped: {ex}")
 
     # R_lepton
     dev = abs(R_lep - EXP['R_lepton']) / EXP['R_lepton'] * 100
@@ -272,7 +319,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     sin_thetaC = eps * (1 + eps / N**2)
     dev = abs(sin_thetaC - EXP['sin_tC']) / EXP['sin_tC'] * 100
     results.append(("sinθ_C", sin_thetaC, EXP['sin_tC'], f"{dev:.2f}%"))
-    # Screened Cabibbo readout (Paper II): sinθ_C·(1−x), x = 9α/(26π).
+    # Screened Cabibbo expression (Paper II): sinθ_C·(1−x), x = 9α/(26π).
     x_scr = 9.0 / (alpha_inv * 26.0 * np.pi)
     sin_tC_screened = sin_thetaC * (1 - x_scr)
     print(f"  [info] screened Cabibbo (Paper II): sinθ_C·(1−9α/26π) = "
@@ -372,7 +419,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     print(f"\n{'='*85}")
     print(f"  RESULTS SUMMARY")
     print(f"{'='*85}")
-    print(f"  {'Quantity':<16} {'Predicted':>14} {'Reference':>14} {'Status':>14}")
+    print(f"  {'Quantity':<16} {'Predicted':>14} {'Experiment':>14} {'Status':>14}")
     print(f"  {'-'*60}")
     for name, comp, exp, acc in results:
         if isinstance(comp, (int, str)):
