@@ -125,8 +125,8 @@ d = 3
 は井戸の保存・スピン統計・重力伝播の3条件から導かれ、この2つの一致（$N = d = 3$）から展開されるリー代数の構造が、ゲージ群
 SU(3)×SU(2)×U(1) を再現する。
 
-この構造から、1/α = 137.035999084（全次数、CODATA 2018 と表示桁一致；補正級数の証明は Paper II）、$\alpha_s$ = 0.1179（0.01\%）、$\sin^2\!\theta_W$ = 3/13（0.2\%）、荷電レプトン質量比 R =
-1.5293（0.006\%）、$\sin\theta_C$ = 0.2245（0.10\%）を含む26個の物理定数が導かれる。さらにニュートリノの絶対質量（$\Sigma m_\nu$ = 59.2 meV）、ニュートリノなし二重ベータ崩壊の厳密なゼロを含む7つの検証可能な予測を与える。これらの量は独立な入力パラメータではなく、すべて V = −H により定まる同一の数学的構造から計算される。
+この構造から、1/α = 137.035999084（全次数、CODATA 2018 と表示桁一致；先頭項は 137.0368 で 0.0006\%、補正級数の証明は Paper II）、$\alpha_s$ = 0.1179（0.07\%）、$\sin^2\!\theta_W$ = 3/13（0.2\%）、荷電レプトン質量比 R =
+1.5293（0.006\%）、$\sin\theta_C$ = 0.2245（0.10\%）を含む26個の物理定数が導かれる。さらにニュートリノの絶対質量（一尺度較正の後で $\Sigma m_\nu$ = 59.50 meV）、ニュートリノなし二重ベータ崩壊の厳密なゼロを含む7つの検証可能な予測を与える。これらの量は独立な入力パラメータではなく、すべて V = −H により定まる同一の数学的構造から計算される。
 
 これらの数値は全て、添付する検証コードによって再現可能である。
 
@@ -465,7 +465,7 @@ rank(SU(3)) = 2 個（Cartan 生成子）であり、$\sin^2\!\theta_W$
 のスペクトル的限界性 ε = 0.219 が NLO 補正を与える。補正は N²+1 = 10 個の非弱
 PG 方向（カラー9 + ハイパーチャージ1）を通じて分配される：
 
-\[α_s = (3/26)(1 + ε/(N²+1)) = 0.1179 \quad (\text{実験: } 0.1179\;\overline{\mathrm{MS}}\text{、}M_Z\text{ で},\; 0.01\%)\]
+\[α_s = (3/26)(1 + ε/(N²+1)) = 0.1179 \quad (\text{実験: } 0.1180\;\overline{\mathrm{MS}}\text{、}M_Z\text{ で},\; 0.07\%)\]
 
 k = N²+1 = 10 の値は PG(2, F₃) の非弱方向の数から従う。NLO 補正は本論文を通じて $1 \pm \ell\varepsilon/k$ の形をとり、分母 k は補正が分配される有限支持のサイズである---非弱セクター（$\alpha_s$）は k = N²+1 = 10（アフィン＋ハイパーチャージ）、世代混合（$\sin\theta_C$）は k = N² = 9（アフィン平面）、全 PG モード（$m_H/v$・sin²θ₂₃）は k =
 \textbar PG\textbar{} = 13（全射影空間）、弱3方向（sin²θ₁₃）は k = N = 3。符号と係数 ℓ を含む (ℓ, k) の観測量ごとの割り当ては、いずれも一意性が証明されている\PII。
@@ -568,7 +568,7 @@ $V = -H$ の内部セクターでは、これらの問題に対応する不安�
 \[\Delta_\mathrm{rad} = \alpha\cdot\frac{5N^3}{|\mathrm{PG}|^3} = \alpha\cdot\frac{135}{2197} = 0.00045\]
 （$N$ と $|\mathrm{PG}|$ は本論文の量。この積の形と係数 5 の一意性は Paper II の定理として証明されている\PII{}。）これにより $\sin^2\!\theta_W = 3/13 + \Delta_\mathrm{rad} = 0.23077 + 0.00045 = 0.23122$ となり、$\overline{\mathrm{MS}}$ 実験値 $0.23122 \pm 0.00003$~\cite{pdg} と誤差の範囲で一致する。同様に $m_W/m_Z = \sqrt{10/13} = 0.8771$（先導）は実験値より $0.5\%$ 低い。この残差は標準模型のトップクォーク $\Delta\rho$ 補正と同程度の大きさと符号を持つが、$\Delta\rho$ を加えた比較は繰り込み方式の対応付けを要する条件付き計算である。
 
-\textbf{まとめ。} $\sin^2\!\theta_W(M_Z) = 0.23122$（$<0.01\%$）、$\alpha_s(M_Z) = 0.1179$（0.01\%）、$1/\alpha_\mathrm{em} = 137.0368$（0.0006\%；全次数 137.035999084\PII{}）、$m_H/v = 0.5084$（0.03\%）。4つの結合定数が全て $V = -H$ と PG(2,3) から導かれ、実験と一致する。真空は内部点に固定され、内部ポテンシャルは有界（不安定性チャンネルなし）であり、Higgs は1つだけである。4D の真空安定性・階層性問題との対応は再構成マッチングを要する命題である。
+\textbf{まとめ。} $\sin^2\!\theta_W(M_Z) = 0.23122$（$<0.01\%$）、$\alpha_s(M_Z) = 0.1179$（0.07\%）、$1/\alpha_\mathrm{em} = 137.0368$（0.0006\%；全次数 137.035999084\PII{}）、$m_H/v = 0.5084$（0.03\%）。4つの結合定数が全て $V = -H$ と PG(2,3) から導かれ、実験と一致する。真空は内部点に固定され、内部ポテンシャルは有界（不安定性チャンネルなし）であり、Higgs は1つだけである。4D の真空安定性・階層性問題との対応は再構成マッチングを要する命題である。
 
 \section{フェルミオンの質量と混合}\label{ux30d5ux30a7ux30ebux30dfux30aaux30f3ux306eux8ceaux91cfux3068ux6df7ux5408}
 
@@ -740,7 +740,7 @@ Cabibbo 角から Wolfenstein 階層 \cite{wolfenstein} が従う：$|V_{us}| \s
 \end{equation}
 である（実験値: 0.041, 0.004、Paper~II）。
 
-これらの指数と係数 2 の由来は離散的である。世代遷移を運ぶのは三世代の置換のうちパリティ奇のものに限られる（V-パリティの帰結）。隣接遷移 1↔2 と 2↔3 はそれぞれ互換 $t_{12}$ と $t_{23}$ が実現する。生成順序が定める旗 $V_1 \subset V_2$（第1世代の張る直線と、第1・2世代の張る平面）に対し、壁のコストを「動かす最浅の旗レベル」で数えると、$t_{12}$ は $V_1$ を動かすのでコスト 1、$t_{23}$ は $V_1$ を固定して $V_2$ だけを動かすのでコスト 2---これが $|V_{us}| \sim \varepsilon$ と $|V_{cb}| \sim \varepsilon^2$ の指数である。パリティが消すのは一段の直接 $1 \leftrightarrow 3$ 要素であって、二段の合成経路 $1 \to 2 \to 3$ そのものを禁止するわけではない——奇の挿入を二回合成すると偶になり、二つの行列要素の積は零でない。両者を分けるのは生成型である：合成語は合成木が異なるため、同じ観測量の無視した項ではなく別の観測量である\PII{}。$1 \leftrightarrow 3$ を直接運ぶ奇置換は、三世代を反転する最長置換 $w_0$ である。$w_0$ は三つの壁 $t_{12}$・$t_{23}$・$t_{13}$ を全て横断し、コストの総和は $1 + 2 + 1 = 4$---最初の非零項が $\varepsilon^4$ となる理由である。係数 2 は、$w_0$ の最短分解（ギャラリー）がちょうど二本あり、点-ライン双対がその二本を入れ替えることによる。壁あたり $\varepsilon$ というコストの割り当てと、この数え上げは、いずれも定理として証明されている\PII{}。
+これらの指数と係数 2 の由来は離散的である。世代遷移を運ぶのは三世代の置換のうちパリティ奇のものに限られる（V-パリティの帰結）。隣接遷移 1↔2 と 2↔3 はそれぞれ互換 $t_{12}$ と $t_{23}$ が実現する。生成順序が定める旗 $V_1 \subset V_2$（第1世代の張る直線と、第1・2世代の張る平面）に対し、壁のコストを「動かす最浅の旗レベル」で数えると、$t_{12}$ は $V_1$ を動かすのでコスト 1、$t_{23}$ は $V_1$ を固定して $V_2$ だけを動かすのでコスト 2---これが $|V_{us}| \sim \varepsilon$ と $|V_{cb}| \sim \varepsilon^2$ の指数である。パリティが消すのは一段の直接 $1 \leftrightarrow 3$ 要素であって、二段の合成経路 $1 \to 2 \to 3$ そのものを禁止するわけではない——奇の挿入を二回合成すると偶になり、二つの行列要素の積は零でない。両者を分けるのは生成型である：合成語は合成木が異なるため、同じ観測量の無視した項ではなく別の観測量である\PII{}。$1 \leftrightarrow 3$ を直接運ぶ奇置換は、三世代を反転する最長置換 $w_0$ である。$w_0$ は三つの壁 $t_{12}$・$t_{23}$・$t_{13}$ を全て横断し、コストの総和は $1 + 2 + 1 = 4$---最初の非零項が $\varepsilon^4$ となる理由である。係数 2 は、$w_0$ の最短分解（ギャラリー）がちょうど二本あり、点-ライン双対がその二本を入れ替えることによる。壁あたり $\varepsilon$ というコストの割り当てと、この数え上げは、いずれも対応規則の下の定理として証明されている\PII{}。
 
 $V(\phi) = V(-\phi)$ というパリティ対称性は直接の $0\leftrightarrow2$ フレーバー遷移を抑制するが、QCD 真空角を単独では固定しない。パリティだけでは $\theta\in\{0,\pi\}$ が残る。
 
@@ -779,7 +779,7 @@ CKM CP 破れ & $J = \pi\varepsilon^5/N_\mathrm{flags}$（対応規則の下の�
 \textbf{質量予測。}
 ニュートリノはカラー一重項であるため $\kappa = 1$ で $V = -H$ に結合する---荷電レプトンと同じポテンシャルである。質量比 $R$ は井戸の形状（IPR とビリアル比）のみに依存し、粒子種には依存しない。同じ井戸は同じ $R$ を与える：
 \[R_\nu = R_\mathrm{lepton} = 1.529\]
-これが本節の、実験入力を含まない予測である。正常順序と振動データ~\cite{nufit}（$\Delta m^2_{21} = 7.537 \times 10^{-5}~\mathrm{eV}^2$、$\Delta m^2_{31} = 2.521 \times 10^{-3}~\mathrm{eV}^2$）を条件として、この比が絶対質量を定める\footnote{$\pm 0.03$\,meV の不確実性は振動データ入力からの伝播であり、理論に自由パラメータはない。正常順序は本節では入力条件であり、その独立導出は定理として与えられる\PII{}（$R_\nu > 1$ と $(m_3/m_2)^2 = 169/5 > 1$ の帰結）。}：
+これが本節の、実験入力を含まない予測である。以下で確立するスペクトル比 $(m_3/m_2)^2 = 169/5$ と合わせると、\emph{無次元}の質量 ray が振動データの入力なしに完全に定まる。meV 表示の絶対質量にはさらに次元をもつ尺度がひとつ必要であり、ここで用いるのはその一つだけ——太陽分裂~\cite{nufit} $\Delta m^2_{21} = 7.537 \times 10^{-5}~\mathrm{eV}^2$ である。大気分裂は\emph{意図的に用いない}。比 $\Delta m^2_{31}/\Delta m^2_{21}$ を予言として検証側に残すためである（後述）。正常順序を条件として、この一尺度較正は次を与える\footnote{記載の不確実性は $\Delta m^2_{21}$ のみからの伝播である。質量 ray は内部で固定されているため、三つの質量はいずれも $\sqrt{\Delta m^2_{21}}$ に比例する。理論に自由パラメータはない。正常順序は本節では入力条件であり、その独立導出は定理として与えられる\PII{}（$R_\nu > 1$ と $(m_3/m_2)^2 = 169/5 > 1$ の帰結）。これらは較正の後に現れる帰結であって実験入力を含まない予測ではなく、独立な予言としても数えない。}：
 
 \needspace{12\baselineskip}
 \begin{longtable}[]{@{}lll@{}}
@@ -789,10 +789,10 @@ CKM CP 破れ & $J = \pi\varepsilon^5/N_\mathrm{flags}$（対応規則の下の�
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-$m_1$ & 0.32 ± 0.03 meV & 未測定 \\
-$m_2$ & 8.69 meV & 整合 \\
-$m_3$ & 50.2 meV & 整合 \\
-$\Sigma m_i$ & 59.2 ± 0.3 meV & Planck 以下（\textless120） \\
+$m_1$ & 0.312 ± 0.002 meV & 未測定 \\
+$m_2$ & 8.687 meV & 整合 \\
+$m_3$ & 50.51 meV & 整合 \\
+$\Sigma m_i$ & 59.50 ± 0.39 meV & Planck 以下（\textless120） \\
 \end{longtable}
 
 フラグラプラシアンのスペクトルが exact に固定するのは
@@ -807,9 +807,9 @@ $\Sigma m_i$ & 59.2 ± 0.3 meV & Planck 以下（\textless120） \\
 \[\frac{\Delta m^2_{31}}{\Delta m^2_{21}} = \frac{169/5 - t^2}{1 - t^2} = 33.842\ldots\quad(\text{表示 } 33.84)\]
 で与えられる\PII{}。
 
-非零の $m_1$ の下では 169/5 は質量二乗差比の exact 値ではない。本節が入力した $\Delta m^2$ の比自体は $2.521/0.07537 = 33.45$ であり、master 関係式は振動データの入力なしに 33.84 を与える。この 1.2\% は理論値と現在の測定値の差である。上表の絶対質量は入力側の比に基づく条件付き値であるため、master 関係式側を用いると $m_3$ と $\Sigma m_\nu$ は約 0.6\% 上振れする（$m_3/m_2 = 13/\sqrt5 = 5.814$ に対し上表は 5.777）。
+非零の $m_1$ の下では 169/5 は質量二乗差比の exact 値ではない。上の master 関係式は振動データの入力なしに 33.84 を与える。測定値の比は $2.521/0.07537 = 33.45$ であり、理論値と測定値はこの 1.2\% だけ異なる。大気分裂を較正に用いていないため、この差はどこにも吸収されず、検定対象としてそのまま立つ。同じことを別の形で言えば、この較正は $\Delta m^2_{31} = 2.551 \times 10^{-3}~\mathrm{eV}^2$ を予言し、測定値 $2.521 \times 10^{-3}~\mathrm{eV}^2$ と対比される。上表の質量は内部比 $m_3/m_2 = 13/\sqrt5 = 5.814$ を厳密に満たす。
 
-この予測は反証可能である：本節の条件付き計算自体は質量順序を検定しないが、$\Sigma m_i > 70$\,meV は緊張を生む。$\Sigma m_i = 59.2$\,meV は正常順序の一般的な最小値（$m_1 \to 0$ で $58.89$\,meV）に近いため、CMB-S4~\cite{cmbs4}（$\sigma \sim 15$\,meV）がこの値付近を検出しても正常順序の確認にはなるが、本枠組みを一般的な最小シナリオと区別しない。枠組み固有の鋭いニュートリノ予言は比 $\Delta m^2_{31}/\Delta m^2_{21} = 33.8$ であり、JUNO が 2026--27 に検定する。
+この予測は反証可能である：本節の条件付き計算自体は質量順序を検定しないが、$\Sigma m_i > 70$\,meV は緊張を生む。$\Sigma m_i = 59.50$\,meV は正常順序の一般的な最小値（$m_1 \to 0$ で $58.89$\,meV）に近いため、CMB-S4~\cite{cmbs4}（$\sigma \sim 15$\,meV）がこの値付近を検出しても正常順序の確認にはなるが、本枠組みを一般的な最小シナリオと区別しない。枠組み固有の鋭いニュートリノ予言は比 $\Delta m^2_{31}/\Delta m^2_{21} = 33.8$ であり、JUNO が 2026--27 に検定する。
 
 \noindent\textbf{混合角。}
 
@@ -828,7 +828,7 @@ $\Sigma m_i$ & 59.2 ± 0.3 meV & Planck 以下（\textless120） \\
 \[\sin²θ_{23} = (7/13)(1 + ε/13) = 0.5475 \quad (\text{第二オクタント})\]
 
 LO の分率 7/13 は 1/2
-を上回るため、第二オクタントを予測する。NuFIT 6.1 \cite{nufit} の global best fit は第一オクタント（sin²θ₂₃ = 0.470）に移ったが、オクタントは未確定であり、予測値 0.5475 は 3σ 許容域（0.432--0.587）の内側にある---第二オクタントの検定は DUNE / Hyper-Kamiokande に委ねられる。第二オクタント側の値 0.561 に対する偏差は 2.4\%（約 1σ、実験精度 \textasciitilde2.5\% に対して）である。特に断らない限り、本論文で引用する NuFIT 6.1 の値は、上記の Δm² 入力と整合する SK-atm なし・正常順序のデータセットである。反応器角は $\sin^2\!\theta_{13}$ = 1/(N·\textbar PG\textbar) = 1/39 に NLO
+を上回るため、第二オクタントを予測する。NuFIT 6.1 \cite{nufit} の global best fit は第一オクタント（sin²θ₂₃ = 0.470）に移ったが、オクタントは未確定であり、予測値 0.5475 は 3σ 許容域（0.432--0.587）の内側にある---第二オクタントの検定は DUNE / Hyper-Kamiokande に委ねられる。NuFIT 6.1 の $\chi^2$ プロファイルの第二オクタント側の局所極小は 0.550 にあり（公開グリッドを Δm²₃₁ と δ\textsubscript{CP} について射影して得られる。大域最小に対し Δχ² \textasciitilde{} 1.03、sin²θ₂₃ のグリッド刻みは 0.005）、予測値のそれからの偏差は 0.45\% である。特に断らない限り、本論文で引用する NuFIT 6.1 の値は、上記の Δm² 入力と整合する SK-atm なし・正常順序のデータセットである。反応器角は $\sin^2\!\theta_{13}$ = 1/(N·\textbar PG\textbar) = 1/39 に NLO
 補正（k = N = 3）を加えて：
 
 \[\sin²θ_{13} = (1/39)(1 - 2ε/3) = 0.0219 \quad (\text{実験: } 0.02249,\; 2.6\%)\]
@@ -844,7 +844,7 @@ LO の分率 7/13 は 1/2
 角度 & LO & NLO 予測 & 実験 & 精度 \\
 \midrule
 sin²θ₁₂ & 4/13 = 0.308 & --- & 0.3088 & 0.4\% \\
-sin²θ₂₃ & 7/13 = 0.538 & 0.5475 & 0.561（第二オクタント局所値） & 2.4\% \\
+sin²θ₂₃ & 7/13 = 0.538 & 0.5475 & 0.550（第二オクタント局所極小） & 0.45\% \\
 sin²θ₁₃ & 1/39 = 0.026 & 0.0219 & 0.02249 & 2.6\% \\
 \bottomrule
 \end{tabular}
@@ -975,7 +975,7 @@ D = 4 が定まっても、シグネチャは (4,0)、(3,1)、(2,2) のいずれ
 
 なお、標準模型の26個のうち唯一の有次元パラメータである電弱スケール v は、無次元の内部理論に対する外部の単位であり、その指定は導出の残余ではなく物理単位への較正---規約の層---に属する（§9.2、Paper~II）。本論文の予測はすべて v を単位に取った無次元量（および Δm² を条件とする §8.4 の絶対質量）である。
 
-以下に結果の一覧を示す（実験値は PDG 2026~\cite{pdg}、NuFIT 6.1~\cite{nufit}、CODATA 2022~\cite{codata} による）。本論文導出分の最大偏差の2行（sin²θ₂₃ 2.4\%・sin²θ₁₃ 2.6\%）は、当該量の実験不確かさに対していずれも約 1σ の内側にある（§8.4）。ただし sin²θ₂₃ の比較は第二オクタント局所値 0.561 に対するものであり、NuFIT 6.1 の global best fit は第一オクタント（0.470）にある---オクタントは未確定で、予測値は 3σ 許容域の内側にある（§8.4）。$\delta_\mathrm{CKM}$ の 5.3\% はこのセクターに実際に残る残差であり、Paper~II はこれを反証点として明示している。
+以下に結果の一覧を示す（実験値は PDG 2026~\cite{pdg}、NuFIT 6.1~\cite{nufit}、CODATA 2022~\cite{codata} による）。本論文導出分の最大偏差 sin²θ₁₃ 2.6\% は、当該量の実験不確かさに対して約 1σ の内側にある（§8.4）。sin²θ₂₃ の比較は NuFIT 6.1 の $\chi^2$ プロファイルの第二オクタント局所極小 0.550 に対するものであり、NuFIT 6.1 の global best fit は第一オクタント（0.470）にある---オクタントは未確定で、予測値は 3σ 許容域の内側にある（§8.4）。$\delta_\mathrm{CKM}$ の 5.3\% はこのセクターに実際に残る残差であり、Paper~II はこれを反証点として明示している。
 
 \needspace{22\baselineskip}
 \bigskip
@@ -1023,7 +1023,7 @@ $\bar\theta(\mu_0)$ & matching 点でゼロ & 0 \\
 \textbf{ゲージ結合定数} & & & & \\
 $1/\alpha_\mathrm{em}$ ($\to g_1$)（先頭項；Thomson 点） & 137.0368 & 137.036 & 0.0006\% & 6.3 \\
 $1/\alpha_\mathrm{em}$（全次数；補正級数） & 137.035999084 & 137.035999084(21) & 表示桁一致 & Paper~II \\
-$\alpha_s$ ($\to g_3$)（MS-bar, $M_Z$） & 0.1179 & 0.1179 & 0.01\% & 6.2 \\
+$\alpha_s$ ($\to g_3$)（MS-bar, $M_Z$） & 0.1179 & 0.1180 & 0.07\% & 6.2 \\
 $\sin^2\!\theta_W$ ($\to g_1/g_2$)（tree；MS-bar, $M_Z$） & $3/13$ & 0.23122 & 0.2\% & 6.1 \\
 $\sin^2\!\theta_W$（$+\alpha\cdot 135/2197$） & 0.23122 & 0.23122 & $<0.01\%$ & 7.3 \\
 $m_W/m_Z$（先導） & 0.8771 & 0.8813 & 0.5\% & 6.1; 7 \\
@@ -1040,7 +1040,7 @@ $|V_{cb}|$ & 0.0410 & 0.0407(13) & 0.8\% & Paper~II \\
 $|V_{ub}|$ & 0.00384 & 0.00389(16) & 1.2\% & Paper~II \\
 $\delta_\mathrm{CKM}$ & $62.6^\circ$ & $66.1^\circ$ & 5.3\% & Paper~II \\
 $\sin^2\!\theta_{12}$ & $4/13$ & 0.3088 & 0.4\% & 8.4 \\
-$\sin^2\!\theta_{23}$ & 0.5475 & 0.561（第二オクタント局所値） & 2.4\% & 8.4 \\
+$\sin^2\!\theta_{23}$ & 0.5475 & 0.550（局所極小） & 0.45\% & 8.4 \\
 $\sin^2\!\theta_{13}$ & 0.0219 & 0.02249 & 2.6\% & 8.4 \\
 \bottomrule
 \end{tabular}
@@ -1082,8 +1082,8 @@ $1/\alpha$（全次数） & $137.035999084$---Cs/Rb 反跳不一致は Cs 側に
 $\theta_{23}$ オクタント & 第二（$>45^\circ$） & DUNE / HK（$\sim$2030） & 8.4 \\
 $\delta_\mathrm{PMNS}$ & $2\pi(7/13)(1+\varepsilon/13) = 197.1^\circ$ & DUNE / HK（$\sim$2030） & Paper~II \\
 $R_\nu$（質量比；実験入力なし） & 1.529（$= R_\mathrm{lepton}$） & 振動＋絶対質量 & 8.4 \\
-$\Sigma m_\nu$ & 59.2~meV（$\Delta m^2$ 入力の条件付き；$\approx$ 正常順序最小 58.9） & CMB-S4~\cite{cmbs4}（$\sim$2030） & 8.4 \\
-$m_1$ & 0.32~meV（$\Delta m^2$ 入力の条件付き） & CMB-S4（$\Sigma m_\nu$ 経由） & 8.4 \\
+$\Sigma m_\nu$ & 59.50~meV（一尺度較正の後；$\approx$ 正常順序最小 58.9） & CMB-S4~\cite{cmbs4}（$\sim$2030） & 8.4 \\
+$m_1$ & 0.312~meV（一尺度較正の後） & CMB-S4（$\Sigma m_\nu$ 経由） & 8.4 \\
 $0\nu\beta\beta$ & 厳密にゼロ & nEXO~\cite{nexo}（$\sim$2030） & 8.4 \\
 Koide 偏差 $\delta$ & $-1.5 \times 10^{-5}$ & Belle~II~\cite{belleii}（2027--30） & 8.1 \\
 BSM 粒子 & なし & LHC / FCC & 3; 5.3 \\
@@ -1132,7 +1132,7 @@ Paper II \cite{paper2}
 \bibitem{verlinde} E.~Verlinde, JHEP \textbf{04}, 029 (2011)
   [arXiv:1001.0785].
 \bibitem{caticha} A.~Caticha, Entropy \textbf{17}, 6110 (2015)
-  [arXiv:1503.09084].
+  [arXiv:1509.03222].
 \bibitem{hardy} L.~Hardy, arXiv:quant-ph/0101012 (2001).
 \bibitem{chiribella} G.~Chiribella, G.~M.~D'Ariano, and P.~Perinotti,
   Phys.\ Rev.\ A \textbf{84}, 012311 (2011) [arXiv:1011.6451].
@@ -1144,7 +1144,7 @@ Paper II \cite{paper2}
   (Springer, 2016).
 \bibitem{ay} N.~Ay, J.~Jost, H.~V.~L\^e, and L.~Schwachh\"ofer,
   \textit{Information Geometry} (Springer, 2017).
-\bibitem{aczel} J.~Acz\'el, \textit{Lectures on Functional Equations}
+\bibitem{aczel} J.~Acz\'el, \textit{Lectures on Functional Equations and Their Applications}
   (Academic Press, 1966).
 \bibitem{khinchin} A.~I.~Khinchin, \textit{Mathematical Foundations of
   Information Theory} (Dover, 1957).
@@ -1153,29 +1153,32 @@ Paper II \cite{paper2}
 \bibitem{cabibbo} N.~Cabibbo, Phys.\ Rev.\ Lett.\ \textbf{10}, 531 (1963).
 \bibitem{paper2} H.~Kondo, ``Physics from Existence II: The Proofs''（準備中）.
 \bibitem{weinberg} S.~Weinberg, Phys.\ Rev.\ Lett.\ \textbf{19}, 1264 (1967).
-\bibitem{pdg} Particle Data Group (F.~Takahashi et al.), Int.\ J.\ Mod.\ Phys.\ A \textbf{41}, 2630011 (2026).
+\bibitem{pdg} Particle Data Group (F.~Takahashi et al.), to be published in
+  Int.\ J.\ Mod.\ Phys.\ A \textbf{41}, 2630011 (2026);
+  2026 web edition, \url{https://pdg.lbl.gov/2026/}.
 \bibitem{koide} Y.~Koide, Lett.\ Nuovo Cim.\ \textbf{34}, 201 (1982).
 \bibitem{km} M.~Kobayashi and T.~Maskawa,
   Prog.\ Theor.\ Phys.\ \textbf{49}, 652 (1973).
 \bibitem{wolfenstein} L.~Wolfenstein, Phys.\ Rev.\ Lett.\ \textbf{51}, 1945 (1983).
-\bibitem{juno} JUNO Collaboration, arXiv:1508.07166 (2015); updated 2022.
+\bibitem{juno} JUNO Collaboration (A.~Abusleme et al.),
+  Prog.\ Part.\ Nucl.\ Phys.\ \textbf{123}, 103927 (2022) [arXiv:2104.02565].
 \bibitem{cmbs4} CMB-S4 Collaboration (K.~N.~Abazajian et al.),
   arXiv:1610.02743 (2016).
 \bibitem{nufit} I.~Esteban et al., ``NuFit-6.0: updated global analysis of three-flavor neutrino oscillations,'' JHEP \textbf{12} (2024) 216
   [arXiv:2410.05380]; NuFIT 6.1 (2025). \url{http://www.nu-fit.org/}
 
-\bibitem{nexo} nEXO Collaboration (S.~Al Kharusi et al.),
+\bibitem{nexo} nEXO Collaboration (J.~B.~Albert et al.),
   Phys.\ Rev.\ C \textbf{97}, 065503 (2018).
 
 \bibitem{lovelock} D.~Lovelock, J.\ Math.\ Phys.\ \textbf{12}, 498 (1971).
 \bibitem{jacobson} T.~Jacobson, Phys.\ Rev.\ Lett.\ \textbf{75}, 1260 (1995).
 \bibitem{gleason} A.~M.~Gleason, J.\ Math.\ Mech.\ \textbf{6}, 885 (1957).
-\bibitem{belleii} Belle~II Collaboration (W.~Altmannshofer et al.),
+\bibitem{belleii} Belle~II Collaboration (E.~Kou, P.~Urquijo et al.),
   Prog.\ Theor.\ Exp.\ Phys.\ \textbf{2019}, 123C01 (2019).
 
 
 
-\bibitem{codata} E.~Tiesinga et al.,
+\bibitem{codata} P.~J.~Mohr et al.,
   J.\ Phys.\ Chem.\ Ref.\ Data \textbf{54}, 033105 (2025);
   CODATA 2022 recommended values.
 

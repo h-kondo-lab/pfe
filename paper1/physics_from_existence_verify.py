@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v3.0.0
+PFE Paper I Verification Script — v3.1.0
 ========================================================
 Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
-(JHEP 12 (2024) 216). Formulas follow the v3.0.0 manuscript:
+(JHEP 12 (2024) 216). Formulas follow the v3.1.0 manuscript:
 NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
 screened Cabibbo expression and the neutrino master relation are
 printed as informational lines with their Paper II attribution.
@@ -153,7 +153,12 @@ def run_paper1(phi_max=100, n_grid=1600001):
     # IC23 without SK-atm, Normal Ordering best-fit
     Dm21_sq_6 = 7.537e-5   # eV² (NuFIT 6.1)
     Dm31_sq_6 = 2.521e-3   # eV² (NuFIT 6.1)
-    sin2_23_6 = 0.561      # NuFIT 6.1 second-octant local (global bfp 0.470)
+    # Second-octant local minimum of the NuFIT 6.1 chi^2 profile (global bfp 0.470).
+    # Obtained from the released grid v61.release-TBoff-NO.txt.xz by projecting over
+    # Dm31^2 and delta_CP: minimum at 0.550 with Delta chi^2 = 1.03 above the global
+    # minimum (grid step 0.005).  The former value 0.561 was the NuFIT 6.0 best fit
+    # (IC19 without SK-atm, NO) and is not a NuFIT 6.1 number.
+    sin2_23_6 = 0.550      # NuFIT 6.1 second-octant local minimum
     sin2_12_6 = 0.3088     # NuFIT 6.1 (JUNO)
     sin2_13_6 = 0.02249    # NuFIT 6.1 IC23 NO
 
@@ -167,7 +172,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
         'sin2_tW':      0.23122,         # MS-bar at M_Z (PDG 2026)
         'm_W/m_Z':      0.8813,          # PDG 2026 (80.3625/91.1879)
         'mH_v_exp':     0.5082,          # m_H/v = 125.13/246.22 (PDG 2026)
-        'alpha_s':      0.1179,          # PDG 2026 at M_Z
+        'alpha_s':      0.1180,          # PDG 2026 world average, QCD review Sec. 9.4.8 (0.1180 +- 0.0009)
         'm_tau':        m_tau,
         'm_mu':         m_mu,
         'm_e':          m_e,
@@ -184,7 +189,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v3.0.0")
+    print("  PAPER I VERIFICATION — v3.1.0")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
     print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")
@@ -382,21 +387,32 @@ def run_paper1(phi_max=100, n_grid=1600001):
     # ===== Neutrino predictions =====
     print(f"\n  --- Neutrino Predictions ---")
 
-    def compute_neutrino(Dm21, Dm31, label):
-        def R_nu_func(m1):
-            m2 = np.sqrt(m1**2 + Dm21); m3 = np.sqrt(m1**2 + Dm31)
-            if m1 < 1e-10: m1 = 1e-10
-            return np.log(m3 / m1) / np.log(m2 / m1) - R_lep
-        m1 = brentq(R_nu_func, 1e-6, 0.01)
-        m2 = np.sqrt(m1**2 + Dm21); m3 = np.sqrt(m1**2 + Dm31)
+    # Single-scale calibration.  The dimensionless mass ray is fixed internally by
+    # R_nu = R_lepton together with (m3/m2)^2 = 169/5; NO oscillation data enters it.
+    # Exactly one dimensionful quantity, Dm21, is then used to set the overall scale.
+    # The second splitting Dm31 is deliberately NOT used, so that the internal ratio
+    # R_delta = Dm31^2/Dm21^2 remains on the verification side as a prediction.
+    def compute_neutrino(Dm21, label):
+        t = np.exp(-np.log(13.0 / np.sqrt(5.0)) / (R_lep - 1.0))   # m1/m2, internal
+        r = 13.0 / np.sqrt(5.0)                                    # m3/m2, internal
+        m2 = np.sqrt(Dm21 / (1.0 - t**2))
+        m1 = t * m2
+        m3 = r * m2
         sum_m = (m1 + m2 + m3) * 1000  # meV
-        print(f"    [{label}] m₁={m1*1000:.3f} meV, m₂={m2*1000:.2f} meV, "
-              f"m₃={m3*1000:.2f} meV, Σm={sum_m:.2f} meV")
+        print(f"    [{label}] m₁={m1*1000:.4f} meV, m₂={m2*1000:.4f} meV, "
+              f"m₃={m3*1000:.4f} meV, Σm={sum_m:.4f} meV")
         return m1, m2, m3, sum_m
 
-    print(f"  Using R_ν = R_lepton = {R_lep:.6f}")
-    m1_6, m2_6, m3_6, sum6 = compute_neutrino(Dm21_sq_6, Dm31_sq_6, "NuFIT 6.1")
-    m1_5, m2_5, m3_5, sum5 = compute_neutrino(Dm21_sq_5, Dm31_sq_5, "NuFIT 5.x")
+    print(f"  Using R_ν = R_lepton = {R_lep:.6f}  (scale fixed by Δm²₂₁ alone)")
+    m1_6, m2_6, m3_6, sum6 = compute_neutrino(Dm21_sq_6, "NuFIT 6.1")
+    m1_5, m2_5, m3_5, sum5 = compute_neutrino(Dm21_sq_5, "NuFIT 5.x")
+
+    # Predicted second splitting, from the same calibration.  This is the quantity
+    # left for verification; it is NOT an input anywhere above.
+    Dm31_pred_6 = m3_6**2 - m1_6**2
+    print(f"  [prediction] Δm²₃₁ = {Dm31_pred_6*1e3:.4f}e-3 eV²  "
+          f"(NuFIT 6.1 measured {Dm31_sq_6*1e3:.4f}e-3; "
+          f"{100*(Dm31_pred_6/Dm31_sq_6-1):+.2f}%)")
 
     # Master relation (Paper II): with m₃/m₂ = 13/√5 (exact, Paper II) and
     # R_ν = R_lepton (this paper), Δm²₃₁/Δm²₂₁ = (169/5 − t²)/(1 − t²)
@@ -409,10 +425,11 @@ def run_paper1(phi_max=100, n_grid=1600001):
           f"Δm²₃₁/Δm²₂₁ = {R_delta:.4f}  (manuscript: 33.842, displayed 33.84)")
 
     results.append(("Ordering", "Normal", "not settled", "prediction"))
-    results.append(("m₁ (6.1) meV", m1_6*1000, "—", "prediction"))
-    results.append(("Σm_ν (6.1) meV", sum6, "—", "CMB-S4"))
+    results.append(("m₁ (6.1) meV", m1_6*1000, "—", "1-scale calib."))
+    results.append(("Σm_ν (6.1) meV", sum6, "—", "1-scale calib."))
     results.append(("m₁ (5.x) meV", m1_5*1000, "—", "for comparison"))
     results.append(("Σm_ν (5.x) meV", sum5, "—", "for comparison"))
+    results.append(("Δm²₃₁/Δm²₂₁", R_delta, Dm31_sq_6/Dm21_sq_6, "JUNO"))
     results.append(("0νββ", 0, "not observed", "nEXO"))
 
     # ===== Summary =====
@@ -436,14 +453,17 @@ def run_paper1(phi_max=100, n_grid=1600001):
     print(f"  {'':20} {'NuFIT 5.x':>14} {'NuFIT 6.1':>14} {'Change':>10}")
     print(f"  {'-'*60}")
     print(f"  {'Δm²₂₁ (10⁻⁵eV²)':<20} {Dm21_sq_5*1e5:>14.2f} {Dm21_sq_6*1e5:>14.2f} {(Dm21_sq_6-Dm21_sq_5)/Dm21_sq_5*100:>+9.1f}%")
-    print(f"  {'Δm²₃₁ (10⁻³eV²)':<20} {Dm31_sq_5*1e3:>14.3f} {Dm31_sq_6*1e3:>14.3f} {(Dm31_sq_6-Dm31_sq_5)/Dm31_sq_5*100:>+9.1f}%")
-    print(f"  {'m₁ (meV)':<20} {m1_5*1000:>14.3f} {m1_6*1000:>14.3f} {(m1_6-m1_5)/m1_5*100:>+9.1f}%")
-    print(f"  {'Σm_ν (meV)':<20} {sum5:>14.2f} {sum6:>14.2f} {(sum6-sum5)/sum5*100:>+9.1f}%")
+    print(f"  {'Δm²₃₁ (10⁻³eV²)':<20} {Dm31_sq_5*1e3:>14.3f} {Dm31_sq_6*1e3:>14.3f} {(Dm31_sq_6-Dm31_sq_5)/Dm31_sq_5*100:>+9.1f}%  [not an input]")
+    print(f"  {'m₁ (meV)':<20} {m1_5*1000:>14.4f} {m1_6*1000:>14.4f} {(m1_6-m1_5)/m1_5*100:>+9.1f}%")
+    print(f"  {'Σm_ν (meV)':<20} {sum5:>14.4f} {sum6:>14.4f} {(sum6-sum5)/sum5*100:>+9.1f}%")
     print(f"  {'sin²θ₂₃ (exp)':<20} {sin2_23_5:>14.3f} {sin2_23_6:>14.3f}")
     print(f"  {'sin²θ₂₃ (pred)':<20} {sin2_23:>14.6f} {'':>14}")
     print(f"  {'-'*60}")
     print(f"  NOTE: Theory prediction R_ν = {R_lep:.6f} is INDEPENDENT of Δm².")
-    print(f"  Only the derived m₁ and Σm_ν change with oscillation data.")
+    print(f"  The dimensionless mass ray is fixed internally; only the overall scale")
+    print(f"  is calibrated, by Δm²₂₁ alone.  m₁ and Σm_ν therefore move only with")
+    print(f"  Δm²₂₁ (as its square root), not with Δm²₃₁.  Δm²₃₁ is left unused so")
+    print(f"  that R_Δ = Δm²₃₁/Δm²₂₁ = {R_delta:.4f} stays on the verification side.")
     print(f"{'='*85}")
 
     # ===== sin²θ_W comparison =====
