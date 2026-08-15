@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Physics from Existence — Pure Derivation (v3.2.0 companion)
+Physics from Existence — Pure Derivation (v4.0.0 companion)
 ============================================================
 
 This script contains ONE equation and ZERO experimental values.
@@ -8,7 +8,7 @@ It derives 20+ physical quantities from V = -H alone.
 
 Run it, then compare the output with any physics textbook.
 
-    $ python3 physics_from_existence_pure_v3_2.py
+    $ python3 physics_from_existence_pure_v4_0.py
 
 The three axioms:
     A1  Existence is bivalent:     n ∈ {0,1}
@@ -162,7 +162,8 @@ def solve_schrodinger(potential, phi, dphi, n_states=6, m_eff=None):
 #   m_n ∝ |E_n| × IPR_n^b × (⟨H⟩_n / T_n)^c
 #
 #   Every exponent is determined by V = -H:
-#     b = 2C_F = (N²-1)/N    ← Casimir of generation space
+#     b = 2w_leg = (N²-1)/N  ← contact index of the finite incidence geometry
+#                              (equals 2C_F only at N = 3; §7.1)
 #     c = ε/N                 ← WKB marginality per mode
 #
 #   IPR = ∫|ψ|⁴ dφ           ← inverse participation ratio (localisation)
@@ -297,7 +298,7 @@ def derive(phi_max=100, n_grid=1600001):
 
     # Group-theory constants (all determined by N alone)
     PG = N**2 + N + 1        # number of points in PG(2, F_N)
-    b  = (N**2 - 1) / N      # 2C_F: Casimir of fundamental rep
+    b  = (N**2 - 1) / N      # 2w_leg: contact index (= 2C_F only at N = 3)
     c  = eps / N              # WKB deficit per generation
 
     out['b_2CF']  = b

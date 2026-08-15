@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v3.2.0
+PFE Paper I Verification Script — v4.0.0
 ========================================================
 Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
-(JHEP 12 (2024) 216). Formulas follow the v3.2.0 manuscript:
+(JHEP 12 (2024) 216). Formulas follow the v4.0.0 manuscript:
 NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
 screened Cabibbo expression and the neutrino master relation are
 printed as informational lines with their Paper II attribution.
@@ -120,7 +120,7 @@ def mass_formula(evals, psi_list, phi, dphi, modes, b, c, kappa=None):
     # = E + kappa*<H> (exact for eigenstates; free of finite-difference
     # gradient noise).  kappa=None keeps the flat gradient energy
     # T = (1/2)\int psi'^2 — the expression used for the down sector, whose
-    # operator has a position-dependent mass (see §8.2).
+    # operator has a position-dependent mass (see §7.2).
     masses = []
     for i in modes:
         ipr = compute_IPR(psi_list[i], phi)
@@ -146,8 +146,8 @@ def run_paper1(phi_max=100, n_grid=1600001):
     # ===== Experimental reference values =====
     # PDG 2026 / CODATA 2022
     m_tau = 1776.93   # MeV (PDG 2026)
-    m_mu  = 105.6584  # MeV
-    m_e   = 0.51100   # MeV
+    m_mu  = 105.6583755   # MeV (PDG 2026: 105.6583755(23))
+    m_e   = 0.51099895069  # MeV (CODATA 2022: 0.51099895069(16))
 
     # NuFIT 6.1 (2025), www.nu-fit.org (base: JHEP 12 (2024) 216, arXiv:2410.05380)
     # IC23 without SK-atm, Normal Ordering best-fit
@@ -189,7 +189,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v3.2.0")
+    print("  PAPER I VERIFICATION — v4.0.0")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
     print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")
@@ -216,7 +216,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
           f"(proof_eps_interval_enclosure_20260731.py, Arb): "
           f"n_WKB = 2.7808120498, ε = 0.2191879502; grid-certified gap ~8e-8; "
           f"both round to the displayed 0.219188.")
-    print(f"  b = 2C_F = {b:.10f}, c = ε/N = {c:.10f}")
+    print(f"  b = 2w_leg = {b:.10f} (contact index, §7.1; the coincidence\n        with 2C_F holds only at N = 3), c = ε/N = {c:.10f}")
     results.append(("d (spatial dim.)", 3, 3, "exact"))
 
     tail_evals, gaussian_evals = verify_N3_variational(phi, dphi, Vpot)
@@ -271,6 +271,8 @@ def run_paper1(phi_max=100, n_grid=1600001):
     dev = abs(alpha_inv - 137.036) / 137.036 * 100
     results.append(("1/α_em (leading)", alpha_inv, "137.036", f"{dev:.4f}%"))  # paper Table 2: leading vs 137.036
 
+    global _ALL_ORDERS_DONE
+    inv_all_val = None   # set below when the all-orders solve succeeds
     # 1/α at all orders (Dyson closed form; derivation and 13-digit certification
     # in Paper II). Solve  1/a + a = Λ0 - x(1+a/2) + (3/4)ε²x + (1589/5408)x²
     # - (2/13)x³/(1+x),  x = 9a/(26π),  Λ0 = λ1 + Z,  with the certified
@@ -316,6 +318,8 @@ def run_paper1(phi_max=100, n_grid=1600001):
         # (theory-derived; no measured value enters even as a seed)
         a_all = mp.findroot(dyson, 1 / L0)
         inv_all = 1 / a_all
+        inv_all_val = float(inv_all)
+        _ALL_ORDERS_DONE = True
         lo = mp.mpf('137.0359990843979'); hi = mp.mpf('137.0359990844119')
         inside = (lo <= inv_all <= hi)
         print(f"  [info] 1/alpha all orders (Dyson closed form, Paper II): "
@@ -324,7 +328,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
               f"[137.0359990843979, 137.0359990844119])")
         print(f"  [info] CODATA 2018 (Cs recoil): 137.035999084(21) — matches the "
               f"displayed digits; CODATA 2022 (Rb recoil): 137.035999177(21), 4.4σ away; "
-              f"the framework predicts the Cs side (manuscript §6.3, Table 4).")
+              f"the framework predicts the Cs side (manuscript §5.3, Table 4).")
         dev18 = abs(float(inv_all) - 137.035999084) / 137.035999084 * 100
         results.append(("1/α_em (all orders)", float(inv_all), 137.035999084,
                         f"{dev18:.1e}%"))
@@ -363,9 +367,17 @@ def run_paper1(phi_max=100, n_grid=1600001):
                      f"{abs(mm_me-EXP['m_mu/m_e'])/EXP['m_mu/m_e']*100:.2f}%"))
 
     # sin²θ_W
-    sin2_thetaW = N / PG
-    dev = abs(sin2_thetaW - EXP['sin2_tW']) / EXP['sin2_tW'] * 100
-    results.append(("sin²θ_W", sin2_thetaW, EXP['sin2_tW'], f"{dev:.2f}%"))
+    sin2_thetaW = N / PG                       # tree value 3/13 (§5.1)
+    # Radiative correction of §5.1: Delta_rad = alpha * 135/2197, carrying the
+    # tree value to the MS-bar value at M_Z.  Table 2 quotes the corrected value.
+    Delta_rad = (1.0 / alpha_inv) * 135.0 / 2197.0
+    sin2_tW_corr = sin2_thetaW + Delta_rad
+    print(f"  sin^2 theta_W: tree {sin2_thetaW:.5f} + Delta_rad {Delta_rad:.8f} "
+          f"= {sin2_tW_corr:.6f}  (manuscript Table 2: 0.23122)")
+    dev = abs(sin2_tW_corr - EXP['sin2_tW']) / EXP['sin2_tW'] * 100
+    results.append(("sin²θ_W (tree)", sin2_thetaW, EXP['sin2_tW'],
+                    f"{abs(sin2_thetaW-EXP['sin2_tW'])/EXP['sin2_tW']*100:.2f}%"))
+    results.append(("sin²θ_W (+Δ_rad)", sin2_tW_corr, EXP['sin2_tW'], f"{dev:.3f}%"))
 
     # R_down
     Vpot3 = -3 * H_of_phi(phi)
@@ -391,17 +403,17 @@ def run_paper1(phi_max=100, n_grid=1600001):
     results.append(("sin²θ₁₃", sin2_13, EXP['sin2_13'],
                      f"{abs(sin2_13-EXP['sin2_13'])/EXP['sin2_13']*100:.2f}%"))
 
-    # m_W/m_Z.  The value computed here is the internal √(10/13) of §6.1.
+    # m_W/m_Z.  The value computed here is the internal √(10/13) of §5.4.
     # Table 2 of the manuscript lists the identified value 0.88137 (custodial
     # response carried by the single neutral Higgs component; computed in
     # Paper II), which agrees with experiment to 0.01%.  This script cannot
     # reproduce that computation, so the row below reports the internal value.
     mW_mZ = np.sqrt(1 - sin2_thetaW)
     results.append(("m_W/m_Z (√(10/13))", mW_mZ, EXP['m_W/m_Z'],
-                     f"{abs(mW_mZ-EXP['m_W/m_Z'])/EXP['m_W/m_Z']*100:.2f}%"))
+                     "internal; Table 2 = Paper II"))
     print(f"  [info] identified m_W/m_Z (custodial single neutral component, "
           f"Paper II): 0.88137 vs experiment {EXP['m_W/m_Z']} -> 0.01%; the "
-          f"summary row shows the internal value sqrt(10/13) of §6.1.")
+          f"summary row shows the internal value sqrt(10/13) of §5.4.")
 
     # Q (Koide)
     results.append(("Q (Koide)", Q_pred, Q_exp, f"δ={Q_pred-1.5:.2e}"))
@@ -414,48 +426,56 @@ def run_paper1(phi_max=100, n_grid=1600001):
     # ===== Neutrino predictions =====
     print(f"\n  --- Neutrino Predictions ---")
 
-    # Setting the absolute scale.  The dimensionless mass ray is fixed internally by
-    # R_nu = R_lepton together with (m3/m2)^2 = 169/5; NO oscillation data enters it.
-    # Exactly one dimensionful quantity, Dm21, is then used to set the overall scale.
-    # The second splitting Dm31 is deliberately NOT used, so that the internal ratio
-    # R_delta = Dm31^2/Dm21^2 remains on the verification side as a prediction.
-    def compute_neutrino(Dm21, label):
-        t = np.exp(-np.log(13.0 / np.sqrt(5.0)) / (R_lep - 1.0))   # m1/m2, internal
-        r = 13.0 / np.sqrt(5.0)                                    # m3/m2, internal
-        m2 = np.sqrt(Dm21 / (1.0 - t**2))
-        m1 = t * m2
-        m3 = r * m2
-        sum_m = (m1 + m2 + m3) * 1000  # meV
-        print(f"    [{label}] m₁={m1*1000:.4f} meV, m₂={m2*1000:.4f} meV, "
-              f"m₃={m3*1000:.4f} meV, Σm={sum_m:.4f} meV")
-        return m1, m2, m3, sum_m
+    # Absolute scale.  The dimensionless mass ray is fixed internally by
+    # R_nu = R_lepton together with (m3/m2)^2 = 169/5; no oscillation data enters.
+    # The lepton mass system closes on the single electroweak scale v: the ratio
+    # m1/m_e = x^3 (7/6)(1 + eps^2/9), x = 9 alpha/(26 pi), is derived in Paper II
+    # (physical identification 10.4c) and read as a physical mass ratio in the same
+    # unit, so the unit that displays the charged leptons carries over to the
+    # neutrinos.  BOTH oscillation splittings therefore stay on the verification
+    # side and are compared only after the forward computation.
+    # The two charged-lepton numbers below are the higher-order evaluation of
+    # Paper II; the displayed digits inherit its truncation order.
+    # Two layers.  The ray uses the UNDRESSED hierarchy R_lep computed above from the
+    # mass formula: the C_3 term is the electromagnetic dressing of the charged leptons,
+    # and no morphism carries it to the colour-singlet neutral edge.  The absolute
+    # normalisation uses the DRESSED physical electron mass, because m1/m_e is a ratio
+    # of physical masses.
+    me_PFE   = 0.511001410452e6     # eV  (Paper II, dressed physical electron mass)
+    a_inv_ho = inv_all_val if inv_all_val is not None else alpha_inv
+    x_nu = 9.0 / (a_inv_ho * 26.0 * np.pi)              # screening quantity of §5.3
+    m1_over_me = x_nu**3 * (7.0 / 6.0) * (1.0 + eps**2 / 9.0)
+    r_ray = 13.0 / np.sqrt(5.0)                         # m3/m2, internal
+    t_ray = np.exp(-np.log(r_ray) / (R_lep - 1.0))      # m1/m2, undressed ray
+    m1 = m1_over_me * me_PFE                            # eV
+    m2 = m1 / t_ray
+    m3 = r_ray * m2
+    sum_m = (m1 + m2 + m3) * 1000                       # meV
+    print(f"  m1/m_e = x^3(7/6)(1+eps^2/9) = {m1_over_me:.6e}   "
+          f"(x = 9alpha/(26pi) = {x_nu:.6e})")
+    print(f"  no oscillation data enters.  The lepton mass system closes on v;\n        this script does not recompute m_e from v — it takes the Paper II\n        value above as the endpoint of that chain:")
+    print(f"    m₁={m1*1000:.5f} meV, m₂={m2*1000:.4f} meV, "
+          f"m₃={m3*1000:.3f} meV, Σm={sum_m:.3f} meV")
 
-    print(f"  Using R_ν = R_lepton = {R_lep:.6f}  (scale fixed by Δm²₂₁ alone)")
-    m1_6, m2_6, m3_6, sum6 = compute_neutrino(Dm21_sq_6, "NuFIT 6.1")
-    m1_5, m2_5, m3_5, sum5 = compute_neutrino(Dm21_sq_5, "NuFIT 5.x")
+    # Both splittings are computed forward and only then compared.
+    Dm21_pred = m2**2 - m1**2
+    Dm31_pred = m3**2 - m1**2
+    print(f"  [verification] Δm²₂₁ = {Dm21_pred:.4e} eV²  "
+          f"(measured {Dm21_sq_6:.4e}; {100*(Dm21_pred/Dm21_sq_6-1):+.2f}%)")
+    print(f"  [verification] Δm²₃₁ = {Dm31_pred:.4e} eV²  "
+          f"(measured {Dm31_sq_6:.4e}; {100*(Dm31_pred/Dm31_sq_6-1):+.2f}%)")
 
-    # Predicted second splitting, from the same scale setting.  This is the quantity
-    # left for verification; it is NOT an input anywhere above.
-    Dm31_pred_6 = m3_6**2 - m1_6**2
-    print(f"  [prediction] Δm²₃₁ = {Dm31_pred_6*1e3:.4f}e-3 eV²  "
-          f"(NuFIT 6.1 measured {Dm31_sq_6*1e3:.4f}e-3; "
-          f"{100*(Dm31_pred_6/Dm31_sq_6-1):+.2f}%)")
-
-    # Master relation (Paper II): with m₃/m₂ = 13/√5 (exact, Paper II) and
-    # R_ν = R_lepton (this paper), Δm²₃₁/Δm²₂₁ = (169/5 − t²)/(1 − t²)
-    # follows with NO oscillation input. Informational.
-    u_ratio = 13.0 / np.sqrt(5.0)
-    x_t = np.log(u_ratio) / (R_lep - 1.0)   # x = −ln t
-    t_sq = np.exp(-2.0 * x_t)
-    R_delta = (169.0/5.0 - t_sq) / (1.0 - t_sq)
-    print(f"  [info] master relation (Paper II, m₃/m₂=13/√5): "
-          f"Δm²₃₁/Δm²₂₁ = {R_delta:.4f}  (manuscript: 33.842, displayed 33.84)")
+    R_delta = Dm31_pred / Dm21_pred
+    print(f"  [info] Δm²₃₁/Δm²₂₁ = {R_delta:.4f}  "
+          f"(manuscript: 33.842, displayed 33.84)")
 
     results.append(("Ordering", "Normal", "not settled", "prediction"))
-    results.append(("m₁ (6.1) meV", m1_6*1000, "—", "scale by Δm²₂₁"))
-    results.append(("Σm_ν (6.1) meV", sum6, "—", "scale by Δm²₂₁"))
-    results.append(("m₁ (5.x) meV", m1_5*1000, "—", "for comparison"))
-    results.append(("Σm_ν (5.x) meV", sum5, "—", "for comparison"))
+    results.append(("m₁ meV", m1*1000, "—", "v scale; Paper II"))
+    results.append(("Σm_ν meV", sum_m, "—", "v scale; Paper II"))
+    results.append(("Δm²₂₁ eV²", Dm21_pred, Dm21_sq_6,
+                    f"{100*(Dm21_pred/Dm21_sq_6-1):+.2f}%"))
+    results.append(("Δm²₃₁ eV²", Dm31_pred, Dm31_sq_6,
+                    f"{100*(Dm31_pred/Dm31_sq_6-1):+.2f}%"))
     results.append(("Δm²₃₁/Δm²₂₁", R_delta, Dm31_sq_6/Dm21_sq_6, "JUNO"))
     results.append(("0νββ", 0, "not observed", "nEXO"))
 
@@ -473,24 +493,24 @@ def run_paper1(phi_max=100, n_grid=1600001):
         else:
             print(f"  {name:<16} {comp:>14.8f} {exp:>14.8f} {acc:>14}")
 
-    # ===== Critical comparison: NuFIT 5.x vs 6.1 =====
+    # ===== Neutrino scale: what is used, what is left for verification =====
     print(f"\n{'='*85}")
-    print(f"  CRITICAL: Impact of NuFIT 6.1 on neutrino predictions")
+    print(f"  NEUTRINO SCALE SETTING")
     print(f"{'='*85}")
-    print(f"  {'':20} {'NuFIT 5.x':>14} {'NuFIT 6.1':>14} {'Change':>10}")
-    print(f"  {'-'*60}")
-    print(f"  {'Δm²₂₁ (10⁻⁵eV²)':<20} {Dm21_sq_5*1e5:>14.2f} {Dm21_sq_6*1e5:>14.2f} {(Dm21_sq_6-Dm21_sq_5)/Dm21_sq_5*100:>+9.1f}%")
-    print(f"  {'Δm²₃₁ (10⁻³eV²)':<20} {Dm31_sq_5*1e3:>14.3f} {Dm31_sq_6*1e3:>14.3f} {(Dm31_sq_6-Dm31_sq_5)/Dm31_sq_5*100:>+9.1f}%  [not an input]")
-    print(f"  {'m₁ (meV)':<20} {m1_5*1000:>14.4f} {m1_6*1000:>14.4f} {(m1_6-m1_5)/m1_5*100:>+9.1f}%")
-    print(f"  {'Σm_ν (meV)':<20} {sum5:>14.4f} {sum6:>14.4f} {(sum6-sum5)/sum5*100:>+9.1f}%")
-    print(f"  {'sin²θ₂₃ (exp)':<20} {sin2_23_5:>14.3f} {sin2_23_6:>14.3f}")
-    print(f"  {'sin²θ₂₃ (pred)':<20} {sin2_23:>14.6f} {'':>14}")
-    print(f"  {'-'*60}")
-    print(f"  NOTE: Theory prediction R_ν = {R_lep:.6f} is INDEPENDENT of Δm².")
-    print(f"  The dimensionless mass ray is fixed internally; only the overall scale")
-    print(f"  is set, by Δm²₂₁ alone.  m₁ and Σm_ν therefore move only with")
-    print(f"  Δm²₂₁ (as its square root), not with Δm²₃₁.  Δm²₃₁ is left unused so")
-    print(f"  that R_Δ = Δm²₃₁/Δm²₂₁ = {R_delta:.4f} stays on the verification side.")
+    print(f"  Absolute scale : v alone, through m₁/m_e (Paper II).")
+    print(f"  Not used       : Δm²₂₁ and Δm²₃₁ — both stay on the verification side.")
+    print(f"  {'':22} {'computed':>14} {'measured':>14} {'dev':>9}")
+    print(f"  {'-'*62}")
+    print(f"  {'Δm²₂₁ (10⁻⁵eV²)':<22} {Dm21_pred*1e5:>14.4f} {Dm21_sq_6*1e5:>14.4f} "
+          f"{100*(Dm21_pred/Dm21_sq_6-1):>+8.2f}%")
+    print(f"  {'Δm²₃₁ (10⁻³eV²)':<22} {Dm31_pred*1e3:>14.4f} {Dm31_sq_6*1e3:>14.4f} "
+          f"{100*(Dm31_pred/Dm31_sq_6-1):>+8.2f}%")
+    print(f"  {'Δm²₃₁/Δm²₂₁':<22} {R_delta:>14.4f} {Dm31_sq_6/Dm21_sq_6:>14.4f} "
+          f"{100*(R_delta/(Dm31_sq_6/Dm21_sq_6)-1):>+8.2f}%")
+    print(f"  {'-'*62}")
+    print(f"  The dimensionless mass ray (R_ν = {R_lep:.6f}, m₃/m₂ = 13/√5) is fixed")
+    print(f"  internally.  One degree of freedom tests the common lepton unit, so the")
+    print(f"  two splittings are not counted as two independent tests.")
     print(f"{'='*85}")
 
     # ===== sin²θ_W comparison =====
@@ -708,16 +728,79 @@ def _run_certificate():
     import pathlib
     import subprocess
     import sys
-    script = (pathlib.Path(__file__).parent / "supplementary"
-              / "proof_E_taylor_enclosures_20260718.py")
+    # The certificate sits beside this script in the ancillary package and under
+    # supplementary/ in the repository; look in both.
+    here = pathlib.Path(__file__).resolve().parent
+    for cand in (here / "proof_E_taylor_enclosures_20260718.py",
+                 here / "supplementary" / "proof_E_taylor_enclosures_20260718.py"):
+        if cand.exists():
+            script = cand
+            break
+    else:
+        script = here / "proof_E_taylor_enclosures_20260718.py"
     print(f"\n{'='*78}")
     print("  RIGOROUS RE-CERTIFICATION of the eigenvalue literals (+-1e-24)")
     print(f"  {script.name}  --  about 15 s per eigenvalue")
     print(f"{'='*78}")
     if not script.exists():
-        print(f"  [warn] certificate script not found at {script}")
-        return
-    subprocess.run([sys.executable, str(script)], check=False)
+        # Do not report success for a re-certification that never ran.
+        print(f"  [FAIL] certificate script not found at {script}")
+        raise SystemExit(1)
+    rc = subprocess.run([sys.executable, str(script)]).returncode
+    if rc != 0:
+        print(f"  [FAIL] certificate script exited {rc}")
+        raise SystemExit(rc)
+
+
+_ALL_ORDERS_DONE = False
+
+COVERAGE = [
+    #   evaluated        : computed here from the derivation chain
+    #   certified        : rigorous interval enclosure (certificate scripts in anc/)
+    #   comparison-only  : value quoted from Paper II; not recomputed here
+    #   not implemented  : Paper II quantity, no evaluation in this script
+    ("1,2", "1/alpha (leading)",             "evaluated"),
+    ("1,2", "1/alpha (all orders)",          None),   # filled in at runtime
+    ("1,2", "sin^2 theta_W",                 "evaluated"),
+    ("1,2", "alpha_s",                       "evaluated"),
+    ("1,2", "m_H/v",                         "evaluated"),
+    ("1,2", "R_lepton, R_up, R_down",        "evaluated"),
+    ("1,2", "Q (Koide)",                     "evaluated"),
+    ("1,2", "sin theta_C",                   "evaluated"),
+    ("1,2", "sin^2 theta_12/23/13",          "evaluated"),
+    ("1,2", "m_W/m_Z",                       "comparison-only (internal sqrt(10/13) shown)"),
+    ("1",   "|V_cb|, |V_ub|, J, delta_CKM",  "not implemented (Paper II)"),
+    ("1",   "delta_PMNS",                    "not implemented (Paper II)"),
+    ("1",   "m_1/m_e",                       "evaluated (closed form of Paper II)"),
+    ("1",   "m_3/m_2, Dm31/Dm21",            "evaluated"),
+    ("1",   "theta_bar(mu_0)",               "comparison-only (Paper II)"),
+    ("3",   "N = 3, d = 3",                  "evaluated; N=3 also certified"),
+    ("3",   "gauge group, neutrino type",    "not implemented (structural)"),
+    ("4",   "Sigma m_nu, m_1",               "evaluated (from the Paper II m_e literal)"),
+    ("4",   "Dm21, Dm31",                    "evaluated; left for verification"),
+    ("4",   "R_nu",                          "evaluated"),
+    ("4",   "0nubb",                         "not computed here (structural result, Sec. 8.3)"),
+    ("3.1", "E_0, E_1, E_2, epsilon",        "certified (anc/proof_*.py)"),
+]
+
+
+def print_coverage():
+    print(f"\n{'='*85}")
+    print("  COVERAGE OF TABLES 1-4 BY THIS SCRIPT")
+    print(f"{'='*85}")
+    print(f"  {'Table':<6} {'Quantity':<32} {'Status'}")
+    print(f"  {'-'*78}")
+    for tab, q, st in COVERAGE:
+        if st is None:   # all-orders row: depends on whether mpmath was available
+            st = ("evaluated" if _ALL_ORDERS_DONE
+                  else "NOT evaluated (mpmath missing; run pip install mpmath)")
+        print(f"  {tab:<6} {q:<32} {st}")
+    print(f"  {'-'*78}")
+    print("  'not implemented' rows are derived in Paper II and appear in the")
+    print("  manuscript tables with that attribution; this script does not recompute")
+    print("  them.  No row is claimed as reproduced unless marked evaluated or")
+    print("  certified above.")
+    print(f"{'='*85}")
 
 
 if __name__ == "__main__":
@@ -743,6 +826,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     run_paper1(phi_max=args.phi_max, n_grid=args.n_grid)
+    print_coverage()
 
     if args.certify:
         _run_certificate()
