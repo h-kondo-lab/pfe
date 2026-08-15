@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Physics from Existence — Pure Derivation (v3.1.0 companion)
+Physics from Existence — Pure Derivation (v3.2.0 companion)
 ============================================================
 
 This script contains ONE equation and ZERO experimental values.
@@ -8,7 +8,7 @@ It derives 20+ physical quantities from V = -H alone.
 
 Run it, then compare the output with any physics textbook.
 
-    $ python3 physics_from_existence_pure_v3_1.py
+    $ python3 physics_from_existence_pure_v3_2.py
 
 The three axioms:
     A1  Existence is bivalent:     n ∈ {0,1}
@@ -400,7 +400,10 @@ def derive(phi_max=100, n_grid=1600001):
                     - (L0 - x * (1 + a_ / 2) + mp.mpf(3) / 4 * eps_c**2 * x
                        + mp.mpf(1589) / 5408 * x**2
                        - mp.mpf(2) / 13 * x**3 / (1 + x)))
-        out['one_over_alpha_all'] = float(1 / mp.findroot(dyson, mp.mpf(1) / mp.mpf('137.036')))
+        # Newton seed: the leading-order solution 1/alpha ~ L0 of the same
+        # equation (drop the corrections and the +a term).  Theory-derived;
+        # no measured value enters even as a seed.
+        out['one_over_alpha_all'] = float(1 / mp.findroot(dyson, 1 / L0))
     except Exception:
         pass
 

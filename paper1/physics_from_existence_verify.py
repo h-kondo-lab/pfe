@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v3.1.0
+PFE Paper I Verification Script — v3.2.0
 ========================================================
 Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
-(JHEP 12 (2024) 216). Formulas follow the v3.1.0 manuscript:
+(JHEP 12 (2024) 216). Formulas follow the v3.2.0 manuscript:
 NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
 screened Cabibbo expression and the neutrino master relation are
 printed as informational lines with their Paper II attribution.
@@ -189,7 +189,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v3.1.0")
+    print("  PAPER I VERIFICATION — v3.2.0")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
     print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")
@@ -275,6 +275,21 @@ def run_paper1(phi_max=100, n_grid=1600001):
     # in Paper II). Solve  1/a + a = Λ0 - x(1+a/2) + (3/4)ε²x + (1589/5408)x²
     # - (2/13)x³/(1+x),  x = 9a/(26π),  Λ0 = λ1 + Z,  with the certified
     # eigenvalues of §3.2 and exact λ's, in high precision.
+    #
+    # Why the eigenvalues below are literals rather than recomputed here.
+    # They are outputs of this framework, not experimental inputs.  The float64
+    # grid above reaches only ~1e-5 on E_2 (see the grid-vs-certified Z gap
+    # printed above), which is not enough for the 13-digit closure.  Redoing
+    # them at full precision needs two-sided Prufer shooting: the third state
+    # is shallow (k = sqrt(2|E_2|) = 0.144), so the inward leg must start near
+    # phi = 200, and a single outward sweep is useless because the sign change
+    # collapses to width ~exp(-2kT).  That costs minutes, so the default run
+    # cites the literals.  Both checks are available on demand:
+    #   --certify    rigorous +-1e-24 windows via the shipped certificate
+    #                (supplementary/proof_E_taylor_enclosures_20260718.py)
+    #   --recompute  regenerate eps and E_0,E_1,E_2 from scratch with the same
+    #                Taylor recurrence in plain arithmetic, then redo 1/alpha
+    #                (recompute_constants() at the end of this file)
     try:
         import mpmath as mp
         mp.mp.dps = 30
@@ -287,14 +302,19 @@ def run_paper1(phi_max=100, n_grid=1600001):
               + 12 * sum(1 / (abs(e) + l2) for e in E_cert)
               + 27 * sum(1 / (abs(e) + l3) for e in E_cert))
         L0 = Zc + l1
-        eps_c = mp.mpf('0.2191879502483955')   # certified ε = N − n_WKB (§3.1)
+        # certified ε = N − n_WKB (§3.1).  Unlike the eigenvalues this one is
+        # cheap to redo: one exponentially convergent integral, ~0.01 s
+        # (eps_from_scratch() below does it; --recompute compares).
+        eps_c = mp.mpf('0.2191879502483955')
         def dyson(a):
             x = 9 * a / (26 * mp.pi)
             return (1 / a + a
                     - (L0 - x * (1 + a / 2) + mp.mpf(3) / 4 * eps_c**2 * x
                        + mp.mpf(1589) / 5408 * x**2
                        - mp.mpf(2) / 13 * x**3 / (1 + x)))
-        a_all = mp.findroot(dyson, mp.mpf(1) / mp.mpf('137.036'))
+        # Newton seed = 1/L0, the leading-order solution of the same equation
+        # (theory-derived; no measured value enters even as a seed)
+        a_all = mp.findroot(dyson, 1 / L0)
         inv_all = 1 / a_all
         lo = mp.mpf('137.0359990843979'); hi = mp.mpf('137.0359990844119')
         inside = (lo <= inv_all <= hi)
@@ -371,10 +391,17 @@ def run_paper1(phi_max=100, n_grid=1600001):
     results.append(("sin²θ₁₃", sin2_13, EXP['sin2_13'],
                      f"{abs(sin2_13-EXP['sin2_13'])/EXP['sin2_13']*100:.2f}%"))
 
-    # m_W/m_Z
+    # m_W/m_Z.  The value computed here is the internal √(10/13) of §6.1.
+    # Table 2 of the manuscript lists the identified value 0.88137 (custodial
+    # response carried by the single neutral Higgs component; computed in
+    # Paper II), which agrees with experiment to 0.01%.  This script cannot
+    # reproduce that computation, so the row below reports the internal value.
     mW_mZ = np.sqrt(1 - sin2_thetaW)
-    results.append(("m_W/m_Z", mW_mZ, EXP['m_W/m_Z'],
+    results.append(("m_W/m_Z (√(10/13))", mW_mZ, EXP['m_W/m_Z'],
                      f"{abs(mW_mZ-EXP['m_W/m_Z'])/EXP['m_W/m_Z']*100:.2f}%"))
+    print(f"  [info] identified m_W/m_Z (custodial single neutral component, "
+          f"Paper II): 0.88137 vs experiment {EXP['m_W/m_Z']} -> 0.01%; the "
+          f"summary row shows the internal value sqrt(10/13) of §6.1.")
 
     # Q (Koide)
     results.append(("Q (Koide)", Q_pred, Q_exp, f"δ={Q_pred-1.5:.2e}"))
@@ -387,7 +414,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     # ===== Neutrino predictions =====
     print(f"\n  --- Neutrino Predictions ---")
 
-    # Single-scale calibration.  The dimensionless mass ray is fixed internally by
+    # Setting the absolute scale.  The dimensionless mass ray is fixed internally by
     # R_nu = R_lepton together with (m3/m2)^2 = 169/5; NO oscillation data enters it.
     # Exactly one dimensionful quantity, Dm21, is then used to set the overall scale.
     # The second splitting Dm31 is deliberately NOT used, so that the internal ratio
@@ -407,7 +434,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     m1_6, m2_6, m3_6, sum6 = compute_neutrino(Dm21_sq_6, "NuFIT 6.1")
     m1_5, m2_5, m3_5, sum5 = compute_neutrino(Dm21_sq_5, "NuFIT 5.x")
 
-    # Predicted second splitting, from the same calibration.  This is the quantity
+    # Predicted second splitting, from the same scale setting.  This is the quantity
     # left for verification; it is NOT an input anywhere above.
     Dm31_pred_6 = m3_6**2 - m1_6**2
     print(f"  [prediction] Δm²₃₁ = {Dm31_pred_6*1e3:.4f}e-3 eV²  "
@@ -425,8 +452,8 @@ def run_paper1(phi_max=100, n_grid=1600001):
           f"Δm²₃₁/Δm²₂₁ = {R_delta:.4f}  (manuscript: 33.842, displayed 33.84)")
 
     results.append(("Ordering", "Normal", "not settled", "prediction"))
-    results.append(("m₁ (6.1) meV", m1_6*1000, "—", "1-scale calib."))
-    results.append(("Σm_ν (6.1) meV", sum6, "—", "1-scale calib."))
+    results.append(("m₁ (6.1) meV", m1_6*1000, "—", "scale by Δm²₂₁"))
+    results.append(("Σm_ν (6.1) meV", sum6, "—", "scale by Δm²₂₁"))
     results.append(("m₁ (5.x) meV", m1_5*1000, "—", "for comparison"))
     results.append(("Σm_ν (5.x) meV", sum5, "—", "for comparison"))
     results.append(("Δm²₃₁/Δm²₂₁", R_delta, Dm31_sq_6/Dm21_sq_6, "JUNO"))
@@ -461,7 +488,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     print(f"  {'-'*60}")
     print(f"  NOTE: Theory prediction R_ν = {R_lep:.6f} is INDEPENDENT of Δm².")
     print(f"  The dimensionless mass ray is fixed internally; only the overall scale")
-    print(f"  is calibrated, by Δm²₂₁ alone.  m₁ and Σm_ν therefore move only with")
+    print(f"  is set, by Δm²₂₁ alone.  m₁ and Σm_ν therefore move only with")
     print(f"  Δm²₂₁ (as its square root), not with Δm²₃₁.  Δm²₃₁ is left unused so")
     print(f"  that R_Δ = Δm²₃₁/Δm²₂₁ = {R_delta:.4f} stays on the verification side.")
     print(f"{'='*85}")
@@ -471,10 +498,268 @@ def run_paper1(phi_max=100, n_grid=1600001):
     print(f"    Theory (tree):  3/13 = {3/13:.5f}")
     print(f"    MS-bar (M_Z):   0.23122 → deviation {abs(3/13-0.23122)/0.23122*100:.2f}%")
 
+# ===========================================================================
+#  Optional: regenerate the certified constants instead of trusting the
+#  literals used above.  Nothing in this section runs in the default
+#  verification; it exists so that a reader who wants the numbers rather than
+#  the citation can produce them.
+# ===========================================================================
+
+def _conv(a, b, k):
+    """Cauchy product coefficient sum_{i=0}^k a[i] b[k-i]."""
+    s = a[0] * b[k]
+    for i in range(1, k + 1):
+        s += a[i] * b[k - i]
+    return s
+
+
+def _conv_sq(a, k):
+    """Cauchy coefficient of a*a at order k (symmetric halving)."""
+    s = 0
+    for i in range((k + 1) // 2):
+        s += a[i] * a[k - i]
+    s = 2 * s
+    if k % 2 == 0:
+        s += a[k // 2] * a[k // 2]
+    return s
+
+
+def _theta_taylor(t0, th0, E2, N, mp):
+    """Taylor coefficients th_0..th_N of the Prufer angle at t0.
+
+    Same recurrence as supplementary/proof_E_taylor_enclosures_20260718.py,
+    in plain (non-interval) arithmetic: the certificate needs intervals to
+    prove an enclosure, this only needs to produce digits.
+    Prufer form: th' = cos^2 th + (2 H(sigma(t)) + 2E) sin^2 th.
+    """
+    x = mp.exp(-t0)
+    opx = 1 + x
+    sig = [1 / opx]
+    h0 = mp.log(opx) + t0 * x / opx
+    p = []
+    g = [2 * h0 + E2]
+    S = [mp.sin(th0)]
+    C = [mp.cos(th0)]
+    th = [th0]
+    w = []
+    B = []
+    for k in range(N):
+        pk = sig[k] - _conv_sq(sig, k)
+        p.append(pk)
+        sig.append(pk / (k + 1))
+        tpk = t0 * pk + (p[k - 1] if k >= 1 else 0)
+        hk1 = -tpk / (k + 1)
+        B.append(_conv_sq(S, k))
+        wk = _conv_sq(C, k) + _conv(g, B, k)
+        w.append(wk)
+        th.append(wk / (k + 1))
+        Sk1 = _conv(C, w, k) / (k + 1)
+        Ck1 = -_conv(S, w, k) / (k + 1)
+        S.append(Sk1)
+        C.append(Ck1)
+        g.append(2 * hk1)
+    return th
+
+
+def _horner(c, x):
+    r = c[-1]
+    for a in reversed(c[:-1]):
+        r = r * x + a
+    return r
+
+
+def _march(E, t_start, th_start, t_end, N, dt, mp):
+    """Step the Prufer angle from t_start to t_end with signed step dt."""
+    E2 = 2 * E
+    t, th = t_start, th_start
+    if dt > 0:
+        while t < t_end:
+            h = min(dt, t_end - t)
+            th = _horner(_theta_taylor(t, th, E2, N, mp), h)
+            t += h
+    else:
+        while t > t_end:
+            h = max(dt, t_end - t)
+            th = _horner(_theta_taylor(t, th, E2, N, mp), h)
+            t += h
+    return th
+
+
+def eigenvalue_from_scratch(E_guess, sector, T, mp, N=24, xm=6, verbose=False):
+    """Bound-state energy by two-sided Prufer shooting, matched at xm.
+
+    Outward from 0 and inward from T are each integrated in their stable
+    direction.  A single outward sweep to large T cannot work: away from an
+    eigenvalue the growing branch takes over and the sign change collapses to
+    width ~exp(-2kT).  Bisection, not secant: a secant step can leave E >= 0,
+    where the decaying branch does not exist.  Only a float64-level starting
+    guess enters -- no certified literal is used.
+    """
+    th0 = mp.pi / 2 if sector == 'even' else mp.mpf(0)
+
+    def mismatch(E):
+        th_out = _march(E, mp.mpf(0), th0, mp.mpf(xm), N, mp.mpf(1) / 32, mp)
+        th_dec = mp.pi - mp.atan(1 / mp.sqrt(-2 * E))   # exact decaying branch
+        th_in = _march(E, mp.mpf(T), th_dec, mp.mpf(xm), N, -mp.mpf(1) / 8, mp)
+        return th_out - th_in
+
+    m = int(mp.nint(mismatch(E_guess) / mp.pi))
+
+    def F(E):
+        return mismatch(E) - m * mp.pi
+
+    lo, hi = E_guess * mp.mpf('1.02'), E_guess * mp.mpf('0.98')
+    Flo, Fhi = F(lo), F(hi)
+    tries = 0
+    while Flo * Fhi > 0 and tries < 40:
+        lo *= mp.mpf('1.05')
+        hi *= mp.mpf('0.95')
+        Flo, Fhi = F(lo), F(hi)
+        tries += 1
+    if Flo * Fhi > 0:
+        raise RuntimeError("no sign change bracketing %s" % mp.nstr(E_guess, 6))
+
+    for i in range(int(mp.mp.dps * 3.4) + 8):
+        mid = (lo + hi) / 2
+        Fm = F(mid)
+        if Flo * Fm <= 0:
+            hi, Fhi = mid, Fm
+        else:
+            lo, Flo = mid, Fm
+        if verbose and i % 25 == 0:
+            print(f"      bisect {i:3d}  width {mp.nstr(hi - lo, 3)}", flush=True)
+    return (lo + hi) / 2
+
+
+def eps_from_scratch(mp):
+    """eps = 3 - n_WKB.  One exponentially convergent integral; ~0.01 s."""
+    return 3 - 2 * mp.quad(
+        lambda p: mp.sqrt(2 * (mp.log(1 + mp.exp(-p)) + p / (1 + mp.exp(p)))),
+        [0, mp.inf]) / mp.pi
+
+
+def recompute_constants(dps=20, verbose=True):
+    """Regenerate eps and E_0,E_1,E_2 from scratch, then redo 1/alpha.
+
+    No literal from the default run enters: the starting guesses are the
+    float64-level values -0.485, -0.159, -0.0104.  Timing measured at dps=20:
+    eps 0.01 s, E_0 60 s, E_1 60 s, E_2 179 s (T=200, because the third state
+    is shallow, k = sqrt(2|E_2|) = 0.144).  Cost rises steeply with dps.
+    """
+    import time
+    import mpmath as mp
+    dps_save = mp.mp.dps
+    mp.mp.dps = dps
+    try:
+        print(f"\n{'='*78}")
+        print(f"  RECOMPUTED FROM SCRATCH (dps = {dps}; no certified literal used)")
+        print(f"{'='*78}")
+
+        t0 = time.time()
+        eps_s = eps_from_scratch(mp)
+        print(f"  eps = {mp.nstr(eps_s, min(dps, 22))}"
+              f"    [{time.time() - t0:.2f} s]", flush=True)
+
+        jobs = (("E_0", mp.mpf('-0.485'), 'even', 45),
+                ("E_1", mp.mpf('-0.159'), 'odd', 45),
+                ("E_2", mp.mpf('-0.0104'), 'even', 200))
+        E_s = []
+        for name, guess, sector, T in jobs:
+            t0 = time.time()
+            E = eigenvalue_from_scratch(guess, sector, T, mp, verbose=verbose)
+            E_s.append(E)
+            print(f"  {name} = {mp.nstr(E, min(dps, 22))}"
+                  f"    [T = {T}, {time.time() - t0:.0f} s]", flush=True)
+
+        N_ = 3
+        l1 = (N_ + 1) - mp.sqrt(N_)
+        l2 = (N_ + 1) + mp.sqrt(N_)
+        l3 = mp.mpf(2 * (N_ + 1))
+        Z = (sum(1 / abs(e) for e in E_s)
+             + 12 * sum(1 / (abs(e) + l1) for e in E_s)
+             + 12 * sum(1 / (abs(e) + l2) for e in E_s)
+             + 27 * sum(1 / (abs(e) + l3) for e in E_s))
+        L0 = Z + l1
+
+        def dyson(a):
+            x = 9 * a / (26 * mp.pi)
+            return (1 / a + a
+                    - (L0 - x * (1 + a / 2) + mp.mpf(3) / 4 * eps_s**2 * x
+                       + mp.mpf(1589) / 5408 * x**2
+                       - mp.mpf(2) / 13 * x**3 / (1 + x)))
+
+        inv_all = 1 / mp.findroot(dyson, 1 / L0)  # seed = leading-order 1/L0 (theory-derived)
+        lo, hi = mp.mpf('137.0359990843979'), mp.mpf('137.0359990844119')
+        print(f"\n  Z        = {mp.nstr(Z, 14)}")
+        print(f"  1/alpha  = {mp.nstr(inv_all, 16)}")
+        print(f"  certified 13-digit interval (Paper II): "
+              f"[{mp.nstr(lo, 16)}, {mp.nstr(hi, 16)}]")
+        print(f"  inside   : {bool(lo <= inv_all <= hi)}")
+        print(f"  manuscript display 137.035999084 -> difference "
+              f"{mp.nstr(abs(inv_all - mp.mpf('137.035999084')), 4)}")
+        print(f"{'='*78}")
+        return {'eps': eps_s, 'E': E_s, 'inv_alpha': inv_all}
+    finally:
+        mp.mp.dps = dps_save
+
+
+def _run_certificate():
+    """Rigorously re-certify the eigenvalue literals with the shipped script."""
+    import pathlib
+    import subprocess
+    import sys
+    script = (pathlib.Path(__file__).parent / "supplementary"
+              / "proof_E_taylor_enclosures_20260718.py")
+    print(f"\n{'='*78}")
+    print("  RIGOROUS RE-CERTIFICATION of the eigenvalue literals (+-1e-24)")
+    print(f"  {script.name}  --  about 15 s per eigenvalue")
+    print(f"{'='*78}")
+    if not script.exists():
+        print(f"  [warn] certificate script not found at {script}")
+        return
+    subprocess.run([sys.executable, str(script)], check=False)
+
+
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="PFE Paper I verification.  The default run uses the "
+                    "certified constants of §3.1-§3.2 as literals; --certify "
+                    "and --recompute check them independently.")
     parser.add_argument("--phi-max", type=float, default=100)
     parser.add_argument("--n-grid", type=int, default=1600001)
+    parser.add_argument("--certify", action="store_true",
+                        help="rigorously re-certify the eigenvalue literals "
+                             "(+-1e-24 windows) with the shipped certificate; "
+                             "about 15 s per eigenvalue")
+    parser.add_argument("--recompute", action="store_true",
+                        help="regenerate eps and E_0,E_1,E_2 from scratch and "
+                             "redo 1/alpha; MINUTES TO HOURS, see --dps")
+    parser.add_argument("--dps", type=int, default=20,
+                        help="working precision for --recompute (default 20; "
+                             "higher is slower, steeply)")
+    parser.add_argument("--yes", action="store_true",
+                        help="skip the confirmation prompt of --recompute")
     args = parser.parse_args()
+
     run_paper1(phi_max=args.phi_max, n_grid=args.n_grid)
+
+    if args.certify:
+        _run_certificate()
+
+    if args.recompute:
+        print(f"\n{'='*78}")
+        print("  --recompute regenerates the certified constants from scratch.")
+        print("  Measured at --dps 20: eps 0.01 s, E_0 60 s, E_1 60 s, "
+              "E_2 179 s (about 5 min total).")
+        print("  Cost rises steeply with --dps; a large value can run for hours.")
+        print("  Nothing printed above is affected: this only re-derives the")
+        print("  literals that the default run cites.")
+        print(f"{'='*78}")
+        if not args.yes:
+            try:
+                if input("  proceed? [y/N] ").strip().lower() not in ("y", "yes"):
+                    raise SystemExit("  cancelled.")
+            except EOFError:
+                raise SystemExit("  no tty; re-run with --yes to proceed.")
+        recompute_constants(dps=args.dps)

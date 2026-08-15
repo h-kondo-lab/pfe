@@ -56,15 +56,15 @@
 \begin{abstract}\sloppy
 No theory has simultaneously derived all 26 free parameters
 of the Standard Model.
-In this paper, extending the quantum indefiniteness of existence to the existence of the universe itself, we show that three axioms about existence---existence is bivalent ($n \in \{0,1\}$, i.e.\ $n^2{=}n$), existence is uncertain ($\sigma{\neq}1$), and non-existence is forbidden ($\sigma{\neq}0$)---uniquely determine the single equation $V = -H$ as an algebraic identity, and that the mathematical structure derived from its exact algebraic expansion corresponds to the various structures of the Standard Model. As a result, 26 physical constants in total are reproduced with no adjustable parameters. For those with established experimental values, the agreement is $0.0006\%$--$2.6\%$ for the twenty derived in this paper, and $0.0006\%$--$5.3\%$ including the six derived in Paper~II.
+In this paper, extending the well-known quantum indefiniteness of existence to the existence of the universe itself, we posit three axioms about existence---existence is bivalent ($n \in \{0,1\}$, i.e.\ $n^2{=}n$), existence is uncertain ($\sigma{\neq}1$), and non-existence is forbidden ($\sigma{\neq}0$)---and show that they uniquely determine the single equation $V = -H$ as an algebraic identity, and that the mathematical structure derived from its exact algebraic expansion corresponds to the structures of the Standard Model. As a result, 26 physical constants in total are reproduced with no adjustable parameters. For those with established experimental values, the agreement is $0.0006\%$--$2.6\%$ for the twenty derived in this paper.
 
 Derived from the axioms of existence, $V = -H$ is the canonical free
 energy of a single binary degree of freedom $n \in \{0,1\}$,
 determined as the Legendre transform of the Fermi--Dirac
 distribution. From this potential and the kinetic term of the
-canonical normalisation ($g=1$, \S2.4), the Schr\"odinger equation is
+canonical normalisation ($g=1$, \S3.1), the Schr\"odinger equation is
 derived as a transfer matrix, and we show that it has exactly three
-bound states (discrete solutions), corresponding to the three
+bound states (discrete solutions, $N = 3$), corresponding to the three
 generations of fermions. The spatial dimension $d = 3$ follows from
 three conditions---preservation of the well, spin-statistics, and
 propagating gravity---and the Lie-algebra structure unfolding from
@@ -73,12 +73,12 @@ $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$.
 
 Twenty-six physical constants are derived from this
 structure, including
-$1/\alpha = 137.035999084$ (all orders, matching CODATA 2018 to all displayed digits; the leading term is 137.0368 at $0.0006\%$, and the correction series is proved in Paper~II),
+$1/\alpha = 137.035999084$ (all orders, matching CODATA 2018 to all displayed digits; the leading term is 137.0368 at $0.0006\%$),
 $\alpha_s = 0.1179$ ($0.07\%$),
-$\sin^2\!\theta_W = 3/13$ ($0.2\%$),
+$\sin^2\!\theta_W = 0.23122$ ($<0.01\%$),
 the charged-lepton mass ratio $R = 1.5293$ ($0.006\%$), and
 $\sin\theta_C = 0.2245$ ($0.10\%$).
-The results further predict the absolute neutrino masses ($\Sigma m_\nu = 59.50$~meV after a single-scale calibration) and strictly zero neutrinoless double-beta decay, yielding seven testable predictions.
+The results further predict the absolute neutrino masses ($\Sigma m_\nu = 59.50$~meV once the absolute scale is set by $\Delta m^2_{21}$) and strictly zero neutrinoless double-beta decay, among other testable predictions.
 These quantities are not independent input
 parameters---they are all computed from the same
 mathematical structure fixed by $V = -H$.
@@ -92,7 +92,9 @@ verification code.
 \section{Introduction}
 %=====================================================================
 
-The Standard Model is the most successful theory of particle physics. It describes all known particle interactions and has withstood extensive experimental tests, including the discovery of the Higgs boson~\cite{atlas,cms} (2012). At present, however, the theory contains 26 free parameters\footnote{19 in the minimal Standard Model with massless neutrinos; 26 with three neutrino masses and four PMNS parameters. Some references count 25 by absorbing $v_\mathrm{EW}$ into the energy scale.}---fermion masses (Yukawa couplings), mixing angles, gauge couplings, the Higgs self-coupling, and CP phases. Their values can only be put in from measurement; why these physical constants take the values they do is not explained within the Standard Model. The generation number N = 3 is likewise an unexplained input. Despite many attempts---grand unified theories (GUTs), supersymmetry (SUSY), string theory---no theory has simultaneously derived all 26 parameters with zero free parameters~\cite{xing}. Indeed, even for the single constant α, the fine-structure constant, attempts at a first-principles derivation~\cite{eddington,wyler,jentschura} have a long history, yet no theory has derived it from an equation with a unifying mechanism.
+The Standard Model is the most successful theory of particle physics. It describes all known particle interactions and has withstood extensive experimental tests, including the discovery of the Higgs boson~\cite{atlas,cms} (2012). At present, however, the theory contains 26 free parameters\footnote{19 in the minimal Standard Model with massless neutrinos; 26 with three neutrino masses and four PMNS parameters. Some references count 25 by absorbing $v_\mathrm{EW}$ into the energy scale.}---fermion masses (Yukawa couplings), mixing angles, gauge couplings, the Higgs self-coupling, and CP phases. Their values can only be put in from measurement; why these physical constants take the values they do is not explained within the Standard Model. The generation number N = 3 is likewise an unexplained input.
+
+Despite many attempts---grand unified theories (GUTs), supersymmetry (SUSY), string theory---no theory has simultaneously derived all 26 parameters with zero free parameters~\cite{xing}. Indeed, even for the single constant α, the fine-structure constant, attempts at a first-principles derivation~\cite{eddington,wyler,jentschura} have a long history, yet no theory has derived it from an equation with a unifying mechanism.
 
 Approaches that derive physics from information theory have also been attempted. Wheeler's ``it from bit''~\cite{wheeler} proposed the vision that physical reality arises from information, but had no mathematical framework. Jaynes~\cite{jaynes} derived statistical mechanics from entropy maximisation, but did not reach quantum field theory. Verlinde~\cite{verlinde} derived gravity from entropic reasoning, but gravity alone. There are also Frieden's Fisher-information approach~\cite{frieden}, Caticha's information geometry~\cite{caticha}, and the information-theoretic axiomatisations of Hardy~\cite{hardy} and Chiribella et al.~\cite{chiribella}. The prior work closest in spirit is the Connes–Chamseddine spectral Standard Model~\cite{connes96,chamconnes96,ccm07}, which derives the structure of the gauge group and the Higgs sector from noncommutative geometry (a related algebraic reconstruction is Furey's division-algebra approach~\cite{furey}). All these approaches share a common limitation: they can derive the \emph{form} of physical equations, but not the \emph{values} of the constants appearing in them.
 
@@ -100,21 +102,24 @@ Now, ``Why do I exist? Why does the universe exist?''---who has not, at some poi
 
 This paper first formalises this question about the existence of the universe as three axioms---Existence (n ∈ {0,1}), Uncertainty (σ ≠ 1), and Non-existence is forbidden (σ ≠ 0). Together A2 and A3 determine σ ∈ (0,1), a partition function Z = 1 + $e^\varphi$, and, via the Legendre transform of the Fermi–Dirac distribution, the canonical free energy V = −H(σ(φ)) as an algebraic identity, where H is the binary Shannon entropy, σ(φ) is the Fermi–Dirac distribution (sigmoid function), and φ = logit(σ) is the natural parameter~\cite{amari,ay}.
 
-Combining this potential V = −H(σ(φ)) with the kinetic term of the canonical normalisation (g = 1, §2.4), the Schr\"odinger equation is derived as a transfer matrix. Carrying the computation further, this Schr\"odinger equation has exactly three bound states (N = 3), and a structure corresponding to the three generations of fermions appears. At the same time, the spatial dimension d = 3 follows from three conditions---preservation of the well, spin-statistics, and propagating gravity---the spacetime dimension D = 4 from gravitational degree-of-freedom matching and ℂP², and the signature (3,1) as a connection to the M₂(ℂ)$_{sa}$ structure (§4, §9). From the coincidence of these two numbers (N = d = 3) the finite geometry PG(2, F₃) is fixed, and the Lie-algebra structure unfolding from its 9+3+1 partition corresponds uniquely to the structure of the gauge group SU(3)×SU(2)×U(1).
+Combining this potential V = −H(σ(φ)) with the kinetic term of the canonical normalisation (g = 1, §3.1), the Schr\"odinger equation is derived as a transfer matrix. Carrying the computation further, this Schr\"odinger equation has exactly three bound states (N = 3), and a structure corresponding to the three generations of fermions appears. At the same time, the spatial dimension d = 3 follows from three conditions---preservation of the well, spin-statistics, and propagating gravity. The spacetime dimension is D = d + 1 = 4, supported as consistency checks under stated premises by the gravitational degree-of-freedom count, by ℂP², and by the connection of the signature (3,1) to the M₂(ℂ)$_{sa}$ structure (§3.4, §8). From the coincidence of these two numbers (N = d = 3) the finite geometry PG(2, F₃) is fixed, and the Lie-algebra structure unfolding from its 9+3+1 partition corresponds uniquely to the structure of the gauge group SU(3)×SU(2)×U(1).
 
-From the representations of this gauge group, a structure yielding all the particles---48 fermions, 12 gauge bosons, and 1 Higgs---is derived (§5). From this structure, 20 parameters are derived---including 1/α$_{em}$ = 137.0368 (0.0006\%; 137.035999084 at all orders---proved in Paper~II), sin²θ$_W$ = 3/13 (0.2\%), the charged-lepton mass ratio R = 1.5293 (0.006\%), Koide's Q ≈ 3/2 (δ = −1.5 × 10⁻⁵), and CKM/PMNS mixing angles---all at 0.0006\%–2.6\% accuracy with zero adjustable parameters. The six derived in Paper II (|V$_{cb}$|, |V$_{ub}$|, δ$_{CKM}$, δ$_{PMNS}$, m₃/m₂, Δm²₃₁/Δm²₂₁) are also displayed in the tables (§10). The associated Paper II reconstruction additionally gives the matching-point condition θ̄(μ₀) = 0\PII{}.
+From the representations of this gauge group, a structure yielding all the particles---48 fermions, 12 gauge bosons, and 1 Higgs---is derived (§4). From this structure, 20 parameters are derived---including 1/α$_{em}$ = 137.0368 (0.0006\%; 137.035999084 at all orders---proved in Paper~II), sin²θ$_W$ = 3/13 (0.2\%), the charged-lepton mass ratio R = 1.5293 (0.006\%), Koide's Q ≈ 3/2 (δ = −1.5 × 10⁻⁵), and CKM/PMNS mixing angles---all at 0.0006\%–2.6\% accuracy with zero adjustable parameters. The six derived in Paper II (|V$_{cb}$|, |V$_{ub}$|, δ$_{CKM}$, δ$_{PMNS}$, m₃/m₂, Δm²₃₁/Δm²₂₁) are also displayed in the tables (§9). The associated Paper II reconstruction additionally gives the matching-point condition θ̄(μ₀) = 0\PII{}.
 
-Thus the algebraic expansion of ``existence'' alone yields numbers that agree with the Standard-Model constants to high accuracy; beyond this numerical agreement, the mathematical structure derived from V = −H also corresponds to the structural problems of the Standard Model themselves. For example, the role played in the Standard Model by μ² > 0---moving the vacuum from the symmetric point to a finite field value---is played here by the shape of the well of V (§7); the bounded internal potential (V ∈ [−ln 2, 0]) supplies no instability channel, so neither the metastability problem nor the hierarchy problem arises within this construction (the correspondence to 4D vacuum stability and the hierarchy problem requires the reconstruction matching). Since V = −H is uniquely determined as the canonical free energy of n ∈ {0,1}, the Higgs is fixed to be unique.
+Thus the algebraic expansion of ``existence'' alone yields numbers that agree with the Standard-Model constants to high accuracy; beyond this numerical agreement, the mathematical structure derived from V = −H also corresponds to the structural problems of the Standard Model themselves. For example, the role played in the Standard Model by μ² > 0---moving the vacuum from the symmetric point to a finite field value---is played here by the shape of the well of V (§6); the bounded internal potential (V ∈ [−ln 2, 0]) supplies no instability channel, so neither the metastability problem nor the hierarchy problem arises within this construction (the correspondence to 4D vacuum stability and the hierarchy problem requires the reconstruction matching). Since V = −H is uniquely determined as the canonical free energy of n ∈ {0,1}, the Higgs is fixed to be unique.
 
-What this paper shows is that, when the mathematical structure generated by V = −H is placed in correspondence with the structure of the Standard Model, the derived numbers agree with experiment---this paper itself does not carry out a rigorous first-principles derivation of the Standard Model; that derivation is treated in Paper II as a theorem under the stated realisation conditions (§9.2). The method of computing the physical constants from the derived equations alone is given in this paper, and can be reproduced independently with the attached verification code. Note that comparing the derived numbers with the experimental observables requires making two things explicit. First, dimensionful quantities require a correspondence to the humanly chosen units of measurement---the calibration of the absolute scale $v$ (\S10). Second, dimensionless quantities require a correspondence that identifies which part of the structure is which physical structure or observable---for example, reading and identifying $\sin^2\!\theta_W$ as the fraction of the 13 directions occupied by the 3 weak ones. In other words, one must identify which known physical structure each derived mathematical structure corresponds to. Each of these identifications is provisional at the stage of its declaration. The text declares each identification where it enters (\S3 generations, \S5.2 gauge sectors, \S7 Higgs, \S8 masses and mixings) and argues under that hypothesis; the agreement of the full set of derived values with experiment is what corroborates the identifications. This paper states all of these correspondences (the mapping rules onto the observables) explicitly and computes the values. That each mapping rule is not a free parameter---the proof of its uniqueness and rigidity---together with the operator-level derivations of the individual constructions, would require an enormous body of argument and is therefore deferred to Paper~II~\cite{paper2}. Such claims are marked with a superscript \PII{} in the text (indicating rigorisation in Paper II) and are not restated individually.
+What this paper shows is that, when the mathematical structure generated by V = −H is placed in correspondence with the structure of the Standard Model, the derived numbers agree with experiment---this paper itself does not carry out a rigorous first-principles derivation of the Standard Model; that derivation is treated in Paper II as a theorem under the stated realisation conditions (§8.2). The method of computing the physical constants from the derived equations alone is given in this paper, and can be reproduced independently with the attached verification code.
+
+Note that comparing the derived numbers with the experimental observables requires making two things explicit. First, dimensionful quantities require a correspondence to humanly chosen units of measurement---setting the absolute scale $v$ (\S9). Second, dimensionless quantities require a correspondence that identifies which part of the structure is which physical structure or observable---for example, reading and identifying $\sin^2\!\theta_W$ as the fraction of the 13 directions occupied by the 3 weak ones. In other words, one must identify which known physical structure each derived mathematical structure corresponds to.
+
+Each of these identifications is provisional at the stage of its declaration. The text declares each identification where it enters (\S3 generations, \S4.2 gauge sectors, \S6 Higgs, \S7 masses and mixings) and argues under that hypothesis; the agreement of the full set of derived values with experiment is what corroborates the identifications. This paper states all of these correspondences (the mapping rules onto the observables) explicitly and computes the values. That each mapping rule is not a free parameter---the proof of its uniqueness---together with the operator-level derivations of the individual constructions, would require an enormous body of argument and is therefore deferred to Paper~II~\cite{paper2}. Such claims are marked with a superscript \PII{} in the text (indicating rigorisation in Paper II) and are not restated individually.
 
 The paper is organized as follows.
-Section~\ref{sec:chain} derives $V = -H$ from three axioms
-and establishes the Schr\"odinger equation.
-Section~\ref{sec:theorem} proves the bound-state count $N = 3$
-as a mathematical theorem.
-Section~\ref{sec:dimension} derives the spatial dimension $d = 3$
-as the unique common solution of three independent realisation-consistency conditions.
+Section~\ref{sec:chain} derives $V = -H$ from three axioms.
+Section~\ref{sec:theorem} establishes the Schr\"odinger equation,
+proves the bound-state count $N = 3$ as a mathematical theorem, and
+derives the spatial dimension $d = 3$ as the unique common solution
+of three independent realisation-consistency conditions.
 Section~\ref{sec:gauge} constructs the gauge structure from
 $\mathrm{PG}(2,\mathbb{F}_3)$.
 Section~\ref{sec:couplings} derives the gauge coupling constants.
@@ -139,8 +144,7 @@ determined\PII.
 
 \subsection{The Axioms}
 
-We define the three axioms on which the entire structure of this
-paper rests.
+Paring the question of the introduction---might the existence of the universe itself, like quantum existence, be undetermined?---down to a form that can become an equation leaves three short sentences. What the three sentences speak of is a single proposition, prior to any property: that something exists. Which particles, what space, what laws---nothing of that is said yet. These three sentences are the entire input of the theory; no physical constant, no spacetime, and no postulate of quantum mechanics enters here.
 
 \noindent\textbf{A1~(Existence):}\;
 Something exists. ``Exists'' is a proposition; it is either true
@@ -148,6 +152,8 @@ or false --- by the law of excluded middle, there is no third value.
 Writing the state of existence as~$n$, the state space is
 $n \in \{0,1\}$. A1 defines the state space but does not
 determine the \textbf{value} of~$n$.
+
+What is bivalent is the \emph{proposition} of existence, not a claim that the world is deterministic. To ask about the existence of something is, before asking about any of its properties, the single question: is it, or is it not? A1 fixes only the minimal structure this question carries---a one-bit state space. Everything that follows is built on this one bit.
 
 \medskip
 \noindent\textbf{A2~(Uncertainty):}\;
@@ -157,14 +163,16 @@ $\sigma = \langle n \rangle$ satisfies $\sigma \neq 1$.
 A2 excludes the upper endpoint (certain existence) but says nothing
 about the lower endpoint.
 
+If existence were certain ($\sigma = 1$), it would be an immovable background: nothing left to ask, nothing left to happen. As quantum theory teaches, microscopic existence is given only as a probability---A2 lifts this fact to the existence of the universe itself. Existence is not a given but something that \emph{occurs}, carrying uncertainty. This one sentence is what later generates the statistical ensemble and the dynamics.
+
 \medskip
 \noindent\textbf{A3~(Prohibition of non-existence):}\;
 Non-existence is not a state ($\sigma \neq 0$). A way of being
 that consists in not-being is a contradiction.
 
-\medskip
-\noindent
-From these three axioms unfolds the mathematical structure that corresponds to the structure of the Standard Model. We now formalise this. The foundational theorems underpinning this unfolding are established in Paper~II.
+``Nothing'' is not a way for something to be. If $\sigma = 0$ were a realisation state, non-existence would be \emph{there}, carrying data---the absence of being would be. A3 is the hardest-working of the three axioms: here it only removes the lower endpoint, but later it selects the coordinate by forbidding model data at the point of non-existence (\S\ref{sec:kinetic}) and selects the spatial dimension as the prohibition of boundary conditions (\S\ref{sec:dimension}).
+
+The three axioms are mutually independent---A1 removes the third truth value, A2 the upper endpoint, A3 the lower, each removing what the other two do not. And the three are exhaustive: together they leave only the open interval $0 < \sigma < 1$ (\S\ref{sec:partition}), and no further assumption enters anywhere in this paper. The axioms are these three sentences; how they are realised mathematically is constructed in minimal form in the following sections, and the proof that no freedom of choice remains in that realisation is given in Paper~II\PII{}.
 
 
 \subsection{Bivalence and the Partition Function}\label{sec:partition}
@@ -184,14 +192,16 @@ A3 ($\sigma \neq 0$) excludes non-existence.
 Together they determine $\sigma \in (0,1)$:
 the system is described as a canonical ensemble of a binary
 variable---an exponential family with mean parameter $\sigma$---neither
-certainly present nor certainly absent. The tilt weight $e^{n\phi}$ has its tilt coefficient fixed to~1 (generation-normalisation rigidity)\PII{}.
+certainly present nor certainly absent. The tilt weight $e^{n\phi}$ has its tilt coefficient fixed to~1 (the scale of $\phi$; \S3.1)\PII{}.
 $n^2 = n$ truncates the sum to two terms, and the partition
 function is
 \begin{equation}
   Z = \sum_{n=0}^{1} e^{n\phi} = 1 + e^{\phi},
 \end{equation}
 where $\phi = \ln[\sigma/(1{-}\sigma)]$ (the logit transform) is
-the canonical coordinate of the exponential family. Were $n$ able to take values $0, 1, 2, \dots$ (Bose statistics), the sum would be an infinite series. As a consequence of the law of excluded middle, $n^2 = n$ forbids this and restricts the occupation number to $\{0,1\}$---the Fermi--Dirac occupation statistics. Exchange antisymmetry (spin statistics) does not follow from this alone; it is carried by the many-body realisation (\S5.2).
+the canonical coordinate of the exponential family.
+
+Were $n$ able to take values $0, 1, 2, \dots$ (Bose statistics), the sum would be an infinite series. As a consequence of the law of excluded middle, $n^2 = n$ forbids this and restricts the occupation number to $\{0,1\}$---the Fermi--Dirac occupation statistics. Exchange antisymmetry (spin statistics) does not follow from this alone; it is carried by the many-body realisation (\S4.2).
 
 The expectation
 $\sigma = \langle n \rangle = \partial\ln Z/\partial\phi$
@@ -227,78 +237,41 @@ $\sigma = dW/d\phi$ and yields the effective potential:
 where $H(p) = -p\ln p - (1{-}p)\ln(1{-}p)$
 is binary Shannon entropy~\cite{shannon}.
 
-That is, $V = -H$ is an algebraic identity:
-the canonical free energy of a single binary degree of freedom
-$n \in \{0,1\}$ equals the negative of the Shannon entropy.
-There is no freedom of choice.
+That is, written out with its arguments, $V(\phi) = -H(\sigma(\phi))$: at each point of the canonical coordinate $\phi$, the value of the potential equals minus the binary entropy of the occupation probability $\sigma(\phi)$. This is an algebraic identity---the canonical free energy of a single binary degree of freedom $n \in \{0,1\}$ equals the negative of the Shannon entropy---and there is no freedom of choice. The bare form $V = -H$, used throughout, abbreviates this identity of functions.
 The potential
 \begin{equation}\label{eq:VH}
   V = -H
 \end{equation}
 is thereby uniquely determined by axioms A1--A3 together with the
 exponential-family realisation above.
+
 From this single equation, a structure closely matching
 the Standard Model emerges, and values agreeing with physical
-constants to high precision are derived (\S3--\S10).
+constants to high precision are derived (\S3--\S9).
 
-
-\subsection{The Schr\"odinger Equation}\label{sec:kinetic}
-
-\S2.3 established $V = -H$ as the potential. The next question is how many discrete states this potential well can hold. To answer it, an eigenvalue equation is needed, which requires a kinetic term in addition to the potential. The kinetic term likewise follows from the same structure. Two things remain to be fixed: the coordinate on which the motion is defined, and the relative normalisation of the kinetic term and the potential. A3 fixes the former; rigidity theorems fix the latter.
-
-First, the coordinate. On the probability $\sigma$ there are two natural coordinates: $u = 2\arcsin\sqrt{\sigma}$ (in which deviations of probability are measured uniformly in the Fisher-information metric) and $\phi = \mathrm{logit}(\sigma)$ (the natural parameter appearing in the exponent when the distribution is written in exponential form)~\cite{cencov,amari,ay}. What separates the two is A3 ($\sigma \neq 0$). In $u$ the forbidden point $\sigma = 0$ sits at the finite endpoint $u = 0$, so defining the dynamics requires boundary-condition data at that point---the point of non-existence becomes a repository of model-defining data. The coordinate $\phi$ sends $\sigma = 0$ to infinity, $\phi \to -\infty$, and requires no boundary data. A3 therefore selects~$\phi$, and free motion on $\phi$ has a Lagrangian that is a constant-coefficient quadratic form in $\dot{\phi}$.
-
-The choice of $\phi$ fixes the coordinate, but not the relative
-normalisation of the kinetic term and the action weight (the
-coefficient of the potential term). Writing the kinetic coefficient
-as $a^2/2$ and the action weight as $b$, the family of operators
+The derivation chain of this chapter is summarised as:
 \[
--\frac{a^2}{2}\frac{d^2}{d\phi^2} - b\,H(\sigma(\phi))
+  \text{A1--A3}\;\Rightarrow\; n^2{=}n,\; 0<\sigma<1
+  \;\Rightarrow\; Z = 1{+}e^{\phi}
+  \;\xrightarrow{\text{Legendre}}\; V = -H
 \]
-remains. There appear to be two parameters, but the actual freedom
-is a single dimensionless ratio $g = b/a^2$. The scale of $\phi$
-admits no rescaling---the binary indicator $n \in \{0,1\}$ of A1
-fixes the coefficient of $n\phi$ in the exponent to unity. The scale
-of $V = -H$ is already fixed by the Legendre identity. What remains
-is the transfer step; rescaling the step changes $a^2$ and $b$ in
-the same proportion, leaving $g$ unchanged. This paper adopts the
-canonical normalisation $g = 1$, which measures the quadratic
-variation per step of $\phi$ and the action weight as quantities of
-the same transfer process.\PII{}
 
-The Landauer viewpoint supports the same normalisation. In the
-$\phi$ coordinate, the transfer kernel takes the form
-\[
-K(\phi', \phi; \Delta\tau) \propto
-\exp\!\left[-\frac{(\phi'-\phi)^2}{2\Delta\tau} - \Delta\tau\,
-V(\phi)\right]
-\]
-and fixing the information metric per bit to unity gives kinetic
-coefficient 1---consistent with $g = 1$ (an independent
-corroboration).
 
-These choices are established as rigidity theorems\PII{}:
-\begin{itemize}
-\item Canonicity of the coordinate---any coordinate linearising the
-tilting action is unique up to affine maps.
-\item Constancy of the kinetic coefficient---displacement homogeneity
-excludes position-dependent coefficients.
-\item Exclusion of $u$-type coordinates---they have reachable
-boundaries and are therefore not admissible.
-\end{itemize}
+%=====================================================================
+\section{Derivation of the Schr\"odinger Equation and \texorpdfstring{$N = d = 3$}{N = d = 3}}\label{sec:theorem}
+%=====================================================================
 
-The bound-state count $N = 3$ itself does not depend on the choice
-$g = 1$: it remains $N = 3$ across the whole family
-$-\tfrac{1}{2}\,d^2\!/d\phi^2 - g\,H(\sigma(\phi))$ for
-$g \in [0.80, 1.50]$ (verified pointwise; certificate included). This
-robustness, however, concerns the count $N$ only---$\varepsilon = N -
-\sqrt{g}\,n_\mathrm{WKB}(1)$ changes sign within the same window
-($+0.51$ at $g = 0.80$, $-0.41$ at $g = 1.50$), so all
-$\varepsilon$-dependent corrections of \S6--\S8 rely on the $g = 1$
-fixed by the rigidity theorems. At the lower edge $g = 0.80$ the
-action count $2.49$ falls slightly below the third-state Maslov
-threshold $2.5$ while the exact count remains $3$---an instance
-showing that the threshold rule of \S3.1 is only a heuristic.
+$V = -H$ is a potential; by itself it does not yet say how many discrete states exist. This chapter first derives the eigenvalue equation---the Schr\"odinger equation---from the same exponential-family structure as the potential (\S\ref{sec:kinetic}). The spectral question---how many bound states the well holds---then becomes well-posed, and its answer is $N = 3$ (\S\ref{sec:whyN3}--\S\ref{sec:rigorous}). At the end of \S\ref{sec:rigorous} the three bound states are identified with the three generations of fermions---the one physical identification this chapter makes. Only under that identification does the second question arise: the particles the bound states represent exist in real space, so what determines the dimension of that space? Realisation consistency answers it, and $d = 3$ follows (\S\ref{sec:dimension}). The derivation of $d = 3$ makes no use of the value $N = 3$---the two derivations share the operator and nothing else. The coincidence $N = d = 3$ becomes the input of \S\ref{sec:gauge}.
+
+\subsection{Derivation of the Schr\"odinger Equation}\label{sec:kinetic}
+
+To write the eigenvalue equation, a kinetic term is needed in addition to the potential of \S2.3, and it follows from the same structure as the potential. Two data remain: the coordinate carrying the motion, and one dimensionless normalisation. Both are fixed uniquely; the uniqueness proofs are deferred to Paper~II\PII{}.
+
+First, the coordinate. The exponential family of a binary variable has two natural coordinates: $u = 2\arcsin\sqrt{\sigma}$, in which the Fisher metric is flat, and $\phi = \mathrm{logit}(\sigma)$, the canonical parameter in the exponent~\cite{cencov,amari,ay}. A3 decides between them. The coordinate $u$ places the forbidden point $\sigma = 0$ at the finite endpoint $u = 0$, so dynamics on $u$ would need boundary data exactly at the point of non-existence---non-existence would become a repository of model-defining data. The coordinate $\phi$ sends $\sigma = 0$ to $\phi \to -\infty$: no boundary data attaches to non-existence, and under A3 none is admissible. Among the admissible coordinates, $\phi$ is the one on which the tilting action of A1 is linear---unique up to affine maps---and the binary indicator $n \in \{0,1\}$ fixes its scale. Free motion on $\phi$ therefore has a constant-coefficient quadratic Lagrangian; position-dependent coefficients are excluded by displacement homogeneity\PII{}.
+
+Second, the normalisation. Writing the kinetic coefficient as $a^2/2$ and the action weight as $b$, the apparent two-parameter family reduces to the single dimensionless ratio $g = b/a^2$: the binary indicator $n \in \{0,1\}$ of A1 fixes the unit of $\phi$, the Legendre identity fixes the unit of $V = -H$, and rescaling the transfer step moves $a^2$ and $b$ in the same proportion. Measuring the quadratic variation per step and the action weight as quantities of one and the same transfer process sets $g = 1$; the Landauer bit-normalisation gives the same value independently. The uniqueness of both fixings is proved in Paper~II\PII{}.
+
+The bound-state count established below (\S\ref{sec:rigorous}) does not depend on this last choice: it is the same across the whole family $-\tfrac{1}{2}\,d^2\!/d\phi^2 - g\,H(\sigma(\phi))$ for $g \in [0.80, 1.50]$ (verified pointwise; certificate included). The $\varepsilon$-dependent corrections of \S5--\S7 do rely on $g = 1$, since $\varepsilon = N - \sqrt{g}\,n_\mathrm{WKB}(1)$ changes sign inside the same window ($+0.51$ at $g = 0.80$, $-0.41$ at $g = 1.50$); at the lower edge the action count $2.49$ dips below the Maslov threshold $2.5$ while the exact count is unchanged---the threshold rule of \S3.2 is a heuristic only.
 
 Combining $V = -H$ as the potential with the kinetic term of the canonical normalisation ($g = 1$):
 \begin{equation}\label{eq:schrodinger}
@@ -307,9 +280,9 @@ Combining $V = -H$ as the potential with the kinetic term of the canonical norma
 \noindent
 This is nothing other than a Schr\"odinger equation: with only the three axioms of existence and the canonical normalisation $g = 1$ above as input, the eigenvalue equation of quantum mechanics emerges as the continuum limit of the transfer matrix of the canonical action.
 
-The bound-state count $N = 3$ is a consequence of this construction---the A3-selected coordinate $\phi$ together with a flat kinetic term. Writing the flat kinetic term in a different coordinate yields a different operator and a different spectrum, so the A3 selection of $\phi$ is essential.
+The question posed at the head of this chapter---how many discrete states the well holds---is now well-posed, and \S\ref{sec:whyN3}--\S\ref{sec:rigorous} answer it. Whatever that count turns out to be, it is a consequence of this construction---the coordinate $\phi$ fixed uniquely above together with a flat kinetic term. Writing the flat kinetic term in a different coordinate yields a different operator and a different spectrum, so the uniqueness of $\phi$ is essential.
 
-The derivation chain of \S2 is summarised as:
+The derivation chain so far is summarised as:
 \[
 \begin{gathered}
   \text{A1--A3}\;\Rightarrow\; n^2{=}n,\; 0<\sigma<1
@@ -320,20 +293,15 @@ The derivation chain of \S2 is summarised as:
 \end{gathered}
 \]
 
-
-%=====================================================================
-\section{Three Bound States}\label{sec:theorem}
-%=====================================================================
+\subsection{Three Bound States}\label{sec:whyN3}
 
 Why do fermions come in exactly three generations---why $\tau$, $\mu$, $e$,
 and why not a fourth?
-This chapter proves rigorously that the potential $V = -H$ has
-exactly three bound states and no fourth (hereafter $N = 3$). We
-identify this with the three generations of fermions. The
+This and the following subsection prove rigorously that the potential
+$V = -H$ has exactly three bound states and no fourth (hereafter $N = 3$),
+and identify them with the three generations of fermions. The
 identification is corroborated by the agreement of the mass ratios
 and mixing angles in \S\ref{sec:physics}.
-
-\subsection{Why \texorpdfstring{$N = 3$}{N = 3}}\label{sec:whyN3}
 
 The potential $V = -H$ is a well. It is deepest at the centre
 ($\phi = 0$) where $V = -\ln 2$,
@@ -348,7 +316,7 @@ The well of $V = -H$, however, has no such free parameters. Its depth
 is fixed as the number $\ln 2 \approx 0.693$ directly by the functional
 form of the Shannon entropy itself (\S 2.3), and the coefficient of the
 kinetic term that plays the role of width is likewise fixed to the
-unique value $g = 1$ (the rigidity theorem of \S 2.4). In an ordinary
+unique value $g = 1$ (the uniqueness theorem of \S 3.1). In an ordinary
 well problem, depth and width are free to choose; here neither is---both
 are completely fixed by the form of the equations alone.
 
@@ -361,7 +329,7 @@ only be found by actually solving it and counting.
 \caption{The potential $V = -H(\sigma(\phi))$ and the probability
 densities $|\psi_n|^2$ of its three bound states (left).
 More localised states correspond to heavier particles (right).
-No fourth negative eigenvalue: the prediction that no fourth generation exists.}
+No fourth negative eigenvalue: the prediction that no fourth sequential chiral generation exists.}
 \label{fig:potential}
 \end{figure}
 
@@ -376,13 +344,8 @@ Each integer half-wavelength corresponds to one bound state:
   = 2.781\,.
 \end{equation}
 In the standard convention including the Maslov correction, the threshold for the $k$-th state is $n_\mathrm{WKB} > k - 1/2$. The value $n_\mathrm{WKB} = 2.781$ exceeds the third-state threshold $2.5$ by $0.281$, while falling short of the fourth-state threshold $3.5$ by $0.719$. The WKB estimate therefore suggests $N = 3$.
-We define $\varepsilon \equiv N - n_\mathrm{WKB} = 3 - 2.781 = 0.219$, the gap between the exact bound-state count and this semiclassical action count.\footnote{The rigorous interval enclosure 0.219188 is certified by the accompanying certificate script (rigorous Arb-ball integration with an analytic tail bound); the certified interval lies inside the certified interval of Paper~II.} $\varepsilon > 0$ reflects the fact that the third state is barely bound. The numerical measure of how marginal it is depends on the semiclassical convention: measured against the Maslov-corrected threshold, the same gap is $2.781 - 2.5 = 0.281$. We adopt $\varepsilon = N - n_\mathrm{WKB}$ rather than the threshold
-gap $0.281$ because the former compares two unambiguously defined
-quantities---the exact count and the action integral---whereas the
-latter depends on the Maslov-corrected threshold rule; that rule is
-an asymptotic approximation, and the $g = 0.80$ example of \S2.4
-shows that it can fail at finite depth. The expansion parameter of this paper is consistently this $\varepsilon$; it controls the NLO corrections to the couplings and mixing angles derived in \S6--\S8.
-$N = 3$ arises from a construction of three elements---the choice of coordinate, the normalisation of the kinetic term, and the type of entropy. First, the coordinate $\phi = \mathrm{logit}(\sigma)$ is unique up to affine transformations as the coordinate linearising the tilt action, with its scale fixed by the binary indicator of A1 (\S2.4). Second, the kinetic-term normalisation is the canonical normalisation $g = 1$ of \S2.4. Third, Shannon entropy is the unique entropy satisfying the Khinchin axioms, which include strong additivity (the chain rule) (Khinchin's theorem~\cite{aczel,khinchin}). Under this construction, $N = 3$ is rigorously proved by interval arithmetic (\S\ref{sec:rigorous}).
+We define $\varepsilon \equiv N - n_\mathrm{WKB} = 3 - 2.781 = 0.219$: the gap between the exact count and the semiclassical action count.\footnote{The rigorous interval enclosure 0.219188 is certified by the accompanying certificate script (rigorous Arb-ball integration with an analytic tail bound); the certified interval lies inside the certified interval of Paper~II.} That $\varepsilon > 0$ says the third state is barely bound.\footnote{Measured against the Maslov-corrected threshold, the same marginality reads $2.781 - 2.5 = 0.281$. We use $\varepsilon$ because it compares two unambiguously defined quantities---the exact count and the action integral---whereas the threshold rule is an asymptotic heuristic; the $g = 0.80$ example of \S3.1 shows it can fail at finite depth.} This $\varepsilon$ is the source of every correction exponent in this paper: it controls the NLO corrections to the couplings and mixing angles of \S5--\S7.
+Nothing in this count is adjustable. The three ingredients of the construction are each unique: the coordinate and the normalisation are the unique ones of \S3.1, and Shannon entropy is the unique entropy satisfying the Khinchin axioms, which include strong additivity (Khinchin's theorem~\cite{aczel,khinchin}). Under this construction, $N = 3$ is rigorously proved by interval arithmetic (\S\ref{sec:rigorous}).
 
 \subsection{Rigorous Proof}\label{sec:rigorous}
 
@@ -399,33 +362,26 @@ No fourth negative eigenvalue exists; the essential spectrum begins at 0 (the sm
 \end{theorem}
 
 \noindent\textit{Proof (computer-assisted, interval arithmetic).}\;
-By parity, decompose into the Neumann problem (even) and the Dirichlet problem (odd) on the half-line $[0,\infty)$. Under interval enclosures based on the monotonicity of the potential, propagate the Pr\"ufer angle by intervals and combine with analytic tail estimates to obtain rigorous upper and lower bounds on the Pr\"ufer angle at the trial energies. By Sturm oscillation theory, the number of negative eigenvalues is counted exactly by the rotation of the Pr\"ufer angle, giving exactly 2 in the even sector and exactly 1 in the odd sector---$N = 3$ in total. The eigenvalue enclosures are certified by two-sided shooting with a verified high-order Taylor integrator over interval coefficients. An independent implementation (Arb ball arithmetic) re-certifies the bound-state count $N = 3$. The bundled verification code additionally confirms the existence of three negative eigenvalues by variational upper bounds from Rayleigh quotients of three sech-type (Pöschl--Teller-type~\cite{poschl}) trial functions. Three certificate scripts are included in the supplementary materials.\hfill$\square$
+The proof has three independent layers.
+
+\emph{Counting.} By parity the problem splits into a Neumann problem (even) and a Dirichlet problem (odd) on the half-line $[0,\infty)$. Propagating the Pr\"ufer angle by interval enclosures (using the monotonicity of the potential), combined with analytic tail estimates, gives rigorous two-sided bounds on the angle at the trial energies. By Sturm oscillation theory the rotation of the angle counts the negative eigenvalues exactly: two in the even sector, one in the odd---$N = 3$.
+
+\emph{Enclosures.} The eigenvalue intervals above are certified by two-sided shooting with a verified high-order Taylor integrator over interval coefficients.
+
+\emph{Independent checks.} A separate implementation in Arb ball arithmetic re-certifies $N = 3$, and variational upper bounds from Rayleigh quotients of three sech-type (Pöschl--Teller-type~\cite{poschl}) trial functions confirm the existence of three negative eigenvalues. Three certificate scripts are included in the supplementary materials.\hfill$\square$
 
 \medskip\noindent
 \textbf{Identification with generations.}
-Here we hypothesise that these three bound states $\psi_0$, $\psi_1$, $\psi_2$
-are the mathematical structure of the three generations of fermions.
-The ordering then fixes which state is which generation: the ordering of
-binding energies $|E_0| > |E_1| > |E_2|$ is the ordering of localisation,
-and the generations carry the mass hierarchy.
-The most localised $\psi_0$ is the heaviest generation --- for charged
-leptons, $\psi_0,\psi_1,\psi_2 \leftrightarrow \tau,\mu,e$.
-At this stage this is a provisional identification; but in
-\S\ref{sec:physics} the mass ratios and mixing angles are derived from
-this identification and agree with experiment, which makes the
-identification credible.
-If the identification is correct, the absence of a fourth negative
-eigenvalue is the prediction that no fourth generation exists.
+Here we hypothesise that these three bound states $\psi_0$, $\psi_1$, $\psi_2$ are the mathematical structure of the three generations of fermions. The ordering then fixes which state is which generation: binding energy orders localisation ($|E_0| > |E_1| > |E_2|$, from most to least localised), and the generations carry the mass hierarchy---the most localised $\psi_0$ is the heaviest generation. For charged leptons, $\psi_0, \psi_1, \psi_2 \leftrightarrow \tau, \mu, e$.
+
+At this stage the identification is provisional. In \S\ref{sec:physics} the mass ratios and mixing angles are derived from it and agree with experiment; that agreement is what makes it credible. If the identification is correct, the absence of a fourth negative eigenvalue is the prediction that no fourth sequential chiral generation exists.
 
 
-%=====================================================================
-\section{Three Spatial Dimensions}\label{sec:dimension}
-%=====================================================================
-
-Section~\ref{sec:theorem} proved $N = 3$. That proof lives in the
+\subsection{Three Spatial Dimensions}\label{sec:dimension}
+The preceding subsections proved $N = 3$. That proof lives in the
 internal space (the $\phi$ coordinate), and $\phi$ is not a spatial
-coordinate---as \S9.2 shows, the internal and spacetime factors are
-independent. Under the provisional identification of \S\ref{sec:theorem},
+coordinate---as \S8.2 shows, the internal and spacetime factors are
+independent. Under the provisional identification of \S\ref{sec:rigorous},
 however, the fermions represented by the three bound states are
 particles that exist in real space. What, then,
 determines the dimension of that space? The answer is the consistency
@@ -469,7 +425,7 @@ $\geq 5$ & $\geq 1$ & Strong repulsion \\
 \end{center}
 
 \noindent
-Full-line quantisation ($\phi \in \mathbb{R}$) is essentially self-adjoint at the endpoints and requires no boundary condition. Under A3 (non-existence is not a state---no additional data is admissible at the boundary; the same conclusion as the exclusion of u-type coordinates, rigidity theorem (iii) of \S 2.4)\PII{}, this canonical full-line quantisation is the reference, and a spatial realisation is required not to add an extra inverse-square term to the canonical operator. This requirement is met only when the coefficient $(d{-}1)(d{-}3)/8$ vanishes, i.e.\ only for $d = 1, 3$. Note that a vanishing inverse-square term does not make the full-line and radial problems identical---a half-line radial model adds endpoint structure at the origin (a choice of self-adjoint extension) and is a different model, outside the comparison fixed by this correspondence (Paper~II).
+Full-line quantisation ($\phi \in \mathbb{R}$) is essentially self-adjoint at the endpoints and requires no boundary condition. Under A3 (non-existence is not a state---no additional data is admissible at the boundary; the same conclusion as the exclusion of u-type coordinates in \S 3.1)\PII{}, this canonical full-line quantisation is the reference, and a spatial realisation is required not to add an extra inverse-square term to the canonical operator. This requirement is met only when the coefficient $(d{-}1)(d{-}3)/8$ vanishes, i.e.\ only for $d = 1, 3$. Note that a vanishing inverse-square term does not make the full-line and radial problems identical---a half-line radial model adds endpoint structure at the origin (a choice of self-adjoint extension) and is a different model, outside the comparison fixed by this correspondence (Paper~II).
 
 Two realisation-consistency conditions exclude $d = 1$.
 First, the fermionic structure (CAR) is derived from A1--A3
@@ -480,7 +436,7 @@ for $d \geq 3$
 $\mathrm{Spin}(d)$ with finite-dimensional spinor
 representations).
 Second, the realisation of a spin-2 field (gravity)---taken as a
-premise, as in \S9.1, with its derivation left to a subsequent
+premise, as in \S8.1, with its derivation left to a subsequent
 paper---propagating dynamically requires $d \geq 3$ (for $d \leq 2$
 the Weyl tensor vanishes identically, leaving no local degrees of
 freedom).
@@ -488,7 +444,7 @@ freedom).
 We summarise this as a theorem.
 
 \begin{theorem}[$d = 3$]\label{thm:d3}
-Under the A3 selection of full-line quantisation, $d = 3$ is the unique spatial dimension simultaneously satisfying:
+Under the above choice of full-line quantisation, $d = 3$ is the unique spatial dimension simultaneously satisfying:
 \emph{(i)}~the well operator is preserved with no extra geometric term: $d = 1, 3$;
 \emph{(ii)}~spin-statistics connection holds: $d \geq 3$;
 \emph{(iii)}~gravity propagates (Weyl tensor non-trivial): $d \geq 3$.
@@ -505,15 +461,10 @@ $\leq 3$, i.e.\ spatial $d \leq 2$; propagating gravity requires $d \geq 3$.\hfi
 %=====================================================================
 
 %=====================================================================
-\section{Gauge Structure from the Projective Plane}\label{sec:gauge}
+\section{Derivation of the Gauge Structure from the Projective Plane}\label{sec:gauge}
 %=====================================================================
 
-The generation number $N = 3$ (\S\ref{sec:theorem}) and the spatial
-dimension $d = 3$ (\S\ref{sec:dimension}) were derived
-independently---yet they take the same value $N = d = 3$.
-On this coincidence, we construct the three-dimensional space $\mathbb{F}_3^3$ over the field $\mathbb{F}_3$.
-This chapter shows that the geometric structure arising from it has the same
-mathematical construction as the Standard Model gauge structure.
+The previous chapter derived two numbers from the Schr\"odinger equation: the bound-state count $N = 3$ (\S\ref{sec:rigorous}) and the spatial dimension $d = 3$ (\S\ref{sec:dimension}). The two were derived independently---yet they take the same value, $N = d = 3$. On this coincidence, we construct the three-dimensional space $\mathbb{F}_3^3$ over the three-element field $\mathbb{F}_3$---why ``3'' becomes a field, and not a mere count, is shown in \S\ref{sec:gauge-origin}. This chapter shows that the geometric structure arising from it has the same mathematical construction as the Standard Model gauge structure.
 
 \subsection{Origin of the Gauge Structure}\label{sec:gauge-origin}
 
@@ -529,16 +480,14 @@ $V = -H$ --- all have distinct energies
 ($E_0 \neq E_1 \neq E_2$, by the Sturm--Liouville theorem),
 so a preferred eigenbasis exists.
 The symmetry preserving this basis is discrete and cannot support a
-continuous gauge group.\footnote{The $2C_F$ appearing in the mass formula of \S8.1 is the internal-localisation Casimir of $N = 3$ and is compatible with this.}
+continuous gauge group.\footnote{The contact index $b = 8/3$ in the mass formula of \S7.1 is derived from the finite incidence geometry and is compatible with this (its numerical agreement with the $\mathrm{SU}(3)$ Casimir is an $N = 3$-only consistency check, \S7.1).}
 The gauge directions therefore cannot arise from the interchange of
 generations --- they must come from the geometry of the space
 $\mathbb{F}_3^3$, which we now construct.
 
 \[N = 3 \xrightarrow{\text{cycling}} C_3 \xrightarrow{\mathrm{End}} \mathbb{F}_3 \xrightarrow{d = 3} \mathbb{F}_3^3 \xrightarrow{\text{projectivisation}} \mathrm{PG}(2,\mathbb{F}_3)\,(13\text{ points}) \xrightarrow{\text{flag}} 9{+}3{+}1\]
 
-\S3 derived $N = 3$ (bound states) and \S4 derived $d = 3$
-(spatial dimension).
-From this coincidence, the three-dimensional space
+From the coincidence $N = d = 3$, the three-dimensional space
 $\mathbb{F}_3^3$ over the field $\mathbb{F}_3 = \{0,1,2\}$
 is determined.
 The origin of the field structure lies in the exchange of generations. The cyclic shifts of the three bound states ($1 \to 2 \to 3 \to 1$ and its iterates) form $C_3$, the unique normal subgroup of $S_3$, and carry any state to any other by exactly one shift. The maps preserving the composition of shifts are only three---multiplication by 0, by 1, and by 2 (the endomorphism ring)---and they form the field $\mathbb{F}_3 = \mathbb{Z}/3\mathbb{Z}$ with its addition and multiplication: here 3 becomes a field, not merely a count.
@@ -612,7 +561,7 @@ Standard Model gauge group
 $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)_Y$.
 Here we hypothesise that the three blocks of this partition are the
 gauge sectors of the Standard Model. At this stage this is a provisional identification; but the
-coupling constants (\S6) and the mixing angles (\S8) are derived from
+coupling constants (\S5) and the mixing angles (\S7) are derived from
 it and agree with experiment, which corroborates the identification.
 
 \noindent\textbf{9~points $\to$ SU(3).}\;
@@ -627,7 +576,7 @@ The identity $W_{\{0,0\}}$ is the central component; the remaining
 By the Killing--Cartan classification, the unique rank-2,
 dimension-8 compact simple Lie completion is $\mathfrak{su}(3)$.
 The 9th, central component corresponds to the global baryon number
-$\mathrm{U}(1)_B$ (an ungauged global charge; the exact anomaly-free combination is $B{-}L$, \S8.4).
+$\mathrm{U}(1)_B$ (an ungauged global charge; the exact anomaly-free combination is $B{-}L$, \S7.4).
 
 \noindent\textbf{3~points $\to$ SU(2).}\;
 The 3~points on~$L$ excluding~$P_0$ give three non-trivial
@@ -678,7 +627,7 @@ This shape defines a stable well ($V''(0) = 1/4 > 0$). The vacuum sits at the in
 
 \subsection{Origin of Fermion Diversity}
 
-\S5.2 established that the 13 directions of $\mathrm{PG}(2,\mathbb{F}_3)$
+\S4.2 established that the 13 directions of $\mathrm{PG}(2,\mathbb{F}_3)$
 give a structure with the same shape as the Standard-Model gauge group.
 But the 13~directions do not correspond to fermions themselves.
 The 13~directions define the gauge symmetry --- the structure of forces ---
@@ -706,6 +655,7 @@ each configuration; the third that the unique unit of existence
 occupies exactly one configuration --- the orthogonal resolution of
 the one-particle state space (the $\hat n_i$ are mutually orthogonal
 projections summing to $\hat n$).
+
 This mutual exclusivity is not an independent assumption but a
 consequence of the bivalence of existence (A1) and its uniqueness
 (A3). The Pauli exclusion principle itself --- no double occupancy of
@@ -723,7 +673,7 @@ generation~$k$ (which bound state of $V = -H$, $k=1,2,3$) and gauge representati
 (which sector of $\mathrm{PG}(2, \mathbb{F}_3)$).
 That is, $n_i = n_{k,\alpha}$.
 The representations of $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$ give 16 states per generation. The chiral asymmetry ($\mathrm{SU}(2)$ acting only on left-handed fields) is part of this particle-species specification and is not derived in this paper. In Paper~II, under the stated enumeration conditions, mixed configurations are excluded and the left/right assignment is unique up to a global orientation convention.
-The hypercharge values in the table below are the unique anomaly-free assignments compatible with the $9{+}3{+}1$ sector structure, Yukawa closure, the inclusion of~$\nu_R$, and the specification of a single local abelian gauge factor ($B{-}L$ remains an ungauged global charge, \S5.2); the operator-level derivation is likewise given in the same paper:
+The hypercharge values in the table below are the unique anomaly-free assignments compatible with the $9{+}3{+}1$ sector structure, Yukawa closure, the inclusion of~$\nu_R$, and the specification of a single local abelian gauge factor ($B{-}L$ remains an ungauged global charge, \S4.2); the operator-level derivation is likewise given in the same paper:
 
 \vspace*{0.4\baselineskip}
 \begin{center}
@@ -745,13 +695,13 @@ $(\mathbf{1},\mathbf{1},0)$ & Right-handed neutrino $\nu_R$ & 1 \\
 \noindent
 Total: $16 \times 3$ generations $= 48$ configurations.
 The inclusion of~$\nu_R$ is required for Yukawa closure
-and for the $B{-}L$-protected Dirac-neutrino structure (see \S8.4 of this paper).
+and for the $B{-}L$-protected Dirac-neutrino structure (see \S7.4 of this paper).
 This makes the configuration decomposition concrete: the index $i$
 runs over the pair $(k,\alpha)$.
 The generators of $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$
 correspond to $8{+}3{+}1 = 12$ gauge bosons
 (8~gluons, 3~weak bosons $W^+W^-Z$, 1~photon).
-Together with the Higgs boson from~\S5.2, the 48~fermions, 12~gauge bosons,
+Together with the Higgs boson from~\S4.2, the 48~fermions, 12~gauge bosons,
 and 1~Higgs constitute the complete particle content of the Standard Model.
 
 Thus, diverse matter ($n_i$) arises from unique existence ($n$).
@@ -770,13 +720,13 @@ agree with experiment to $0.0006\%$--$2.6\%$ accuracy.
 \section{Gauge Coupling Constants}\label{sec:couplings}
 %=====================================================================
 
-\S5.2 derived the structure corresponding to the gauge group
+\S4.2 derived the structure corresponding to the gauge group
 (which forces exist). This chapter derives their strengths
 (coupling constants).
 
 \subsection{Weinberg Angle}\label{sec:weinberg}
 
-The partition $9{+}3{+}1$ of \S5.2 gives values corresponding
+The partition $9{+}3{+}1$ of \S4.2 gives values corresponding
 to the coupling constants.
 The weight of each point is fixed by the symmetry prior to choosing
 a flag: $\mathrm{PGL}(3,\mathbb{F}_3)$ acts transitively on
@@ -835,6 +785,7 @@ The fine-structure constant requires more---the full spectral
 structure of the internal space.
 
 The inverse electromagnetic coupling $1/\alpha$ measures the weakness of the electromagnetic interaction. The observed charge is the charge screened by the matter fields---the stronger the screening, the weaker the coupling and the larger $1/\alpha$. In this framework $1/\alpha$ is given (up to the self-consistent correction $-\alpha$) by the sum of the bare photon propagation cost $\lambda_1$ and the matter screening quantity $Z$, and the Thomson-point value is dominated by the screening term.
+
 In 4D QED this structure is formalised as the Dyson equation.
 In 0D the same structure holds but becomes algebraically
 exact. The propagator is a constant, so the vertex correction
@@ -848,7 +799,9 @@ The self-consistency equation is:
 The right-hand side has two terms:
 $\lambda_1$ is the bare photon inverse propagator
 (propagation cost) and $Z$ corresponds to the scalar-channel spectral quantity (screening). This correspondence is a spectral one---$Z$ is the resolvent trace
-whose energy-denominator structure matches the matter vacuum polarisation. The form of the equation (the left-hand side $1/\alpha + \alpha$ with unit coefficient) is derived\PII---what remains external is the comparison convention identifying the incidence current with the Thomson-point electromagnetic current. The full justification of this correspondence as a self-consistent prediction, and the proof that the physical root is unique under this identification, are both given in the same paper. The dominant contribution to $Z$ is $1/|E_2| = 95.94$; since $E_2$ is rigorously certified by the interval arithmetic of \S\ref{sec:rigorous}, this sensitivity introduces no uncertainty.
+whose energy-denominator structure matches the matter vacuum polarisation.
+
+The form of the equation (the left-hand side $1/\alpha + \alpha$ with unit coefficient) is derived\PII---what remains external is the comparison convention identifying the incidence current with the Thomson-point electromagnetic current. The full justification of this correspondence as a self-consistent prediction, and the proof that the physical root is unique under this identification, are both given in the same paper. The dominant contribution to $Z$ is $1/|E_2| = 95.94$; since $E_2$ is rigorously certified by the interval arithmetic of \S\ref{sec:rigorous}, this sensitivity introduces no uncertainty.
 
 The minimum cost $\lambda_1$ for gauge-field propagation through
 internal space is the smallest non-zero eigenvalue of the Laplacian
@@ -873,7 +826,9 @@ $2(N{+}1)$ & $8$ & $27$ \\
 \noindent
 This spectrum follows elementarily from the incidence counts of the projective plane alone. Each point lies on 4 lines and each line carries 4 points, so flag adjacency (sharing the point or sharing the line) forms a 6-regular graph, and the Laplacian can be written
 \[\mathcal{L} = 8\,\mathbf{1} - P - \Lambda\]
-where $P$ ($\Lambda$) is the operator summing over the 4 flags with the same point (the same line). On constant functions $P = \Lambda = 4$, so $\mathcal{L} = 0$ (multiplicity 1). On the space of functions whose sum vanishes within every point group and within every line group---of dimension $52 - 13 - 13 + 1 = 27$---one has $P = \Lambda = 0$, so $\mathcal{L} = 8$ (multiplicity 27). The remaining 24 dimensions are spanned by pairs of a zero-sum point function $u$ and a zero-sum line function $v$, on which $\mathcal{L}$ acts as $(u, v) \mapsto (4u - Mv,\, 4v - M^{\mathsf T}u)$, with $M$ the $13 \times 13$ point-line incidence matrix. Since exactly one line passes through two distinct points, $M M^{\mathsf T} = 3I + J$ ($J$ the all-ones matrix), which on zero-sum functions reduces to $M M^{\mathsf T} = 3I$. Hence $(4-\lambda)^2 = 3$, i.e.\ $\lambda = 4 \mp \sqrt3$ (multiplicity 12 each). The $\sqrt3$ comes from the uniqueness of the line joining two points; the $4 = N + 1$ from the number of lines through a point.
+where $P$ ($\Lambda$) is the operator summing over the 4 flags with the same point (the same line). On constant functions $P = \Lambda = 4$, so $\mathcal{L} = 0$ (multiplicity 1). On the space of functions whose sum vanishes within every point group and within every line group---of dimension $52 - 13 - 13 + 1 = 27$---one has $P = \Lambda = 0$, so $\mathcal{L} = 8$ (multiplicity 27).
+
+The remaining 24 dimensions are spanned by pairs of a zero-sum point function $u$ and a zero-sum line function $v$, on which $\mathcal{L}$ acts as $(u, v) \mapsto (4u - Mv,\, 4v - M^{\mathsf T}u)$, with $M$ the $13 \times 13$ point-line incidence matrix. Since exactly one line passes through two distinct points, $M M^{\mathsf T} = 3I + J$ ($J$ the all-ones matrix), which on zero-sum functions reduces to $M M^{\mathsf T} = 3I$. Hence $(4-\lambda)^2 = 3$, i.e.\ $\lambda = 4 \mp \sqrt3$ (multiplicity 12 each). The $\sqrt3$ comes from the uniqueness of the line joining two points; the $4 = N + 1$ from the number of lines through a point.
 
 The smallest non-zero eigenvalue $\lambda_1 = 4 - \sqrt{3} = 2.268$ is the quantity that corresponds to the bare photon inverse propagator in the self-consistent equation $1/\alpha + \alpha = \lambda_1 + Z$ above. $\lambda_1 > 0$ is consistent with the confinement picture---the positive spectral gap corresponds to colour-charged states not propagating freely in the asymptotic regime.
 
@@ -909,13 +864,13 @@ Substituting $\lambda_1 = 4-\sqrt3 = 2.26795$ and $Z = 134.77613$ into the self-
 
 Adding the correction terms (the proof is given in Paper~II):
 \[\frac{1}{\alpha} + \alpha = \Lambda_0 - x\Bigl(1+\frac{\alpha}{2}\Bigr) + \frac{3}{4}\varepsilon^2 x + \frac{1589}{5408}\,x^2 - \frac{2}{13}\,\frac{x^3}{1+x},\qquad x = \frac{9\alpha}{26\pi}\]
-where $\Lambda_0 = \lambda_1 + Z$ is the right-hand side of the leading term and $x$ is the same expansion parameter as the colour screening of \S8.3. The origin of each term---the self-consistent screening correction, the generation branching for $\varepsilon^2 x$, the second-order screening count for $x^2$, and the first return of the 52-flag orbit for $x^3$---and the proof that the series closes in this form are given in Paper~II. The physical root of this equation is
+where $\Lambda_0 = \lambda_1 + Z$ is the right-hand side of the leading term and $x$ is the same expansion parameter as the colour screening of \S7.3. The origin of each term---the self-consistent screening correction, the generation branching for $\varepsilon^2 x$, the second-order screening count for $x^2$, and the first return of the 52-flag orbit for $x^3$---and the proof that the series closes in this form are given in Paper~II. The physical root of this equation is
 \[\frac{1}{\alpha}\Big|_{\text{all orders}} = 137.035999084\]
 The value is certified to 13 digits by the interval $[137.0359990843979,\ 137.0359990844119]$ (Paper~II). We note that the experimental recommendations split by measurement system: CODATA 2018, whose principal input is the Cs photon-recoil measurement, gives $137.035999084(21)$ --- agreement to all displayed digits --- while CODATA 2022, based on the Rb recoil, gives $137.035999177(21)$, $4.4\sigma$ away. The Cs and Rb measurements themselves disagree by more than $5\sigma$; on this open experimental dispute the framework gives the prediction that the fine-structure constant lies on the Cs side (Table~4).
 
 \section{Higgs Sector and Electroweak Symmetry Breaking}\label{sec:higgs}
 
-\S6 derived the gauge coupling constants. The Standard Model has one more
+\S5 derived the gauge coupling constants. The Standard Model has one more
 free parameter in the scalar sector --- the Higgs self-coupling~$\lambda$.
 This chapter derives the mathematical structure corresponding to it and shows the pinning of the internal vacuum and the boundedness of the internal potential (no instability channel).
 
@@ -925,7 +880,7 @@ Electroweak symmetry breaking is the statement that, while the dynamical laws re
 
 The $V = -H(\sigma(\phi))$ of this paper answers this question through structure. The binary Shannon entropy $H$ vanishes at both endpoints $\sigma \in \{0,1\}$ (the trivial configurations corresponding to the field-vanishing point) and is maximal at the interior point $\sigma = 1/2$, so $V = -H$ is a stable well that is 0 at the endpoints and reaches its minimum $-\ln 2$ at the interior point ($V''(0) = 1/4 > 0$). Moreover A2 ($\sigma \neq 1$) and A3 ($\sigma \neq 0$) forbid the endpoints themselves. The ground state therefore necessarily sits at the interior point---the condition that the vacuum cannot sit at the symmetric point, i.e.\ the condition for breaking, follows from the shape of the entropy and the axioms rather than from destabilising the origin. What the Standard Model assumes as $\mu^2 > 0$ becomes here a consequence of the shape of $V$. The Higgs-mass formula uses the positive curvature $V''(0) = 1/4$ at this minimum.
 
-Under the identification of \S5.2, the line structure of $\mathrm{PG}(2,\mathbb{F}_3)$
+Under the identification of \S4.2, the line structure of $\mathrm{PG}(2,\mathbb{F}_3)$
 corresponds to the Higgs $\mathrm{SU}(2)$ doublet. The curvature at the
 centre---the Fisher metric at $\sigma = 1/2$---gives the Higgs mass:
 \[V''(0) = g_F(0) = \sigma(1-\sigma)\big|_{\sigma=1/2} = \tfrac{1}{4}\]
@@ -960,7 +915,7 @@ Relating this O(1) ratio to the 4D $v^2/\Lambda^2$, and interpreting the bounded
 The shape of $V$ is fixed by the axioms, and scale dependence does not alter the algebraic structure of $V$.
 Furthermore, $V = -H$ is uniquely determined as the
 canonical free energy of $n \in \{0,1\}$ (\S2).
-Within the minimal PFE operator algebra, no second fundamental
+Within the minimal operator algebra of the theory, no second fundamental
 scalar potential is generated.
 The minimal reconstruction thus predicts a single Higgs doublet.
 
@@ -970,7 +925,7 @@ The minimal reconstruction thus predicts a single Higgs doublet.
 The predictions above are algebraic values, and their comparison with $M_Z$-scale experiments requires the 4D RG evolution and loop corrections of the running quantities (\S\ref{sec:correspondence}).
 The next correction to the weak angle---the radiative correction, with expansion parameter $\alpha$, that carries the tree value $3/13$ to the $\overline{\mathrm{MS}}$ value at $M_Z$---is fixed in closed form by the framework itself:
 \[\Delta_\mathrm{rad} = \alpha\cdot\frac{5N^3}{|\mathrm{PG}|^3} = \alpha\cdot\frac{135}{2197} = 0.00045\]
-($N$ and $|\mathrm{PG}|$ are quantities of this paper; the uniqueness of this product form, including the coefficient 5, is proved as a theorem\PII{}.) This gives $\sin^2\!\theta_W = 3/13 + \Delta_\mathrm{rad} = 0.23077 + 0.00045 = 0.23122$, in agreement with the $\overline{\mathrm{MS}}$ value $0.23122 \pm 0.00003$~\cite{pdg} within errors. Similarly, the leading value $m_W/m_Z = \sqrt{10/13} = 0.8771$ is $0.5\%$ below experiment; this residual has approximately the size and sign of the standard SM top-quark $\Delta\rho$ correction, but the $\Delta\rho$-corrected comparison is a conditional computation requiring renormalisation-scheme matching.
+($N$ and $|\mathrm{PG}|$ are quantities of this paper; the uniqueness of this product form, including the coefficient 5, is proved as a theorem\PII{}.) This gives $\sin^2\!\theta_W = 3/13 + \Delta_\mathrm{rad} = 0.23077 + 0.00045 = 0.23122$, in agreement with the $\overline{\mathrm{MS}}$ value $0.23122 \pm 0.00003$~\cite{pdg} within errors. Similarly, $m_W/m_Z = \sqrt{10/13} = 0.8771$ is $0.5\%$ below experiment; this residual has approximately the size and sign of the standard SM top-quark $\Delta\rho$ correction. That the custodial response is carried by exactly one neutral component of the one Higgs doublet is a theorem; what remains as identification is the naming of the experimental definition points (the on-shell convention) and the readout word. Under that identification, $m_W/m_Z = 0.88137$ follows uniquely and agrees with experiment at $+1.0\sigma$\PII{}.
 
 \noindent\textbf{Summary.}\;
 $\sin^2\!\theta_W(M_Z) = 0.23122$ ($<0.01\%$),
@@ -983,7 +938,7 @@ All four coupling constants are derived from $V = -H$ and $\mathrm{PG}(2,3)$ and
 \section{Fermion Masses and Mixing}\label{sec:physics}
 %=====================================================================
 
-\S5--7 established the structures corresponding to gauge structure,
+\S4--6 established the structures corresponding to gauge structure,
 coupling constants, and the Higgs mass.
 Based on the provisional identification of the generations made in
 \S\ref{sec:theorem}, this chapter derives
@@ -1023,19 +978,19 @@ number.
 \begin{equation}
   V = -H \;\xrightarrow{\;\text{\S3}\;} \psi_n
   \;\xrightarrow{\;\text{IPR}\;} \mathrm{localisation}
-  \;\xrightarrow{\;2C_F\;} m_n
+  \;\xrightarrow{\;b\;} m_n
   \;\xrightarrow{\;} R = 1.5293
 \end{equation}
 
 Each eigenstate has a binding energy $|E_n|$ and a localisation, measured by the inverse participation ratio $\mathrm{IPR}_n = \int|\psi_n|^4\,d\phi$. Since the coupling to the gauge field is proportional to the wave-function amplitude at the interaction point, a more localised state acquires a larger mass: $m_n \propto \mathrm{IPR}_n^{\,b}$.
 
-The exponent $b$ is not a free parameter. In 0D there are no loop integrals, hence no running that would generate an anomalous dimension dynamically. By the Peter--Weyl theorem for finite groups, the heat kernel on the group is the finite sum $K(t) = \sum_\rho \dim(\rho)\,\chi_\rho(g)\,e^{-\lambda_\rho t}$, admitting only exponential decay with no power-law terms---the exponent is a representation-fixed quantity. We therefore identify $b$ with the internal-localisation Casimir of the continuous $\mathrm{SU}(3)$ lift associated with the $N = 3$ sector: $b = 2C_F = (N^2{-}1)/N = 8/3$\footnote{This is not the physical colour charge of leptons but the $N = 3$ internal-localisation Casimir; for quarks the same $N = 3$ structure coincides with colour. See Paper~II~\cite{paper2}.}. The uniqueness of this mapping rule is a theorem of Paper~II\PII{}\footnote{The uniqueness of this specification is proven in Paper II: both the functional form of the mass response and the exponents ($2C_F = 8/3$ and $\varepsilon/3$) are fixed by uniqueness theorems.}.
+The exponent $b$ is not a free parameter. In 0D there are no loop integrals, hence no running that would generate an anomalous dimension dynamically. By the Peter--Weyl theorem for finite groups, the heat kernel on the group is the finite sum $K(t) = \sum_\rho \dim(\rho)\,\chi_\rho(g)\,e^{-\lambda_\rho t}$, admitting only exponential decay with no power-law terms---the exponent is a structurally fixed quantity. The exponent $b$ is the contact index derived from the normalisation of the finite incidence geometry $\mathrm{PG}(2,\mathbb{F}_3)$: with the normalised single-leg index $w_\mathrm{leg} = (N{+}1)/N$, $b = 2w_\mathrm{leg} = 8/3$\footnote{This is not the physical colour charge of leptons. The exponent $b$ is the contact index of the incidence geometry; its numerical agreement with the $\mathrm{SU}(3)$ fundamental Casimir, $2C_F = 8/3$, holds only at $N = 3$---$(N^2{-}1)/2N = (N{+}1)/N$ only for $N = 3$---and is a consistency check at $N = 3$. See Paper~II~\cite{paper2}.}. The uniqueness of this mapping rule is a theorem of Paper~II\PII{}\footnote{The uniqueness of this specification is proven in Paper II: both the functional form of the mass response and the exponents ($b = 2w_\mathrm{leg} = 8/3$ and $\varepsilon/3$) are fixed by uniqueness theorems.}.
 
-To this, a small correction from the anharmonicity of $V = -H$ is added. The virial ratio $|\langle V\rangle_n|/T_n$ (potential to kinetic energy) measures how differently each mode samples the well, and its exponent is the per-mode marginality $\varepsilon/N = 0.219/3 = 0.073$ ($\varepsilon$ from \S3.1).
+To this, a small correction from the anharmonicity of $V = -H$ is added. The virial ratio $|\langle V\rangle_n|/T_n$ (potential to kinetic energy) measures how differently each mode samples the well, and its exponent is the per-mode marginality $\varepsilon/N = 0.219/3 = 0.073$ ($\varepsilon$ from \S3.2).
 
 The complete mass formula is:
 \begin{equation}\label{eq:mass}
-  m_n \propto |E_n| \times \mathrm{IPR}_n^{2C_F}
+  m_n \propto |E_n| \times \mathrm{IPR}_n^{\,b}
   \times \Bigl(\frac{|\langle V \rangle_n|}{T_n}\Bigr)^{\varepsilon/N}.
 \end{equation}
 The three factors have different origins:
@@ -1046,7 +1001,7 @@ The three factors have different origins:
 Factor & Physical meaning & Determined by \\
 \midrule
 $|E_n|$ & Energy scale & Binding energy \\
-$\mathrm{IPR}^{2C_F}$ & Localisation $\to$ coupling strength & Group theory (Casimir) \\
+$\mathrm{IPR}^{b}$ & Localisation $\to$ coupling strength & Finite incidence geometry (contact index) \\
 $(|\langle V \rangle|/T)^{\varepsilon/N}$ & Anharmonic correction & Spectral marginality \\
 \bottomrule
 \end{tabular}
@@ -1062,7 +1017,7 @@ doubling of grid resolution and box enlargement.}
   R = \frac{\ln(m_\tau/m_e)}{\ln(m_\mu/m_e)} = 1.5293
   \qquad (\text{experiment: } 1.5294,\; 0.006\%).
 \end{equation}
-Koide's relation $Q \approx 3/2$~\cite{koide} (this paper's convention $Q = (\sum\sqrt{m})^2/\sum m$ is the reciprocal of the standard $2/3$) is not an input that determines $b$, but a cross-check---a verification on the output side. Parametrising the mass formula in Koide form yields the pair $(b, c)$, where $c$ is the exponent of the virial correction. Back-solving, for each $b$, the $c$ required to force $Q = 3/2$, only $b = 2C_F = 8/3$ returns a value, $0.0730$, matching the spectral value $\varepsilon/N = 0.073$ (to $0.07\%$):
+Koide's relation $Q \approx 3/2$~\cite{koide} (this paper's convention $Q = (\sum\sqrt{m})^2/\sum m$ is the reciprocal of the standard $2/3$) is not an input that determines $b$, but a cross-check---a verification on the output side. Parametrising the mass formula in Koide form yields the pair $(b, c)$, where $c$ is the exponent of the virial correction. Back-solving, for each $b$, the $c$ required to force $Q = 3/2$, only $b = 2w_\mathrm{leg} = 8/3$ returns a value, $0.0730$, matching the spectral value $\varepsilon/N = 0.073$ (to $0.07\%$):
   \begin{center}\small
   \begin{tabular}{ccc}
   \toprule
@@ -1070,7 +1025,7 @@ Koide's relation $Q \approx 3/2$~\cite{koide} (this paper's convention $Q = (\su
   \midrule
   $2.0$ & $0.437$ & $500\%$ \\
   $2.5$ & $0.163$ & $120\%$ \\
-  $\mathbf{8/3 = 2C_F}$ & $\mathbf{0.0730}$ & $\mathbf{0.07\%}$ \\
+  $\mathbf{8/3 = 2w_\mathrm{leg}}$ & $\mathbf{0.0730}$ & $\mathbf{0.07\%}$ \\
   $2.78$ & $0.012$ & $84\%$ \\
   $3.0$ & $-0.107$ & $246\%$ \\
   \bottomrule
@@ -1087,7 +1042,7 @@ The individual mass ratios:
 $m_\tau/m_e$ & 3481 & 3477 & 0.1\% \\
 $m_\mu/m_e$ & 207.0 & 206.8 & 0.1\% \\
 $R$          & 1.5293 & 1.5294 & 0.006\% \\
-$Q$ (Koide)  & 1.499985 & 1.50001(2) & $2\sigma$ (from PDG masses) \\
+$Q$ (Koide)  & 1.499985 & 1.500005(11) & $2\sigma$ (from PDG masses) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1102,9 +1057,7 @@ Can the same formula be applied to quarks?
 The formula itself does not change---only the well depth changes.
 
 Leptons are colour singlets and feel $V = -H$ as a single copy.
-Quarks carry three colours. The colour-triplet well sums the three colour contributions---isomorphic
-copies of the same Bernoulli degree of freedom---on the common existence
-coordinate $\phi$, giving $V = -3H$ (a direct sum of wells)\PII{}; weak
+Quarks carry three colours. The colour-triplet well composes the three colour contributions---isomorphic copies of the same Bernoulli degree of freedom---as independent factors pulled back to the common existence coordinate $\phi$: $Z_3 = Z_1^3$, additivity of the logarithm gives $\log Z_3 = 3\log Z_1$, and additivity of the Legendre dual gives $V = -3H$\PII{}; weak
 isospin does not deepen the well, because the doublet is an orientation structure
 within a single copy---it fixes which component is called
 $I_3 = +1/2$ (the $g_c$ correction below)---and adds no second
@@ -1150,7 +1103,8 @@ The effective mass is:
   m_\mathrm{eff}(\phi) = 1 - N_c\,\sigma(1{-}\sigma)
 \end{equation}
 This is the static Fisher-limit form of the down-sector mass formula. The operator actually solved is the symmetric position-dependent-mass form $-\tfrac{1}{2}\,\partial_\phi\,(1/m_\mathrm{eff})\,\partial_\phi - 3H$ (identical to the discretisation in the accompanying code).
-The correction coefficient $g_c = -N_c = -3$ (distinct from the normalisation $g$ of \S2.4) is fixed by the algebraic structure of the $\mathrm{SU}(2)$ doublet. The corrected operator has 4 negative eigenvalues ($-1.5709$, $-0.5455$, $-0.1952$, $-0.00733$; stable for box size $L_\mathrm{box} = 40/80/120$), of which 3 modes $(0,1,2)$ correspond to the physical window $b, s, d$---the physical window is uniquely determined by type exclusivity and order preservation\PII{} (the window differs sector by sector: all 3~modes for leptons, $(1,2,3)$ for up-type, $(0,1,2)$ for down-type). With modes $(0,1,2)$: $R_\mathrm{down} = 2.273$ (experiment: $2.276$, $0.1\%$).
+
+The correction coefficient $g_c = -N_c = -3$ (distinct from the normalisation $g$ of \S3.1) is fixed by the algebraic structure of the $\mathrm{SU}(2)$ doublet. The corrected operator has 4 negative eigenvalues ($-1.5709$, $-0.5455$, $-0.1952$, $-0.00733$; stable for box size $L_\mathrm{box} = 40/80/120$), of which 3 modes $(0,1,2)$ correspond to the physical window $b, s, d$---the physical window is uniquely determined by type exclusivity and order preservation\PII{} (the window differs sector by sector: all 3~modes for leptons, $(1,2,3)$ for up-type, $(0,1,2)$ for down-type). With modes $(0,1,2)$: $R_\mathrm{down} = 2.273$ (experiment: $2.276$, $0.1\%$).
 
 The mass ratios of all three charged-fermion sectors are reproduced:
 
@@ -1166,11 +1120,11 @@ Down    & $N_c = 3$ & $-N_c$ & 2.273 & 2.276 & 0.1\% \\
 \end{tabular}
 \end{center}
 
-\noindent Here $R$ captures the shape of the log-hierarchy---it is invariant under a uniform stretching of the mass ratios (raising every $m_i/m_j$ to a common power)---not the individual masses. The accuracy column gives the deviation of the prediction from the experimental central value. The experimental $R$ inherits the light-quark mass uncertainties (PDG 2026: $m_u = 2.16 \pm 0.07$ MeV, etc.), which propagate to a width of about $\pm0.15$--$0.25\%$, and the comparison further depends on the scheme and scale conventions for each mass (light quarks $\overline{\mathrm{MS}}$ at 2 GeV, $c$ and $b$ at $m(m)$, $t$ from direct measurement).\footnote{The individual quark magnitudes are treated conditionally in Paper~II.}
+\noindent Here $R$ captures the shape of the log-hierarchy---it is invariant under a uniform stretching of the mass ratios (raising every $m_i/m_j$ to a common power)---not the individual masses. The accuracy column gives the deviation of the prediction from the experimental central value. The experimental $R$ inherits the light-quark mass uncertainties (PDG 2026: $m_u = 2.16 \pm 0.07$ MeV, etc.), which propagate to a width of about $\pm0.15$--$0.25\%$, and the comparison further depends on the scheme and scale conventions for each mass (light quarks $\overline{\mathrm{MS}}$ at 2 GeV, $c$ and $b$ at $m(m)$, $t$ from direct measurement).\footnote{The individual quark magnitudes are not derived in this series at present: Paper~II derives the within-sector ratios and shows that the readout normalisation of the quark sectors is not fixed by the internal structure alone.}
 
 \subsection{CKM Mixing}\label{sec:ckm}
 
-\S8.1--8.2 established the mass ratios. With masses determined,
+\S7.1--8.2 established the mass ratios. With masses determined,
 we now derive the inter-generation mixing~\cite{km}.
 Why is $V_{ub}$ small, and why does the Cabibbo angle~\cite{cabibbo}
 take its particular value?
@@ -1183,7 +1137,7 @@ This fixes the parity of each eigenfunction: $\psi_0$ even, $\psi_1$ odd, $\psi_
 \begin{equation}
   V_{ub}\big|_\mathrm{tree} = 0
 \end{equation}
-The observed value $|V_{ub}| \approx 0.004$ arises at higher orders of the Wolfenstein hierarchy~\cite{wolfenstein}. V-parity makes the tree/direct term exactly zero and suppresses distant-generation transitions to at least $O(\varepsilon^3)$; the first non-zero term is given by the closed form below.
+The measured value $|V_{ub}| \approx 0.004$ arises at higher orders of the Wolfenstein hierarchy~\cite{wolfenstein}. V-parity makes the tree/direct term exactly zero and suppresses distant-generation transitions to at least $O(\varepsilon^3)$; the first non-zero term is given by the closed form below.
 
 The Cabibbo angle follows from spectral marginality.
 The third bound state $\psi_2$ is marginally bound---its binding
@@ -1199,19 +1153,19 @@ $\varepsilon \to 0$ removes it,
 leaving the three generations intact but with vanishing flavour transitions.
 The expression giving the angle as a series in $\varepsilon$ (which
 operator carries the transition, and what fixes its order and
-denominator) is proven unique per observable\PII{} (see the list in \S6.2).
+denominator) is proven unique per observable\PII{} (see the list in \S5.2).
 To second order:
 \begin{equation}\label{eq:cabibbo}
   \sin\theta_C = \varepsilon\Bigl(1 + \frac{\varepsilon}{N^2}\Bigr) = 0.2245   \qquad (\text{experiment: } 0.2243,\; 0.10\%).
 \end{equation}
-This value is the unscreened internal value. The observed value composed with colour screening is $\sin\theta_C \cdot (1-x) = 0.22435$ ($x = N^2\alpha/(2\pi|\mathrm{PG}|) = 9\alpha/(26\pi)$ is the colour-screening expansion parameter; derived in Paper~II).
+This value is the unscreened internal value. The value composed with colour screening is $\sin\theta_C \cdot (1-x) = 0.22435$ ($x = N^2\alpha/(2\pi|\mathrm{PG}|) = 9\alpha/(26\pi)$ is the colour-screening expansion parameter; derived in Paper~II).
 
 The Cabibbo angle is a direct expression of the fact that the third generation barely exists: the generation-sector spectral quantity $\varepsilon = 0.219$, defined in \S\ref{sec:theorem} from $V = -H$ alone and entering all mixing-angle expressions in common. If the third bound state were slightly more deeply bound ($\varepsilon \to 0$), inter-generation mixing would vanish and all flavour transitions would be forbidden.
 
 The Wolfenstein hierarchy follows from the Cabibbo angle~\cite{wolfenstein}: $|V_{us}| \sim \varepsilon$, $|V_{cb}| \sim \varepsilon^2$, and $|V_{ub}|$ is suppressed to at least $O(\varepsilon^3)$ with first non-zero term $2\varepsilon^4$ (experiment: $0.225$, $0.041$, $0.004$).
 NLO corrections take the form $1 \pm \ell\varepsilon/k$. The assignment
 of the denominator $k$ and of the sign and coefficient $\ell$ is as
-listed in \S6.2 ($1+\varepsilon/9$ for $\sin\theta_C$,
+listed in \S5.2 ($1+\varepsilon/9$ for $\sin\theta_C$,
 $1-2\varepsilon/3$ for $\sin^2\!\theta_{13}$).
 The full closed forms, proved as a theorem in Paper~II, are
 \begin{equation}
@@ -1220,7 +1174,11 @@ The full closed forms, proved as a theorem in Paper~II, are
 \end{equation}
 (experiment: $0.041$, $0.004$).
 
-The origin of these exponents and of the coefficient 2 is discrete. Generation transitions are carried only by parity-odd permutations of the three generations (a consequence of $V$-parity). The adjacent transitions $1\leftrightarrow2$ and $2\leftrightarrow3$ are realised by the transpositions $t_{12}$ and $t_{23}$. With respect to the flag $V_1 \subset V_2$ fixed by the generation order (the line spanned by the first generation and the plane spanned by the first two), count the cost of a wall as the shallowest flag level it moves: $t_{12}$ moves $V_1$, cost 1; $t_{23}$ fixes $V_1$ and moves only $V_2$, cost 2---these are the exponents of $|V_{us}| \sim \varepsilon$ and $|V_{cb}| \sim \varepsilon^2$. Parity makes the direct one-step $1 \leftrightarrow 3$ element vanish, but it does not by itself forbid the two-step composite $1 \to 2 \to 3$: two odd insertions compose to an even one, and the product of the two matrix elements is nonzero. What separates them is the generative type---the composite carries a different composition tree, so it is a different observable rather than a neglected term of the same one\PII{}. The odd permutation carrying $1 \leftrightarrow 3$ directly is the longest permutation $w_0$, which reverses the three generations. Its gallery crosses all three walls $t_{12}$, $t_{23}$, $t_{13}$, with total cost $1 + 2 + 1 = 4$---the reason the first non-zero term is of order $\varepsilon^4$. The coefficient 2 arises because $w_0$ has exactly two shortest decompositions (galleries), exchanged by point-line duality. The assignment of $\varepsilon$ per wall and this count are proved as theorems under the specified mapping rule\PII{}.
+The origin of these exponents and of the coefficient 2 is discrete. Generation transitions are carried only by parity-odd permutations of the three generations (a consequence of $V$-parity). The adjacent transitions $1\leftrightarrow2$ and $2\leftrightarrow3$ are realised by the transpositions $t_{12}$ and $t_{23}$. With respect to the flag $V_1 \subset V_2$ fixed by the generation order (the line spanned by the first generation and the plane spanned by the first two), count the cost of a wall as the shallowest flag level it moves: $t_{12}$ moves $V_1$, cost 1; $t_{23}$ fixes $V_1$ and moves only $V_2$, cost 2---these are the exponents of $|V_{us}| \sim \varepsilon$ and $|V_{cb}| \sim \varepsilon^2$.
+
+Parity makes the direct one-step $1 \leftrightarrow 3$ element vanish, but it does not by itself forbid the two-step composite $1 \to 2 \to 3$: two odd insertions compose to an even one, and the product of the two matrix elements is nonzero. What separates them is the generative type---the composite carries a different composition tree, so it is a different observable rather than a neglected term of the same one\PII{}.
+
+The odd permutation carrying $1 \leftrightarrow 3$ directly is the longest permutation $w_0$, which reverses the three generations. Its gallery crosses all three walls $t_{12}$, $t_{23}$, $t_{13}$, with total cost $1 + 2 + 1 = 4$---the reason the first non-zero term is of order $\varepsilon^4$. The coefficient 2 arises because $w_0$ has exactly two shortest decompositions (galleries), exchanged by point-line duality. The assignment of $\varepsilon$ per wall and this count are proved as theorems under the specified mapping rule\PII{}.
 
 The parity symmetry $V(\phi) = V(-\phi)$ suppresses the direct
 $0\leftrightarrow2$ flavour transition, but it does not by itself fix
@@ -1229,11 +1187,11 @@ The observable strong-CP angle is
 \[\bar\theta = \theta_\mathrm{QCD} + \arg\det M_q\]
 That both terms vanish is shown by the strong-CP matching theorem of Paper~II: applying A1--A3 so as to preserve the action, the fermion determinant and the realisation of large gauge transformations gives $\arg\det(M_uM_d) = 0$ and a vanishing bare $\theta_\mathrm{QCD}$, hence $\bar\theta(\mu_0) = 0$ at the matching point. What removes the bare $\theta_\mathrm{QCD}$ is that the only unitary scalar preserving the positive measure ray is $1$ (the measure-line triviality\PII{})---not $V$-parity on its own.
 
-However, this is a statement at the matching point and not an exact zero at all scales. $\bar\theta_\mathrm{IR}$, which includes weak CKM loops and thresholds, is left unevaluated in Paper~II as well. Consequently, beyond a PQ-type axion---excluded by the absence of a PQ-type global U(1)---no claim is made about the non-existence of axion-like particles in general.
+However, this is a statement at the matching point and not an exact zero at all scales. For the infrared $\bar\theta_\mathrm{IR}$, which includes weak CKM loops and thresholds, Paper~II gives the conditional bound $|\bar\theta_\mathrm{IR}| < 6.0\times10^{-17}$ at the declared orders---weak $O(G_F^2)$, chiral $O(p^2)$, in the large-$N_c$ chiral-perturbation framework; the all-orders evaluation is a continuing computation. Consequently, beyond a PQ-type axion---excluded by the absence of a PQ-type global U(1)---no claim is made about the non-existence of axion-like particles in general.
 
-Yet CP violation \emph{is} observed in the CKM sector ($J = 3.08 \times 10^{-5}$). This is consistent with the bare $\theta_\mathrm{QCD} = 0$: the CKM phase arises at higher order in $\varepsilon$:
+Yet CP violation \emph{is} observed in the CKM sector ($J = 3.16 \times 10^{-5}$~\cite{pdg}). This is consistent with the bare $\theta_\mathrm{QCD} = 0$: the CKM phase arises at higher order in $\varepsilon$:
 \[J = \frac{\pi\varepsilon^5}{N_\mathrm{flags}} = \frac{\pi\varepsilon^5}{52} = 3.06\times10^{-5}\]
-($N_\mathrm{flags} = 52$ is the total number of flags, \S5.1; a theorem under the specified mapping rule\PII{}.) The matching-point condition remains exactly zero.
+($N_\mathrm{flags} = 52$ is the total number of flags, \S4.1; a theorem under the specified mapping rule\PII{}.) The matching-point condition remains exactly zero.
 
 The flavour and strong-CP results are summarised:
 \medskip
@@ -1245,7 +1203,7 @@ Quantity & Prediction & Experiment \\
 $V_{ub}$ (tree) & 0; full form $2\varepsilon^4(1-2\varepsilon/3)(1-3\varepsilon/26) = 0.00384$\PII{} & $|V_{ub}| = 0.004$ (generated at higher order) \\
 $V_{cb}$ & $\varepsilon^2(1-2\varepsilon/3) = 0.0410$\PII{} & $|V_{cb}| = 0.041$ \\
 Bare $\theta_\mathrm{QCD}$ & \textbf{Not a consequence of $V$-parity} (matching-point value $\bar\theta(\mu_0)=0$; strong-CP matching theorem\PII{}) & --- (the bound $|\bar\theta_\mathrm{IR}| \lesssim 10^{-10}$ applies to the infrared quantity; not directly comparable) \\
-CKM CP violation & $J = \pi\varepsilon^5/N_\mathrm{flags}$ (theorem under the mapping rule\PII{}) & $3.06 \times 10^{-5}$ (expt $3.08{\times}10^{-5}$) \\
+CKM CP violation & $J = \pi\varepsilon^5/N_\mathrm{flags}$ (theorem under the mapping rule\PII{}) & $3.06 \times 10^{-5}$ (expt $3.16{\times}10^{-5}$) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1253,14 +1211,16 @@ CKM CP violation & $J = \pi\varepsilon^5/N_\mathrm{flags}$ (theorem under the ma
 
 \subsection{Neutrinos}\label{sec:neutrinos}
 
-\S8.1--8.3 derived charged-fermion mass ratios and mixing angles.
+\S7.1--7.3 derived charged-fermion mass ratios and mixing angles.
 What remains are the neutrinos.
 
 \noindent\textbf{Mass predictions.}\;
 Neutrinos are colour singlets with $\kappa = 1$, coupling to $V = -H$---the same potential as charged leptons. The mass ratio $R$ depends only on the well shape (IPR and virial ratios), not on particle species. The same well gives the same $R$:
 \[R_\nu = R_\mathrm{lepton} = 1.529\]
 \begin{sloppypar}
-This is the input-free prediction of this section. Together with the spectral ratio $(m_3/m_2)^2 = 169/5$ established below, it fixes the \emph{dimensionless} mass ray completely, with no oscillation input at all. Absolute masses in meV require one further ingredient, a single dimensionful scale, and exactly one is used here: the solar splitting~\cite{nufit} $\Delta m^2_{21} = 7.537 \times 10^{-5}\;\mathrm{eV}^2$. The atmospheric splitting is deliberately \emph{not} used, so that the ratio $\Delta m^2_{31}/\Delta m^2_{21}$ is left on the verification side as a prediction (below). Conditional on the normal-ordering branch, this single-scale calibration gives\footnote{The quoted uncertainties propagate from $\Delta m^2_{21}$ alone; since the mass ray is fixed internally, all three masses scale as $\sqrt{\Delta m^2_{21}}$. The theory has no free parameters. Normal ordering is an input condition in this section; its independent derivation is given as a theorem\PII{} (a consequence of $R_\nu > 1$ and $(m_3/m_2)^2 = 169/5 > 1$). These values are consequences of the calibration, not input-free predictions, and are not counted as independent predictions.}:
+This is the input-free prediction of this section. Together with the spectral ratio $(m_3/m_2)^2 = 169/5$ established below, it fixes the \emph{dimensionless} mass ray completely, with no oscillation input at all.
+
+Absolute masses in meV require one further ingredient, a single dimensionful scale, and exactly one is used here: the solar splitting~\cite{nufit} $\Delta m^2_{21} = 7.537 \times 10^{-5}\;\mathrm{eV}^2$. The atmospheric splitting is deliberately \emph{not} used, so that the ratio $\Delta m^2_{31}/\Delta m^2_{21}$ is left on the verification side as a prediction (below). Conditional on the normal-ordering branch, setting the absolute scale with this single quantity gives\footnote{The quoted uncertainties propagate from $\Delta m^2_{21}$ alone; since the mass ray is fixed internally, all three masses scale as $\sqrt{\Delta m^2_{21}}$. The theory has no free parameters. Normal ordering is an input condition in this section; its independent derivation is given as a theorem\PII{} (a consequence of $R_\nu > 1$ and $(m_3/m_2)^2 = 169/5 > 1$). These values are consequences of setting the absolute scale, not input-free predictions, and are not counted as independent predictions.}:
 \end{sloppypar}
 
 \begin{center}\small
@@ -1284,12 +1244,12 @@ The numerator 169 is fixed by two elementary facts that follow from the spectrum
 \end{equation}
 so no separate normalisation enters. Second, write $\varsigma$ for the involution exchanging the eigenvectors $v_{1},v_{2}$ of that pair and consider the doublet $\psi = \cos\theta_H\,v_1 + \sin\theta_H\,v_2$ (the coefficient angle $\theta_H$ is distinct from the atmospheric angle $\theta_{23}$). Exchange invariance $\varsigma\psi = \pm\psi$ forces equal weights $|\cos\theta_H| = |\sin\theta_H|$, so the coherent amplitude has magnitude $|13\sin 2\theta_H| = 13$ regardless of the choice of sign. Reading this amplitude as the intensity $13^2 = 169$ is the Born step, justified by the observation-representation theorem of Paper~II.
 
-The denominator $5 = N + 2 = 3 + 2$ is the rank of the solar-channel normalisation, and this count---the exhaustiveness of the carrier inventory---is the one step that uses the carrier enumeration of Paper~II. The mass-squared-difference ratio, obtained by eliminating $t = m_1/m_2$ using $R_\nu = R_\mathrm{lepton}$, is given by the master relation\PII{}
+The denominator $5 = N + 2 = 3 + 2$ is the rank of the solar-channel normalisation, and this count---the exhaustiveness of the carrier inventory---is the one step that uses the carrier enumeration of Paper~II. The mass-squared-difference ratio, obtained by eliminating $t = m_1/m_2$ using $R_\nu = R_\mathrm{lepton}$, is given by the full relation\PII{}
 \[\frac{\Delta m^2_{31}}{\Delta m^2_{21}} = \frac{169/5 - t^2}{1 - t^2} = 33.842\ldots\quad(\text{displayed as } 33.84)\]
 
-With non-zero $m_1$, $169/5$ is not the exact value of the mass-squared-difference ratio; the master relation above gives $33.84$, with no oscillation input. The measured ratio is $2.521/0.07537 = 33.45$, so the theoretical and measured values differ by $1.2\%$. Because the atmospheric splitting was not used in the calibration, this difference is not absorbed anywhere: it stands as the quantity under test. Equivalently, the calibration predicts $\Delta m^2_{31} = 2.551 \times 10^{-3}\;\mathrm{eV}^2$ against the measured $2.521 \times 10^{-3}\;\mathrm{eV}^2$, and the masses in the table above satisfy the internal ratio $m_3/m_2 = 13/\sqrt5 = 5.814$ exactly.
+With non-zero $m_1$, $169/5$ is not the exact value of the mass-squared-difference ratio; the full relation above gives $33.84$, with no oscillation input. The measured ratio is $2.521/0.07537 = 33.45$, so the theoretical and measured values differ by $1.2\%$. Because the atmospheric splitting was not used to set the absolute scale, this difference is not absorbed anywhere: it stands as the quantity under test. Equivalently, this setting predicts $\Delta m^2_{31} = 2.551 \times 10^{-3}\;\mathrm{eV}^2$ against the measured $2.521 \times 10^{-3}\;\mathrm{eV}^2$, and the masses in the table above satisfy the internal ratio $m_3/m_2 = 13/\sqrt5 = 5.814$ exactly.
 
-This prediction is falsifiable: the conditional calculation of this section does not itself test the mass ordering, but $\sum m_i > 70\;\mathrm{meV}$ creates tension. Since $\Sigma m_i = 59.50\;\mathrm{meV}$ lies close to the general normal-ordering minimum ($58.89\;\mathrm{meV}$ at $m_1 \to 0$), a CMB-S4~\cite{cmbs4} ($\sigma \sim 15\;\mathrm{meV}$) detection near this value would confirm the normal ordering but not distinguish this framework from the general minimal scenario; the sharp, framework-specific neutrino prediction is the ratio $\Delta m^2_{31}/\Delta m^2_{21} = 33.8$, testable by JUNO in 2026--27.
+The calculation of this section, with the absolute scale set by $\Delta m^2_{21}$, does not itself test the mass ordering, but $\sum m_i > 70\;\mathrm{meV}$ creates tension. Since $\Sigma m_i = 59.50\;\mathrm{meV}$ lies close to the general normal-ordering minimum ($58.89\;\mathrm{meV}$ at $m_1 \to 0$), a CMB-S4~\cite{cmbs4} ($\sigma \sim 15\;\mathrm{meV}$) detection near this value would confirm the normal ordering but not distinguish this framework from the general minimal scenario; the sharp, framework-specific neutrino prediction is the ratio $\Delta m^2_{31}/\Delta m^2_{21} = 33.8$, testable by JUNO in 2026--27.
 
 \noindent\textbf{Mixing angles.}\;
 In \S\ref{sec:ckm}, CKM mixing angles were obtained from
@@ -1299,6 +1259,7 @@ Yet PMNS mixing angles are large
 Why does the same $V = -H$ produce both small and large mixing?
 
 The answer lies in colour charge. Quarks carry colour and reside in the deep well $V = -3H$, which places their mixing in the perturbative regime of small mode overlap---this is why quark mixing is small, and its expansion parameter is the generation-sector marginality $\varepsilon$ (\S\ref{sec:theorem}).
+
 Neutrinos are colour-neutral; instead, the geometric allocation
 of gauge directions on $\mathrm{PG}(2,3)$ directly gives values
 corresponding to the mixing angles.
@@ -1309,13 +1270,15 @@ The solar angle is the fraction of one complete electroweak line
   = \frac{4}{13} = 0.3077
   \qquad (\text{experiment: } 0.3088,\; 0.4\%).
 \end{equation}
+
 At LO the atmospheric angle is the fraction that the disjoint union of the $N$ pure-weak directions and another line through the reference point ($N{+}1$ points) occupies among the 13 directions of PG, namely $7/13$. With the PG-scale NLO correction ($k = |\mathrm{PG}| = 13$):
 \begin{equation}
   \sin^2\!\theta_{23} = \frac{7}{13}\Bigl(1 + \frac{\varepsilon}{13}\Bigr) = 0.5475
   \qquad (\text{second octant}).
 \end{equation}
 The LO fraction $7/13$ exceeds $1/2$,
-predicting the second octant. In NuFIT~6.1~\cite{nufit} the global best fit has moved to the first octant ($\sin^2\theta_{23} = 0.470$), but the octant is unresolved and the prediction $0.5475$ lies within the $3\sigma$ range ($0.432$--$0.587$); the second-octant test is left to DUNE / Hyper-Kamiokande. The second-octant local minimum of the NuFIT~6.1 $\chi^2$ profile lies at $0.550$ --- obtained from the released grid by projecting over $\Delta m^2_{31}$ and $\delta_\mathrm{CP}$, at $\Delta\chi^2\simeq1.03$ above the global minimum, with a grid step of $0.005$ in $\sin^2\!\theta_{23}$ --- and the deviation of the prediction from it is $0.45\%$. Unless stated otherwise, all NuFIT~6.1 values quoted in this paper are the without-SK-atm, normal-ordering set, consistent with the $\Delta m^2$ inputs used above.
+predicting the second octant. In NuFIT~6.1~\cite{nufit} the global best fit has moved to the first octant ($\sin^2\theta_{23} = 0.470$), but the octant is unresolved and the prediction $0.5475$ lies within the $3\sigma$ range ($0.432$--$0.587$); the second-octant test is left to DUNE / Hyper-Kamiokande. The second-octant local minimum of the NuFIT~6.1 $\chi^2$ profile lies at $0.550$, and the prediction deviates from it by $0.45\%$.\footnote{The local minimum is obtained from the released grid by projecting over $\Delta m^2_{31}$ and $\delta_\mathrm{CP}$; it lies at $\Delta\chi^2\simeq1.03$ above the global minimum, with a grid step of $0.005$ in $\sin^2\!\theta_{23}$. Unless stated otherwise, all NuFIT~6.1 values quoted in this paper are the without-SK-atm, normal-ordering set, consistent with the $\Delta m^2$ inputs used above.}
+
 The reactor angle is
 $\sin^2\!\theta_{13} = 1/(N \cdot |\mathrm{PG}|) = 1/39$
 with NLO correction ($k = N = 3$):
@@ -1345,15 +1308,14 @@ This is a formal sum, not a partition of point sets:
 the 3 pure-weak points are contained in the 4 points of the complete
 electroweak line (the two sets overlap; their union is 4 points).
 The geometric origin of the atmospheric 7 directions is the disjoint
-union above. NLO corrections break this sum rule, which Paper~II gives
-as a falsifiable prediction.
+union above. NLO corrections break this sum rule; Paper~II gives its form.
 
 \noindent\textbf{The PMNS and CKM phases.}\;
 The atmospheric holonomy ratio $q_{23} = (7/13)(1+\varepsilon/13) = \sin^2\!\theta_{23}$ also fixes the PMNS phase directly, proved as a theorem in Paper~II:
 \begin{equation}
 \delta_\mathrm{PMNS} = 2\pi q_{23} = 197.1^\circ \quad \text{(DUNE / Hyper-Kamiokande, testable} \sim 2030\text{)}
 \end{equation}
-The CKM phase does not reduce to a single closed-form expression of $\varepsilon$ alone: it is fixed by embedding the three mixing quantities of \S8.3---the screened $\sin\theta_C$, $|V_{cb}|$, and $|V_{ub}|$---together with the CP-odd invariant $J = \pi\varepsilon^5/N_\mathrm{flags}$ in one unitary CKM matrix and solving $\sin\delta = J/(c_{12}s_{12}c_{23}s_{23}c_{13}^2 s_{13})$ together with $\cos\delta > 0$ (the sign fixed by the initial path lifting of A1). This is proved as a theorem in Paper~II and gives
+The CKM phase does not reduce to a single closed-form expression of $\varepsilon$ alone: it is fixed by embedding the three mixing quantities of \S7.3---the screened $\sin\theta_C$, $|V_{cb}|$, and $|V_{ub}|$---together with the CP-odd invariant $J = \pi\varepsilon^5/N_\mathrm{flags}$ in one unitary CKM matrix and solving $\sin\delta = J/(c_{12}s_{12}c_{23}s_{23}c_{13}^2 s_{13})$ together with $\cos\delta > 0$ (the sign fixed by the initial path lifting of A1). This is proved as a theorem in Paper~II and gives
 \begin{equation}
 \delta_\mathrm{CKM} = 62.595^\circ,\qquad \beta = 23.972^\circ,\qquad \gamma = 62.560^\circ
 \end{equation}
@@ -1370,11 +1332,11 @@ Therefore neutrinoless double beta decay is exactly zero:
 
 \bigskip
 \noindent
-\textbf{Scope of the mass formula.} The mass formula of \S8.1
+\textbf{Scope of the mass formula.} The mass formula of \S7.1
 determines mass ratios within a sector; its overall proportionality
 constant is sector-dependent and is not derived in this paper (in
-Paper~II as well, this constant is treated as a calibration to
-physical units and does not fix the inter-sector ratios). In
+Paper~II as well, this constant is treated as setting the absolute
+scale and does not fix the inter-sector ratios). In
 particular, neutrinos and charged leptons occupy the same
 $\kappa = 1$ well, so the framework predicts
 $R_\nu = R_\mathrm{lepton}$ but is silent, at this stage, on the
@@ -1385,7 +1347,7 @@ prediction of it.
 
 \bigskip
 \noindent
-With this, fermion mass ratios, mixing angles, and neutrino properties have been obtained from the structure of $V = -H$ and $\mathrm{PG}(2, \mathbb{F}_3)$ (the absolute masses conditional on normal ordering and oscillation data). Where the Standard Model treats these as independent free parameters, this framework treats them all as different aspects of the algebraic expansion of a single equation $V = -H$.
+With this, fermion mass ratios, mixing angles, and neutrino properties have been obtained from the structure of $V = -H$ and $\mathrm{PG}(2, \mathbb{F}_3)$ (the absolute masses with normal ordering assumed and the absolute scale set by $\Delta m^2_{21}$). Where the Standard Model treats these as independent free parameters, this framework treats them all as different aspects of the algebraic expansion of a single equation $V = -H$.
 
 
 %=====================================================================
@@ -1467,13 +1429,10 @@ The answer lies in the construction of $V = -H$. The potential $V = -H(\sigma(\p
 
 \[\hat{H} = \hat{H}_\phi \otimes \mathbf{1} + \mathbf{1} \otimes \hat{H}_x,\qquad \mathcal{H} = \mathcal{H}_\mathrm{int}(\phi) \otimes \mathcal{H}_\mathrm{space}(x)\]
 
-Since this composite space has $\dim \geq 3$
+Since this composite space is separable with $\dim \geq 3$
 ($\mathcal{H}_\mathrm{int}(\phi)$ is 3-dimensional from the generation factor alone,
 $\mathcal{H}_\mathrm{space}(x)$ is infinite-dimensional),
-Gleason's theorem~\cite{gleason} uniquely extends the
-detection probability $\sigma = \langle n \rangle$
-of \S2 to the standard Born rule---the measurement rule is not an
-axiom but a consequence of the tensor-product structure.
+Gleason's theorem~\cite{gleason} restricts every probability assignment additive over orthogonal projections to the trace form $p(P) = \operatorname{Tr}(\rho P)$---the form of the Born rule is not an axiom but a consequence of the tensor-product structure. What is unique is the form of the assignment; the single detection probability $\sigma = \langle n \rangle$ of \S2 does not by itself determine the state $\rho$.
 
 Two observational facts confirm this.
 First, all gauge couplings are independent of
@@ -1492,11 +1451,15 @@ Lagrangian, yet determines 4D physical quantities
 Generations have the same structure---the finite-dimensional
 $V = -H$ corresponds to 4D mass ratios and mixing angles.
 
-Once both factors are in place, the form of the 4D field theory is determined as well. The spacetime factor carries the local Lorentz carrier of \S9.1 (spinor fields); the internal factor carries the finite data of \S5---the gauge algebra with its representations, the single Higgs doublet, and the four Yukawa edges. The first-order local operator coupling the two is narrowed to a single form compatible with the tensor-product structure and the internal data:
+Once both factors are in place, the form of the 4D field theory is determined as well. The spacetime factor carries the local Lorentz carrier of \S8.1 (spinor fields); the internal factor carries the finite data of \S4---the gauge algebra with its representations, the single Higgs doublet, and the four Yukawa edges. The first-order local operator coupling the two is narrowed to a single form compatible with the tensor-product structure and the internal data:
 \begin{equation}
 \mathcal{D}_{A,\Phi} = i\gamma^\mu(\nabla_\mu + A_\mu) + \gamma_5 \otimes \Phi
 \end{equation}
-where $A_\mu$ is the gauge connection and $\Phi$ contains only the single Higgs and the four Yukawa edges (the classification of \S5). The interactions then decompose uniquely as the curvature components of this single operator---the field strength $F_A$ (gauge self-interaction), the covariant derivative $D_A\Phi$ (the gauge--Higgs coupling), and $\Phi^2 - \Phi_0^2$ (the Higgs potential)---whose magnitude gives the bosonic action, while $\langle\Psi, \mathcal{D}_{A,\Phi}\Psi\rangle$ gives the fermionic action. Each term of the Standard-Model Lagrangian is thus not a separately postulated assumption but a curvature component of a single first-order coupling. The rigorous uniqueness of this form (the exclusion of other coupling types) and the values of the dimensionless coefficients are given, under the stated realisation conditions, by the manifestation theorem of Paper~II. The transport between definition points is given in closed form by the same finite resolvent, and the absolute scale $v$ is placed as the calibration to physical units---the conventional layer (both in Paper~II).
+where $A_\mu$ is the gauge connection and $\Phi$ contains only the single Higgs and the four Yukawa edges (the classification of \S4).
+
+The interactions then decompose uniquely as the curvature components of this single operator---the field strength $F_A$ (gauge self-interaction), the covariant derivative $D_A\Phi$ (the gauge--Higgs coupling), and $\Phi^2 - \Phi_0^2$ (the Higgs potential)---whose magnitude gives the bosonic action, while $\langle\Psi, \mathcal{D}_{A,\Phi}\Psi\rangle$ gives the fermionic action. Each term of the Standard-Model Lagrangian is thus not a separately postulated assumption but a curvature component of a single first-order coupling.
+
+The rigorous uniqueness of this form (the exclusion of other coupling types) and the values of the dimensionless coefficients are given, under the stated realisation conditions, by the manifestation theorem of Paper~II. The transport of the electromagnetic clock is unique, as a continuous map preserving semigroup composition, up to a single scale-setting quantity\PII{}. The $\beta$ functions of individual renormalisation schemes and the numerical transport between schemes are the continuing computation that displays the same physical quantity in the coordinates of each scheme, and the absolute scale $v$ is what carries the derived quantities into physical units---the conventional layer (both in Paper~II).
 
 \medskip
 \subsection{Correspondence Between 0D Values and 4D Experiment}\label{sec:correspondence}
@@ -1509,19 +1472,30 @@ affect internal structure---which is precisely the independence
 guaranteed by $\mathcal{H}_\mathrm{int}(\phi) \otimes \mathcal{H}_\mathrm{space}(x)$.
 Radiative corrections arise from loop momenta in the spacetime
 factor $\mathcal{H}_\mathrm{space}$ and enter as sub-percent corrections to the internal
-algebraic values (\S7: $\sin^2\!\theta_W = 3/13 + \Delta_\mathrm{rad} = 0.23122$).
+algebraic values (\S6: $\sin^2\!\theta_W = 3/13 + \Delta_\mathrm{rad} = 0.23122$).
 The 0D values are neither RG fixed points nor UV boundary conditions, but the unique algebraically determined point serving as the reference for comparison with 4D theory---running quantities acquire the 4D RG evolution and loop corrections, while quantities such as discrete state counts do not run.
 
 Concretely, each observable carries a stated definition point for the
 comparison ($\alpha$ at the Thomson point; $\sin^2\!\theta_W$ and
-$\alpha_s$ at $M_Z$; \S6--\S7), and the 0D value is compared with the
+$\alpha_s$ at $M_Z$; \S5--\S6), and the 0D value is compared with the
 renormalised 4D value at that point. Changing the scale is described
 on the 4D side as RG evolution; on the internal side it corresponds
-to reading the same finite resolvent that gave $Z$ in \S6.3 at a
-different evaluation point, and the closed form of this dependence is
-derived in Paper~II\PII{}. This function is algebraically finite and
-has no Landau pole---$\alpha$ can be followed along it from its
-Thomson-point value to a finite ultraviolet value.
+to reading the same finite resolvent that gave $Z$ in \S5.3 at a
+different evaluation point, and the closed form of this response
+kernel is derived in Paper~II\PII{}. The closed form of the $\beta$
+function in any renormalisation scheme is obtained by the transport
+computation between definition points.
+
+For the Thomson-normalised
+physical electromagnetic effective charge, by contrast, the
+identification of the electromagnetic response together with the
+uniqueness of the transport yields, as a theorem, uniform boundedness
+on the whole Euclidean-momentum half-line and the absence of a Landau
+pole\PII{}---$\alpha$ can be followed along it from its Thomson-point
+value to a finite ultraviolet value. Poles appearing in perturbative
+displays are coordinate singularities created by a singular
+reparametrisation of the coupling, not poles of the physical current
+response.
 
 With this, the relationship between internal structure ($\phi$) and spacetime ($x$) is established. $V = -H$ gives internal values corresponding to mass ratios, mixing angles, and coupling constants. The spacetime factor supplies, in addition to the overall energy scale, the 4D RG evolution and loop corrections for running quantities.
 
@@ -1533,9 +1507,9 @@ this paper. A further six ($|V_{cb}|$, $|V_{ub}|$, $\delta_\mathrm{CKM}$,
 $\delta_\mathrm{PMNS}$, $m_3/m_2$, $\Delta m^2_{31}/\Delta m^2_{21}$)
 require the specified operator words and the spectral structure of the flag Laplacian, and are derived in Paper~II---their values are displayed in the tables of this paper, with the attribution marked in the \S{} column.
 
-Of the 26 Standard-Model parameters, the single dimensionful one — the electroweak scale v — is the external unit of the dimensionless internal theory; its specification is not a residue of the derivation but the calibration to physical units, the conventional layer (\S9.2, Paper~II). All predictions of this paper are dimensionless quantities measured in units of v (plus the absolute masses of \S8.4, conditional on the Δm² input).
+Of the 26 Standard-Model parameters, the single dimensionful one — the electroweak scale v — is the external unit of the dimensionless internal theory; its specification is not a residue of the derivation but the setting of the absolute scale, the conventional layer (\S8.2, Paper~II). All predictions of this paper are dimensionless quantities measured in units of v (plus the absolute masses of \S7.4, with the absolute scale set by $\Delta m^2_{21}$).
 
-The full list of results is given below (experimental values from PDG 2026~\cite{pdg}, NuFIT 6.1~\cite{nufit}, and CODATA 2022~\cite{codata}). The largest deviation among the quantities derived in this paper ($\sin^2\!\theta_{13}$ at $2.6\%$) lies within about $1\sigma$ of the corresponding experimental uncertainty (\S8.4). The $\sin^2\!\theta_{23}$ comparison is against the second-octant local minimum $0.550$ of the NuFIT~6.1 $\chi^2$ profile; the NuFIT~6.1 global best fit lies in the first octant ($0.470$), the octant is unresolved, and the prediction lies within the $3\sigma$ range (\S8.4). The $5.3\%$ for $\delta_\mathrm{CKM}$ is a genuine residual of this sector; Paper~II identifies it explicitly as a falsification point.
+The full list of results is given below (experimental values from PDG 2026~\cite{pdg}, NuFIT 6.1~\cite{nufit}, and CODATA 2022~\cite{codata}; the comparison value for $1/\alpha_\mathrm{em}$ alone is the Cs-side CODATA 2018 value, per the Cs/Rb dispute---\S5.3, Table~4). The largest deviation among the quantities derived in this paper ($\sin^2\!\theta_{13}$ at $2.6\%$) lies within about $1\sigma$ of the corresponding experimental uncertainty (\S7.4). The $\sin^2\!\theta_{23}$ comparison is against the second-octant local minimum $0.550$ of the NuFIT~6.1 $\chi^2$ profile; the NuFIT~6.1 global best fit lies in the first octant ($0.470$), the octant is unresolved, and the prediction lies within the $3\sigma$ range (\S7.4). The $5.3\%$ for $\delta_\mathrm{CKM}$ is a genuine residual of this sector.
 
 \needspace{22\baselineskip}
 \bigskip\noindent\textbf{Table 1.} The derived equations and their values.\footnote{All theoretical values in Table~1 are computed solely from the spectral and incidence data derived from $V=-H$ and $\mathrm{PG}(2,\mathbb F_3)$; no experimental value enters their calculation. The correspondence between the resulting mathematical structures and physical structures, and the proof of its uniqueness under the stated realisation conditions, are given in Paper~II.}
@@ -1546,12 +1520,12 @@ The full list of results is given below (experimental values from PDG 2026~\cite
 Quantity & Equation & Value \\
 \midrule
 $1/\alpha$ (leading) & $1/\alpha + \alpha = \lambda_1 + Z$ ($\lambda_1 = 4-\sqrt3$, $Z = 134.77613$) & 137.0368 \\
-$1/\alpha$ (all orders) & physical root of the all-orders Dyson series (\S6.3) & 137.035999084 \\
+$1/\alpha$ (all orders) & physical root of the all-orders Dyson series (\S5.3) & 137.035999084 \\
 $\sin^2\!\theta_W$ & $3/13$ (next correction $+\alpha\cdot 135/2197$) & $0.23077 \to 0.23122$ \\
 $\alpha_s$ & $(3/26)(1+\varepsilon/10)$ & 0.1179 \\
 $m_W/m_Z$ & $\sqrt{10/13}$ & 0.8771 \\
 $m_H/v$ & $\tfrac12\sqrt{1+2\varepsilon/13}$ & 0.5084 \\
-mass ratios $R$ & $m_n \propto |E_n|\,\mathrm{IPR}_n^{2C_F}(|\langle V\rangle_n|/T_n)^{\varepsilon/N}$ ($\kappa = 1, 3$) & 1.529, 1.777, 2.273 \\
+mass ratios $R$ & $m_n \propto |E_n|\,\mathrm{IPR}_n^{\,b}(|\langle V\rangle_n|/T_n)^{\varepsilon/N}$ ($\kappa = 1, 3$) & 1.529, 1.777, 2.273 \\
 down-type correction & $m_\mathrm{eff} = 1 - N_c\,\sigma(1-\sigma)$ & (enters $R_\mathrm{down}$) \\
 $\sin\theta_C$ & $\varepsilon(1+\varepsilon/9)$, after screening $\times(1-9\alpha/(26\pi))$ & $0.2245 \to 0.22435$ \\
 $|V_{cb}|$ & $\varepsilon^2(1-2\varepsilon/3)$ & 0.0410 \\
@@ -1579,30 +1553,29 @@ $\bar\theta(\mu_0)$ & zero at the matching point & 0 \\
 Parameter & Prediction & Experiment & Accuracy & \S \\
 \midrule
 \multicolumn{5}{l}{\textbf{Gauge couplings}} \\
-$1/\alpha_\mathrm{em}$ ($\to g_1$) (leading; Thomson point) & 137.0368 & 137.036 & 0.0006\% & 6.3 \\
+$1/\alpha_\mathrm{em}$ ($\to g_1$) (leading; Thomson point) & 137.0368 & 137.036 & 0.0006\% & 5.3 \\
 $1/\alpha_\mathrm{em}$ (all orders) & 137.035999084 & 137.035999084(21) & all digits (Cs) & Paper~II \\
-$\alpha_s$ ($\to g_3$) ($\overline{\mathrm{MS}}$, $M_Z$) & 0.1179 & 0.1180 & 0.07\% & 6.2 \\
-$\sin^2\!\theta_W$ ($\to g_1/g_2$) (tree; $\overline{\mathrm{MS}}$, $M_Z$) & $3/13$ & 0.23122 & 0.2\% & 6.1 \\
-$\sin^2\!\theta_W$ ($+\alpha\,135/2197$) & 0.23122 & 0.23122 & $<0.01\%$ & 7.3 \\
-$m_W/m_Z$ (leading) & 0.8771 & 0.8813 & 0.5\% & 6.1; 7 \\
+$\alpha_s$ ($\to g_3$) ($\overline{\mathrm{MS}}$, $M_Z$) & 0.1179 & 0.1180 & 0.07\% & 5.2 \\
+$\sin^2\!\theta_W$ ($\to g_1/g_2$) ($\overline{\mathrm{MS}}$, $M_Z$) & 0.23122 & 0.23122 & $<0.01\%$ & 6.3 \\
+$m_W/m_Z$ (on-shell identification) & 0.88137 & 0.8813 & $+1.0\sigma$ & Paper~II \\
 \addlinespace
 \multicolumn{5}{l}{\textbf{Higgs}} \\
-$m_H/v$ ($\to\lambda$) & 0.5084 & 0.5082 & 0.03\% & 7 \\
+$m_H/v$ ($\to\lambda$) & 0.5084 & 0.5082 & 0.03\% & 6 \\
 \addlinespace
 \multicolumn{5}{l}{\textbf{Fermion masses}} \\
-$R_\mathrm{lepton}$ ($\to y_e, y_\mu, y_\tau$) & 1.5293 & 1.5294 & 0.006\% & 8.1 \\
-$Q$ (Koide) & 1.499985 & 1.50001(2) & $2\sigma$ & 8.1 \\
-$R_\mathrm{up}$ ($\to y_u, y_c, y_t$) & 1.777 & 1.770 & 0.4\% & 8.2 \\
-$R_\mathrm{down}$ ($\to y_d, y_s, y_b$) & 2.273 & 2.276 & 0.1\% & 8.2 \\
+$R_\mathrm{lepton}$ ($\to y_e, y_\mu, y_\tau$) & 1.5293 & 1.5294 & 0.006\% & 7.1 \\
+$Q$ (Koide) & 1.499985 & 1.500005(11) & $2\sigma$ & 7.1 \\
+$R_\mathrm{up}$ ($\to y_u, y_c, y_t$) & 1.777 & 1.770 & 0.4\% & 7.2 \\
+$R_\mathrm{down}$ ($\to y_d, y_s, y_b$) & 2.273 & 2.276 & 0.1\% & 7.2 \\
 \addlinespace
 \multicolumn{5}{l}{\textbf{CKM / PMNS mixing}} \\
-$\sin\theta_C$ ($\to$ CKM $\theta_{12}$) & 0.2245 & 0.2243 & 0.10\% & 8.3 \\
+$\sin\theta_C$ ($\to$ CKM $\theta_{12}$) & 0.2245 & 0.2243 & 0.10\% & 7.3 \\
 $|V_{cb}|$ & 0.0410 & 0.0407(13) & 0.8\% & Paper~II \\
 $|V_{ub}|$ & 0.00384 & 0.00389(16) & 1.2\% & Paper~II \\
 $\delta_\mathrm{CKM}$ & $62.6^\circ$ & $66.1^\circ$ & 5.3\% & Paper~II \\
-$\sin^2\!\theta_{12}$ & $4/13$ & 0.3088 & 0.4\% & 8.4 \\
-$\sin^2\!\theta_{23}$ & 0.5475 & 0.550 (local min.) & 0.45\% & 8.4 \\
-$\sin^2\!\theta_{13}$ & 0.0219 & 0.02249 & 2.6\% & 8.4 \\
+$\sin^2\!\theta_{12}$ & $4/13$ & 0.3088 & 0.4\% & 7.4 \\
+$\sin^2\!\theta_{23}$ & 0.5475 & 0.550 (local min.) & 0.45\% & 7.4 \\
+$\sin^2\!\theta_{13}$ & 0.0219 & 0.02249 & 2.6\% & 7.4 \\
 \addlinespace
 \bottomrule
 \end{tabular}
@@ -1611,45 +1584,41 @@ $\sin^2\!\theta_{13}$ & 0.0219 & 0.02249 & 2.6\% & 8.4 \\
 
 
 \needspace{18\baselineskip}
-\bigskip\noindent\textbf{Table 3.} Structural results.
+\bigskip\noindent\textbf{Table 3.} Structural results (derivations in the sections; $D$ and the signature in \S8 are consistency checks under stated premises).
 \nopagebreak[4]
 \begin{center}\footnotesize
-\begin{tabular}{@{}llcc@{}}
+\begin{tabular}{@{}llc@{}}
 \toprule
-Quantity & Derivation & Correspondence & \S \\
+Structure & Result & \S \\
 \midrule
-$N$ (generation number) & $n_\mathrm{WKB} = 2.781 \to 3$ & 3 & 3 \\
-$d$ (spatial dimension) & $\{1,3\}\cap\{\geq 3\}\cap\{\geq 3\}$ & 3 & 4 \\
-$D$ (spacetime dimension) & $D(D{-}3)/2 = N{-}1 = 2$ & 4 & 9.1 \\
-Signature & Connection to $M_2(\mathbb{C})_{sa}$ structure & $(3,1)$ & 9.1 \\
-Gauge group & $9{+}3{+}1$ (Killing--Cartan) & $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$ & 5 \\
-Spectral gauge verification & Restricted Laplacian spectrum $9{+}4{=}13$ & --- & Paper~II \\
-Fourth generation & No 4th neg.\ eigenvalue & Excluded & 3.2 \\
-Neutrino nature & $\mathrm{U}(1)_{B-L}$ ($\hat{n}$ structure) + $V$-parity & --- & 8.4 \\
-$\bar\theta(\mu_0)$ (matching point) & 0 (Paper~II) & --- & 8.3 \\
+Number of generations $N$ & 3 (a fourth sequential chiral generation is excluded) & 3 \\
+Spatial dimension $d$ & 3 & 3.4 \\
+Spacetime dimension $D$ and signature & 4, $(3,1)$ & 3.4, 8 \\
+Gauge group & $\mathrm{SU}(3){\times}\mathrm{SU}(2){\times}\mathrm{U}(1)$ & 4, Paper~II \\
+Neutrino properties & fixed by $\mathrm{U}(1)_{B-L}$ and $V$-parity & 7.4 \\
+$\bar\theta(\mu_0)$ & 0 & 7.3, Paper~II \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \medskip
 \needspace{8\baselineskip}
-\bigskip\noindent\textbf{Table 4.} Testable predictions.
+\bigskip\noindent\textbf{Table 4.} Testable predictions.\footnote{One further prediction on an open experimental dispute, of the same kind as the $1/\alpha$ entry: first-row CKM unitarity is exact (Paper~II), and the $|V_{ud}|$ dispute---global fit $0.97431(16)$ versus the direct superallowed $0^+\to0^+$ value $0.97367(32)$---resolves on the unitarity side.}
 \nopagebreak[4]
 \begin{center}\footnotesize
 \begin{tabular}{@{}p{0.18\linewidth}p{0.34\linewidth}p{0.29\linewidth}p{0.09\linewidth}@{}}
 \toprule
 Prediction & Value & Verification experiment & \S \\
 \midrule
-$\Delta m^2_{31}/\Delta m^2_{21}$ & master relation (leading $m_3/m_2 = 13/\sqrt{5}$, non-zero $m_1$ included) $= 33.84$ & JUNO~\cite{juno} (2026--27) & Paper~II \\
+$\Delta m^2_{31}/\Delta m^2_{21}$ & full relation (leading $m_3/m_2 = 13/\sqrt{5}$, non-zero $m_1$ included) $= 33.84$ & JUNO~\cite{juno} (2026--27) & Paper~II \\
 $1/\alpha$ (all orders) & $137.035999084$---the Cs/Rb recoil discrepancy resolves on the Cs side & next-generation photon-recoil / $g{-}2$ comparisons & Paper~II \\
-$\theta_{23}$ octant & Second ($>45^\circ$) & DUNE / HK ($\sim$2030) & 8.4 \\
+$\theta_{23}$ octant & Second ($>45^\circ$) & DUNE / HK ($\sim$2030) & 7.4 \\
 $\delta_\mathrm{PMNS}$ & $2\pi(7/13)(1+\varepsilon/13) = 197.1^\circ$ & DUNE / HK ($\sim$2030) & Paper~II \\
-$R_\nu$ (mass ratio; input-free) & 1.529 ($= R_\mathrm{lepton}$) & osc.\ + absolute mass & 8.4 \\
-$\Sigma m_\nu$ & 59.50~meV (after 1-scale calib.; $\approx$ NO min.\ 58.9) & CMB-S4~\cite{cmbs4} ($\sim$2030) & 8.4 \\
-$m_1$ & 0.312~meV (after 1-scale calib.) & CMB-S4 (via $\Sigma m_\nu$) & 8.4 \\
-$0\nu\beta\beta$ & Exactly zero & nEXO~\cite{nexo} ($\sim$2030) & 8.4 \\
-Koide deviation $\delta$ & $-1.5 \times 10^{-5}$ & Belle~II~\cite{belleii} (2027--30) & 8.1 \\
-BSM particles & None & LHC / FCC & 3; 5.3 \\
+$R_\nu$ (mass ratio; input-free) & 1.529 ($= R_\mathrm{lepton}$) & osc.\ + absolute mass & 7.4 \\
+$\Sigma m_\nu$ & 59.50~meV (absolute scale set by $\Delta m^2_{21}$; $\approx$ NO min.\ 58.9) & CMB-S4~\cite{cmbs4} ($\sim$2030) & 7.4 \\
+$m_1$ & 0.312~meV (absolute scale set by $\Delta m^2_{21}$) & CMB-S4 (via $\Sigma m_\nu$) & 7.4 \\
+$0\nu\beta\beta$ & Exactly zero & nEXO~\cite{nexo} ($\sim$2030) & 7.4 \\
+Koide deviation $\delta$ & $-1.5 \times 10^{-5}$ & Belle~II~\cite{belleii} (2027--30) & 7.1 \\
 \bottomrule
 \end{tabular}
 \end{center}
