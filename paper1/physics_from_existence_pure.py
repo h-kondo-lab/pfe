@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Physics from Existence — Pure Derivation (v4.0.0 companion)
+Physics from Existence — Pure Derivation (v4.1.0 companion)
 ============================================================
 
 This script contains ONE equation and ZERO experimental values.
@@ -8,7 +8,7 @@ It derives 20+ physical quantities from V = -H alone.
 
 Run it, then compare the output with any physics textbook.
 
-    $ python3 physics_from_existence_pure_v4_0.py
+    $ python3 physics_from_existence_pure_v4_1.py
 
 The three axioms:
     A1  Existence is bivalent:     n ∈ {0,1}

@@ -6,7 +6,7 @@ Formalizing what it means "to exist" uniquely yields a single equation, *V = −
 This equation contains no free parameters, yet derives 26 fundamental constants of physics.
 This suggests the existence of a new framework in which information theory describes matter and the universe.
 
-**Current version:** v4.0.0 — *Physics from Existence I: The Equation*
+**Current version:** v4.1.0 — *Physics from Existence I: The Equation*
 
 **Web:** [Kondo Research Institute](https://www.kondo-lab.com/)
 
@@ -16,20 +16,26 @@ This suggests the existence of a new framework in which information theory descr
 
 | Parameter | PFE | Experiment | Accuracy |
 |-----------|-----|------------|----------|
-| 1/α_em (leading) | 137.0368 | 137.036 | 0.0006% |
+| 1/α_em (leading; Thomson point) | 137.0368 | 137.036 | 0.0006% |
 | 1/α_em (all orders) | 137.035999084 | 137.035999084(21) | all digits (Cs) |
-| sin θ_C | 0.2245 | 0.2243 | 0.10% |
-| R_lepton | 1.5293 | 1.5294 | 0.006% |
+| α_s (MS-bar, M_Z) | 0.1179 | 0.1180 | 0.07% |
+| sin²θ_W (MS-bar, M_Z) | 0.23122 | 0.23122 | <0.01% |
+| m_W/m_Z (on-shell identification) | 0.88137 | 0.8813 | +1.0σ |
 | m_H/v | 0.5084 | 0.5082 | 0.03% |
-| α_s | 0.1179 | 0.1180 | 0.07% |
-| sin²θ_W | 0.23122 | 0.23122 | <0.01% |
-| m_W/m_Z | 0.88137 | 0.8813 | +1.0σ |
-| R_up | 1.777 | 1.770 | 0.4% |
+| v (electroweak scale, GeV) | 246.2360 | 246.2196 | +0.0067% |
+| R_lepton | 1.5293 | 1.5294 | 0.006% |
+| Q (Koide) | 1.499985 | 1.500005(11) | 2σ |
+| R_up (up-type hierarchy shape, with feedback term) | 1.767 | 1.7697(25) | −0.17% (−1.2σ) |
 | R_down | 2.273 | 2.276 | 0.1% |
+| sin θ_C | 0.2245 | 0.2243 | 0.10% |
+| \|V_cb\| | 0.0410 | 0.0407(13) | 0.8% |
+| \|V_ub\| | 0.00384 | 0.00389(16) | 1.2% |
+| δ_CKM | 62.6° | 66.1° | 5.3% |
 | sin²θ₁₂ | 4/13 | 0.3088 | 0.4% |
-| sin²θ₁₃ | 0.0219 | 0.02249 | 2.6% |
 | sin²θ₂₃ | 0.5475 | 0.550 (local min.) | 0.45% |
-| m₁ | 0.3116 meV | — | prediction |
+| sin²θ₁₃ | 0.0219 | 0.02249 | 2.6% |
+| m₁ | 0.3116 meV (m_e as the single absolute scale) | — | prediction |
+| Σm_ν | 59.37 meV (no oscillation input) | — | prediction |
 | θ̄(μ₀) (matching point) | 0 (Paper II) | θ̄ < 10⁻¹⁰ | — |
 
 *Current deviations are due to numerical precision and can be improved with higher-order calculations.*
@@ -38,6 +44,7 @@ This suggests the existence of a new framework in which information theory descr
 
 | Version | Zenodo | Date | Title | Zenodo DOI |
 |---------|--------|------|-------|------------|
+| v4.1.0 | v19 | 2026-08-31 | Physics from Existence I: The Equation | [10.5281/zenodo.22216256](https://zenodo.org/records/22216256) |
 | v4.0.0 | v18 | 2026-08-15 | Physics from Existence I: The Equation | [10.5281/zenodo.21941031](https://zenodo.org/records/21941031) |
 | v3.2.1 | v17 | 2026-08-12 | Physics from Existence I: The Equation | [10.5281/zenodo.21895908](https://zenodo.org/records/21895908) |
 | v3.2.0 | v16 | 2026-08-12 | Physics from Existence I: The Equation | [10.5281/zenodo.21895398](https://zenodo.org/records/21895398) |
@@ -85,7 +92,8 @@ cd paper1 && python physics_from_existence_pure.py
 cd paper1 && python physics_from_existence_verify.py
 ```
 
-Both require Python 3, NumPy, and SciPy.
+Both require Python 3, NumPy 2.0 or later, and SciPy 1.10 or later
+(the scripts use `numpy.trapezoid`, introduced in NumPy 2.0).
 
 ## Formats
 

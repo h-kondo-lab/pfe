@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v4.0.0
+PFE Paper I Verification Script — v4.1.0
 ========================================================
 Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
-(JHEP 12 (2024) 216). Formulas follow the v4.0.0 manuscript:
+(JHEP 12 (2024) 216). Formulas follow the v4.1.0 manuscript:
 NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
 screened Cabibbo expression and the neutrino master relation are
 printed as informational lines with their Paper II attribution.
@@ -189,7 +189,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v4.0.0")
+    print("  PAPER I VERIFICATION — v4.1.0")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
     print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")
@@ -441,7 +441,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     # and no morphism carries it to the colour-singlet neutral edge.  The absolute
     # normalisation uses the DRESSED physical electron mass, because m1/m_e is a ratio
     # of physical masses.
-    me_PFE   = 0.511001410452e6     # eV  (Paper II, dressed physical electron mass)
+    me_PFE   = 0.51099895069e6      # eV  (absolute scale: measured electron mass, CODATA 2022 -- the single dimensionful anchor, 2026-08-18)
     a_inv_ho = inv_all_val if inv_all_val is not None else alpha_inv
     x_nu = 9.0 / (a_inv_ho * 26.0 * np.pi)              # screening quantity of §5.3
     m1_over_me = x_nu**3 * (7.0 / 6.0) * (1.0 + eps**2 / 9.0)
@@ -470,8 +470,8 @@ def run_paper1(phi_max=100, n_grid=1600001):
           f"(manuscript: 33.842, displayed 33.84)")
 
     results.append(("Ordering", "Normal", "not settled", "prediction"))
-    results.append(("m₁ meV", m1*1000, "—", "v scale; Paper II"))
-    results.append(("Σm_ν meV", sum_m, "—", "v scale; Paper II"))
+    results.append(("m₁ meV", m1*1000, "—", "m_e scale; Paper II"))
+    results.append(("Σm_ν meV", sum_m, "—", "m_e scale; Paper II"))
     results.append(("Δm²₂₁ eV²", Dm21_pred, Dm21_sq_6,
                     f"{100*(Dm21_pred/Dm21_sq_6-1):+.2f}%"))
     results.append(("Δm²₃₁ eV²", Dm31_pred, Dm31_sq_6,
@@ -497,7 +497,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     print(f"\n{'='*85}")
     print(f"  NEUTRINO SCALE SETTING")
     print(f"{'='*85}")
-    print(f"  Absolute scale : v alone, through m₁/m_e (Paper II).")
+    print(f"  Absolute scale : m_e alone (CODATA 2022), through m₁/m_e (Paper II).")
     print(f"  Not used       : Δm²₂₁ and Δm²₃₁ — both stay on the verification side.")
     print(f"  {'':22} {'computed':>14} {'measured':>14} {'dev':>9}")
     print(f"  {'-'*62}")
@@ -764,7 +764,8 @@ COVERAGE = [
     ("1,2", "sin^2 theta_W",                 "evaluated"),
     ("1,2", "alpha_s",                       "evaluated"),
     ("1,2", "m_H/v",                         "evaluated"),
-    ("1,2", "R_lepton, R_up, R_down",        "evaluated"),
+    ("1,2", "R_lepton, R_up, R_down (displayed order)", "evaluated"),
+    ("2",   "R_up incl. feedback term, v (electroweak)", "not implemented (Paper II)"),
     ("1,2", "Q (Koide)",                     "evaluated"),
     ("1,2", "sin theta_C",                   "evaluated"),
     ("1,2", "sin^2 theta_12/23/13",          "evaluated"),
