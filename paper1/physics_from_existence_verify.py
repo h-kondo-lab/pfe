@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-PFE Paper I Verification Script — v4.1.0
+PFE Paper I Verification Script — v4.1.1
 ========================================================
 Experimental references: CODATA 2022 / PDG 2026 / NuFIT 6.1
-(JHEP 12 (2024) 216). Formulas follow the v4.1.0 manuscript:
+(JHEP 12 (2024) 216). Formulas follow the v4.1.1 manuscript:
 NLO forms 1±ℓε/k (sinθ_C: 1+ε/9; sin²θ₁₃: 1−2ε/3), the
 screened Cabibbo expression and the neutrino master relation are
 printed as informational lines with their Paper II attribution.
@@ -189,7 +189,7 @@ def run_paper1(phi_max=100, n_grid=1600001):
     Q_exp = koide_Q([m_tau, m_mu, m_e])
 
     print("=" * 80)
-    print("  PAPER I VERIFICATION — v4.1.0")
+    print("  PAPER I VERIFICATION — v4.1.1")
     print("  20+ predictions from V = -H(σ(φ)), zero free parameters")
     print(f"  Grid: PHI_MAX={phi_max}, N_GRID={n_grid}, dφ={dphi:.8f}")
     print(f"  Experimental: CODATA 2022 / PDG 2026 / NuFIT 6.1")

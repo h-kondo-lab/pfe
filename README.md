@@ -6,7 +6,7 @@ Formalizing what it means "to exist" uniquely yields a single equation, *V = −
 This equation contains no free parameters, yet derives 26 fundamental constants of physics.
 This suggests the existence of a new framework in which information theory describes matter and the universe.
 
-**Current version:** v4.1.0 — *Physics from Existence I: The Equation*
+**Current version:** v4.1.1 — *Physics from Existence I: The Equation*
 
 **Web:** [Kondo Research Institute](https://www.kondo-lab.com/)
 
@@ -25,7 +25,8 @@ This suggests the existence of a new framework in which information theory descr
 | v (electroweak scale, GeV) | 246.2360 | 246.2196 | +0.0067% |
 | R_lepton | 1.5293 | 1.5294 | 0.006% |
 | Q (Koide) | 1.499985 | 1.500005(11) | 2σ |
-| R_up (up-type hierarchy shape, with feedback term) | 1.767 | 1.7697(25) | −0.17% (−1.2σ) |
+| R_up (up-type hierarchy shape) | 1.777 | 1.7697(25) | +0.41% (+2.9σ) |
+| R_up (with feedback term) | 1.767 | 1.7697(25) | −0.17% (−1.2σ) |
 | R_down | 2.273 | 2.276 | 0.1% |
 | sin θ_C | 0.2245 | 0.2243 | 0.10% |
 | \|V_cb\| | 0.0410 | 0.0407(13) | 0.8% |
@@ -44,6 +45,7 @@ This suggests the existence of a new framework in which information theory descr
 
 | Version | Zenodo | Date | Title | Zenodo DOI |
 |---------|--------|------|-------|------------|
+| v4.1.1 | v20 | 2026-09-01 | Physics from Existence I: The Equation | [10.5281/zenodo.22217837](https://zenodo.org/records/22217837) |
 | v4.1.0 | v19 | 2026-08-31 | Physics from Existence I: The Equation | [10.5281/zenodo.22216256](https://zenodo.org/records/22216256) |
 | v4.0.0 | v18 | 2026-08-15 | Physics from Existence I: The Equation | [10.5281/zenodo.21941031](https://zenodo.org/records/21941031) |
 | v3.2.1 | v17 | 2026-08-12 | Physics from Existence I: The Equation | [10.5281/zenodo.21895908](https://zenodo.org/records/21895908) |

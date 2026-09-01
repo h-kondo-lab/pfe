@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Physics from Existence — Pure Derivation (v4.1.0 companion)
+Physics from Existence — Pure Derivation (v4.1.1 companion)
 ============================================================
 
 This script contains ONE equation and ZERO experimental values.
