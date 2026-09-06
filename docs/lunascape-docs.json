@@ -1,0 +1,20 @@
+{
+  "id": "pfe-paper-docs",
+  "title": "Physics from Existence",
+  "indexTitle": "Contents",
+  "startPage": "README.md",
+  "defaultLocale": "en",
+  "locales": ["en", "ja"],
+  "tree": {
+    "showFileNames": false,
+    "showDocumentIcons": false,
+    "showFolderIcons": false,
+    "showItemCounts": false,
+    "showGuides": true,
+    "density": "comfortable"
+  },
+  "editor": {
+    "defaultMode": "source",
+    "showEditButton": true
+  }
+}
