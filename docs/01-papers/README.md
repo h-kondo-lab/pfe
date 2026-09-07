@@ -27,10 +27,22 @@ Twenty-six physical constants are derived from this structure, including $1/\alp
 
 All of these numerical values are reproducible with the accompanying verification code.
 
+### Full text
+
+The complete paper is included here as Markdown, so it can be read in place:
+
+**[Physics from Existence I: The Equation — full text](physics_from_existence.md)**
+
+This file is byte-identical to the manuscript sealed for v4.1.1 (SHA-256
+`8caca3a8a87020c9fc6b61a53b6ddcf9876cd9eee8fafdb9d3bdbdcbdf36d73f`), and its
+content parity with the published LaTeX source is checked at release. The PDF
+remains the typeset version of record, and the Zenodo record is what to cite.
+
 ### Files
 
 | File | Content |
 | --- | --- |
+| [physics_from_existence.md](physics_from_existence.md) | Full text in Markdown (this documentation) |
 | [physics_from_existence.pdf](../../paper1/physics_from_existence.pdf) | The paper (English) |
 | [physics_from_existence.tex](../../paper1/physics_from_existence.tex) | LaTeX source (English) |
 | [physics_from_existence_ja.pdf](../../paper1/physics_from_existence_ja.pdf) | The paper (Japanese) |
