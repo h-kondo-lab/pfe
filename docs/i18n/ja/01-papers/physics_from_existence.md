@@ -155,7 +155,9 @@ V = −H のポテンシャルは井戸型をしている。中心（φ = 0）�
 
 では、この一意に固定された井戸には何個の準位が入るのか——それを見積もるには、実際に解いて数えるしかない。
 
-[Figure 1] *ポテンシャル V = −H(σ(φ)) とその3つの束縛状態の確率密度 |ψ_n|²（左）。局在した状態ほど重い粒子に対応する（右）。第4の負固有値は存在しない：第4の逐次カイラル世代は存在しない、という予測を与える。*
+![ポテンシャル V = −H(σ(φ)) とその3つの束縛状態の確率密度 |ψ_n|²（左）](img/fig_potential.png)
+
+*Figure 1. ポテンシャル V = −H(σ(φ)) とその3つの束縛状態の確率密度 |ψ_n|²（左）。局在した状態ほど重い粒子に対応する（右）。第4の負固有値は存在しない：第4の逐次カイラル世代は存在しない、という予測を与える。*
 
 この井戸に閉じ込められる準位の数を N とする。井戸の中に何個の半波長が収まるかを半古典近似（WKB）で見積もる。整数個が収まるごとに1つの束縛状態が存在する：
 
@@ -163,6 +165,7 @@ $$n_\mathrm{WKB} = \frac{1}{\pi}\int_{-\infty}^{\infty}\sqrt{2H(\sigma(\phi))}\,
 
 Maslov 補正を含む標準規約では、第 k 状態の閾値は n_WKB > k − 1/2 である。n_WKB = 2.781 は第3状態の閾値 2.5 を 0.281 上回る一方、第4状態の閾値 3.5 には 0.719 足りない。したがって WKB は N = 3 を示唆する。厳密な状態数とこの半古典的作用カウントの差を ε ≡ N − n_WKB = 3 − 2.781 = 0.219 と定義する[^epsenc]。ε > 0 は、第3状態がぎりぎり束縛されていることを表す[^epsconv]。この ε が本論文の全補正指数の源であり、§5 と §8 で導く結合定数と混合角の NLO 補正を支配する。
 [^epsenc]: 厳密な区間包含 0.219188 は付属の証明書コード（Arb 球演算による厳密積分と解析的テール上界）で認証する。認証区間は Paper II の認証区間の内側にある。
+
 [^epsconv]: 同じ限界性を Maslov 補正込みの閾値で測れば 2.781 − 2.5 = 0.281 になる。ε を用いるのは、それが定義に曖昧さのない2つの量——厳密な状態数と作用積分——の比較だからである。閾値規則は漸近的な目安であり、有限の深さでは破れうることを §3.1 の g = 0.80 の例が示している。
 
 この数え上げに調整できるものは何もない。構成の3つの要素はそれぞれ一意である：座標と規格化は §3.1 の一意なそれであり、Shannon エントロピーは強加法性（連鎖則）を含む Khinchin の公理系を満たす唯一のエントロピーである（Khinchin の定理 [16, 17]）。この構成のもとで、N = 3 は区間演算により厳密に証明される（§3.3）。
@@ -252,7 +255,9 @@ F₃³ の中から原点を除いた2次元の断面を見ると、F₃² = {0,
 
 $$|\mathrm{PG}(2,\mathbb{F}_3)| = \frac{3^3 - 1}{3 - 1} = 13$$
 
-[Figure 2] *射影平面 PG(2, F₃) の構造。3×3 グリッド（9点、黒丸）の平行線が無限遠ライン L 上の方向（白丸）で合流する。P₀（黒菱形）を選ぶことで 9+3+1 = 13 の分割が生じ、これが SU(3)×SU(2)×U(1) のセクター構造に対応する。*
+![射影平面 PG(2, F₃) の構造](img/fig_pg23_v2.png)
+
+*Figure 2. 射影平面 PG(2, F₃) の構造。3×3 グリッド（9点、黒丸）の平行線が無限遠ライン L 上の方向（白丸）で合流する。P₀（黒菱形）を選ぶことで 9+3+1 = 13 の分割が生じ、これが SU(3)×SU(2)×U(1) のセクター構造に対応する。*
 
 PG(2, F₃) の完全な対称性 PGL(3, F₃) のもとでは、13点は全て等価であり分割は生じない。ここで無限遠ライン L 上の4点のうち1つを基準点 P₀ として固定する——この組 (P₀, L) を旗（フラグ）と呼ぶ。旗の固定は構成内の基準選択であり、PGL(3, F₃) は旗に推移的に作用するため、どの旗を選んでも同型な分割を与える。固定により13点は、旗を保つ変換のもとで互いに混合しない3つの軌道に分かれる：L の外にある9点（3×3 グリッド）、L 上で P₀ 以外の3点、P₀ の1点。P₀ だけでは 1+12 の2グループにしかならず、旗を選んで初めて 9+3+1 の3グループが生じる。これが3つの力を区別する最小の構造である：
 
@@ -893,41 +898,77 @@ Paper II [20] では、§10 に挙げた7個の量の導出に加え、ゲージ
 # 参考文献
 
 [1] ATLAS Collaboration (G. Aad et al.), Phys. Lett. B **716**, 1 (2012).
+
 [2] CMS Collaboration (S. Chatrchyan et al.), Phys. Lett. B **716**, 30 (2012).
+
 [3] Xing, Z.-Z. "Flavor structures of charged fermions and massive neutrinos," Phys. Rept. **854**, 1 (2020) [arXiv:1909.09610].
+
 [4] J. A. Wheeler, "Information, physics, quantum: The search for links," in *Complexity, Entropy, and the Physics of Information* (Addison-Wesley, 1990).
+
 [5] E. T. Jaynes, Phys. Rev. **106**, 620 (1957).
+
 [6] B. R. Frieden, *Physics from Fisher Information* (Cambridge Univ. Press, 1998).
+
 [7] E. Verlinde, JHEP **04**, 029 (2011) [arXiv:1001.0785].
+
 [8] A. Caticha, Entropy **17**, 6110 (2015) [arXiv:1509.03222].
+
 [9] L. Hardy, arXiv:quant-ph/0101012 (2001).
+
 [10] G. Chiribella, G. M. D'Ariano, and P. Perinotti, Phys. Rev. A **84**, 012311 (2011) [arXiv:1011.6451].
+
 [11] Pauli, W. Z. Phys. **31**, 765 (1925).
+
 [12] Shannon, C. E. Bell Syst. Tech. J. **27**, 379 (1948).
+
 [13] Čencov, N. N. *Statistical Decision Rules and Optimal Inference* (AMS, 1982).
+
 [14] Amari, S. *Information Geometry and Its Applications* (Springer, 2016).
+
 [15] Ay, N., Jost, J., Lê, H. V. & Schwachhöfer, L. *Information Geometry* (Springer, 2017).
+
 [16] Aczél, J. *Lectures on Functional Equations and Their Applications* (Academic Press, 1966).
+
 [17] Khinchin, A. I. *Mathematical Foundations of Information Theory* (Dover, 1957).
+
 [18] Pöschl, G. & Teller, E. Z. Phys. **83**, 143 (1933).
+
 [19] Cabibbo, N. Phys. Rev. Lett. **10**, 531 (1963).
+
 [20] H. Kondo, "Physics from Existence II: The Proofs"（準備中）.
+
 [21] Weinberg, S. Phys. Rev. Lett. **19**, 1264 (1967).
+
 [22] Particle Data Group (F. Takahashi et al.), to be published in Int. J. Mod. Phys. A **41**, 2630011 (2026); 2026 web edition, https://pdg.lbl.gov/2026/
+
 [23] Koide, Y. Lett. Nuovo Cim. **34**, 201 (1982).
+
 [24] Kobayashi, M. & Maskawa, T. Prog. Theor. Phys. **49**, 652 (1973).
+
 [25] Wolfenstein, L. Phys. Rev. Lett. **51**, 1945 (1983).
+
 [26] JUNO Collaboration (A. Abusleme et al.), Prog. Part. Nucl. Phys. **123**, 103927 (2022) [arXiv:2104.02565].
+
 [27] CMB-S4 Collaboration (K. N. Abazajian et al.), arXiv:1610.02743 (2016).
+
 [28] Esteban, I. et al. "NuFit-6.0: updated global analysis of three-flavor neutrino oscillations," JHEP **12** (2024) 216 [arXiv:2410.05380]; NuFIT 6.1 (2025), http://www.nu-fit.org/
+
 [29] nEXO Collaboration (J. B. Albert et al.), Phys. Rev. C **97**, 065503 (2018).
+
 [30] Lovelock, D. J. Math. Phys. **12**, 498 (1971).
+
 [31] Jacobson, T. Phys. Rev. Lett. **75**, 1260 (1995).
+
 [32] Gleason, A. M. J. Math. Mech. **6**, 885 (1957).
+
 [33] Belle II Collaboration (E. Kou, P. Urquijo et al.), Prog. Theor. Exp. Phys. **2019**, 123C01 (2019).
+
 [34] P. J. Mohr et al., J. Phys. Chem. Ref. Data **54**, 033105 (2025); CODATA 2022 recommended values.
+
 [35] A. S. Eddington, *Fundamental Theory* (Cambridge Univ. Press, 1946).
+
 [36] A. Wyler, C. R. Acad. Sci. Paris A **269**, 743 (1969).
+
 [37] U. D. Jentschura and I. Nándori, "Attempts at a determination of the fine-structure constant from first principles: A brief historical overview," Eur. Phys. J. H **39**, 591 (2014) [arXiv:1411.4673].
 
 [38] Baez, J. and Huerta, J. "The algebra of grand unified theories," Bull. Amer. Math. Soc. **47**, 483 (2010).

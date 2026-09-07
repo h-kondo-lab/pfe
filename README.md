@@ -36,6 +36,8 @@ paper1/
   physics_from_existence_pure.py     Pure derivation (no experimental input)
   physics_from_existence_verify.py   Verification against experiment
 docs/                                Documentation (English, with Japanese under i18n/ja/)
+tools/
+  build-manuscript.py                Builds the docs copy of a manuscript from its sealed source
 ```
 
 File names are fixed across versions; each release replaces their contents and is tagged `vX.Y.Z`.

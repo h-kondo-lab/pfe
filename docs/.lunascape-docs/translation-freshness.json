@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "sourceRelativePath": "README.md",
+      "targetRelativePath": "i18n/ja/README.md",
+      "sourceLocale": "en",
+      "targetLocale": "ja",
+      "sourceHash": "9a77a012aab6083ef4378cefcfcafc86078a7b2b2384a91e5b3657511e04de4a",
+      "targetHash": "d761865e4ca394b51c36198a80e8e2c897c95f4ef37a13b928feb778a5865a93",
+      "updatedAt": "2026-09-07T11:06:28.190Z"
+    }
+  ]
+}

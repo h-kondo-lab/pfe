@@ -32,16 +32,26 @@ All of these numerical values are reproducible with the accompanying verificatio
 The complete paper is included here as Markdown in both languages, so it can be
 read in place:
 
-| Language | Full text | SHA-256 of the sealed manuscript |
+| Language | Full text | Built from the manuscript sealed for v4.1.1 (SHA-256) |
 | --- | --- | --- |
 | English | [Physics from Existence I: The Equation](physics_from_existence.md) | `8caca3a8a87020c9fc6b61a53b6ddcf9876cd9eee8fafdb9d3bdbdcbdf36d73f` |
 | 日本語 | [存在からの物理学 I: The Equation](../i18n/ja/01-papers/physics_from_existence.md) | `291a00bd910fef92d3d61d6d1b052c8ed13ef8ad2ca62ba3d1dca36cafb319c4` |
 
 In Lunascape Docs the locale switcher moves between the two; on GitHub, follow
-the links above. Both files are byte-identical to the manuscripts sealed for
-v4.1.1, and each one's content parity with its published LaTeX source is checked
-at release. The PDF remains the typeset version of record, and the Zenodo record
-is what to cite.
+the links above.
+
+The sealed manuscript is written for conversion to LaTeX, so three things do not
+survive a straight copy into a Markdown reader: the figures are present only as
+captions, and the reference entries and two of the footnote definitions sit on
+consecutive lines, which Markdown joins into a single paragraph. These pages are
+therefore generated from the sealed manuscript by
+[`tools/build-manuscript.py`](../../tools/build-manuscript.py), which places the
+two figures and gives each reference and footnote its own line. It changes
+nothing else — no wording, number, table or equation — and `--check` reports
+whether a page is still up to date with its source.
+
+The PDF remains the typeset version of record, and the Zenodo record is what to
+cite.
 
 ### Files
 

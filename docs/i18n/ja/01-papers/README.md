@@ -31,14 +31,22 @@ navigation:
 
 論文の全文を Markdown で日英とも同梱しているので、そのまま読めます:
 
-| 言語 | 全文 | 封印原稿の SHA-256 |
+| 言語 | 全文 | 生成元となった v4.1.1 封印原稿の SHA-256 |
 | --- | --- | --- |
 | 日本語 | [存在からの物理学 I: The Equation](physics_from_existence.md) | `291a00bd910fef92d3d61d6d1b052c8ed13ef8ad2ca62ba3d1dca36cafb319c4` |
 | English | [Physics from Existence I: The Equation](../../../01-papers/physics_from_existence.md) | `8caca3a8a87020c9fc6b61a53b6ddcf9876cd9eee8fafdb9d3bdbdcbdf36d73f` |
 
 Lunascape Docs ではロケール切り替えで行き来できます。GitHub では上のリンクから
-辿ってください。どちらのファイルも v4.1.1 で封印された原稿とバイト単位で同一で、
-それぞれ対応する公開 LaTeX ソースとの内容パリティをリリース時に検査しています。
+辿ってください。
+
+封印原稿は LaTeX へ変換するために書かれているので、そのまま複製すると3点が失われます。
+図がキャプションだけになること、参考文献の各項目と脚注定義2件が連続行に並んでいて
+Markdown では1つの段落に連結されてしまうことです。そこで本ページは封印原稿から
+[`tools/build-manuscript.py`](../../../../tools/build-manuscript.py) で生成しています。
+このスクリプトは図2点を配置し、参考文献と脚注をそれぞれ独立した行にするだけで、
+それ以外——語句・数値・表・数式——は一切変更しません。`--check` を付けると、
+ページが生成元と一致しているかを検査できます。
+
 組版の正本は PDF であり、引用は Zenodo レコードに対して行ってください。
 
 ### ファイル
