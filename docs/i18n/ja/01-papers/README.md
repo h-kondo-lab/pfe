@@ -29,20 +29,24 @@ navigation:
 
 ### 全文
 
-論文の全文を Markdown で同梱しているので、そのまま読めます（英語）:
+論文の全文を Markdown で日英とも同梱しているので、そのまま読めます:
 
-**[Physics from Existence I: The Equation — 全文](../../../01-papers/physics_from_existence.md)**
+| 言語 | 全文 | 封印原稿の SHA-256 |
+| --- | --- | --- |
+| 日本語 | [存在からの物理学 I: The Equation](physics_from_existence.md) | `291a00bd910fef92d3d61d6d1b052c8ed13ef8ad2ca62ba3d1dca36cafb319c4` |
+| English | [Physics from Existence I: The Equation](../../../01-papers/physics_from_existence.md) | `8caca3a8a87020c9fc6b61a53b6ddcf9876cd9eee8fafdb9d3bdbdcbdf36d73f` |
 
-このファイルは v4.1.1 で封印された原稿とバイト単位で同一です（SHA-256
-`8caca3a8a87020c9fc6b61a53b6ddcf9876cd9eee8fafdb9d3bdbdcbdf36d73f`）。
-公開 LaTeX ソースとの内容パリティはリリース時に検査しています。組版の正本は
-PDF であり、引用は Zenodo レコードに対して行ってください。
+Lunascape Docs ではロケール切り替えで行き来できます。GitHub では上のリンクから
+辿ってください。どちらのファイルも v4.1.1 で封印された原稿とバイト単位で同一で、
+それぞれ対応する公開 LaTeX ソースとの内容パリティをリリース時に検査しています。
+組版の正本は PDF であり、引用は Zenodo レコードに対して行ってください。
 
 ### ファイル
 
 | ファイル | 内容 |
 | --- | --- |
-| [physics_from_existence.md](../../../01-papers/physics_from_existence.md) | 全文 Markdown（本ドキュメント、英語） |
+| [physics_from_existence.md](physics_from_existence.md) | 全文 Markdown（本ドキュメント、日本語） |
+| [01-papers/physics_from_existence.md](../../../01-papers/physics_from_existence.md) | 全文 Markdown（本ドキュメント、英語） |
 | [physics_from_existence.pdf](../../../../paper1/physics_from_existence.pdf) | 論文（英語） |
 | [physics_from_existence.tex](../../../../paper1/physics_from_existence.tex) | LaTeX ソース（英語） |
 | [physics_from_existence_ja.pdf](../../../../paper1/physics_from_existence_ja.pdf) | 論文（日本語） |

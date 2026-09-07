@@ -29,20 +29,26 @@ All of these numerical values are reproducible with the accompanying verificatio
 
 ### Full text
 
-The complete paper is included here as Markdown, so it can be read in place:
+The complete paper is included here as Markdown in both languages, so it can be
+read in place:
 
-**[Physics from Existence I: The Equation — full text](physics_from_existence.md)**
+| Language | Full text | SHA-256 of the sealed manuscript |
+| --- | --- | --- |
+| English | [Physics from Existence I: The Equation](physics_from_existence.md) | `8caca3a8a87020c9fc6b61a53b6ddcf9876cd9eee8fafdb9d3bdbdcbdf36d73f` |
+| 日本語 | [存在からの物理学 I: The Equation](../i18n/ja/01-papers/physics_from_existence.md) | `291a00bd910fef92d3d61d6d1b052c8ed13ef8ad2ca62ba3d1dca36cafb319c4` |
 
-This file is byte-identical to the manuscript sealed for v4.1.1 (SHA-256
-`8caca3a8a87020c9fc6b61a53b6ddcf9876cd9eee8fafdb9d3bdbdcbdf36d73f`), and its
-content parity with the published LaTeX source is checked at release. The PDF
-remains the typeset version of record, and the Zenodo record is what to cite.
+In Lunascape Docs the locale switcher moves between the two; on GitHub, follow
+the links above. Both files are byte-identical to the manuscripts sealed for
+v4.1.1, and each one's content parity with its published LaTeX source is checked
+at release. The PDF remains the typeset version of record, and the Zenodo record
+is what to cite.
 
 ### Files
 
 | File | Content |
 | --- | --- |
-| [physics_from_existence.md](physics_from_existence.md) | Full text in Markdown (this documentation) |
+| [physics_from_existence.md](physics_from_existence.md) | Full text in Markdown, English (this documentation) |
+| [i18n/ja/…/physics_from_existence.md](../i18n/ja/01-papers/physics_from_existence.md) | Full text in Markdown, Japanese (this documentation) |
 | [physics_from_existence.pdf](../../paper1/physics_from_existence.pdf) | The paper (English) |
 | [physics_from_existence.tex](../../paper1/physics_from_existence.tex) | LaTeX source (English) |
 | [physics_from_existence_ja.pdf](../../paper1/physics_from_existence_ja.pdf) | The paper (Japanese) |

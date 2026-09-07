@@ -1,3 +1,8 @@
+---
+navigation:
+  order: 0
+---
+
 # Physics from Existence — Documentation
 
 Physics from Existence (PFE) is a research programme by Hidekazu Kondo (Kondo Research Institute, Tokyo). Its starting point is that formalizing what it means "to exist" uniquely yields a single equation, $V = -H$, with no free parameters. The mathematical structure derived from that equation is then shown to correspond to the structures of the Standard Model, and its 26 physical constants are reproduced with no adjustable parameters.
