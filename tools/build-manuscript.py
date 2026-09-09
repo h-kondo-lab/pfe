@@ -17,7 +17,7 @@ number, table or equation is touched, so the docs copy stays faithful to the
 sealed manuscript it is built from.
 
     python3 tools/build-manuscript.py \
-        --source ~/Documents/pfe/papers/paper1/published/v4.1.1/full/supplementary/physics_from_existence_v4_1.md \
+        --source <the sealed manuscript for this version>.md \
         --out docs/01-papers/physics_from_existence.md
 
 Re-running it on an already-built file is a no-op, so it is safe to apply to
